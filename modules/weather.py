@@ -52,12 +52,18 @@ class weather:
         #Wettersituation am nächsten Tag
         self.wettersit2 = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
         self.wettersit2.place(x=xPos, y=yPos+8*self.stepy, anchor=anc)
+
+        self.loading = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
+        self.loading.place(x=xPos, y=yPos+9*self.stepy, anchor=anc)
         #Upadte routine
         self.update()
 
     def update(self):
-
+        self.loading.configure(text="Aktualisiere Wetterdaten ...")
+        self.window.update() #redraw window
         self.fetch_data()
+        self.loading.configure(text="")
+
         self.ort.configure(text="Wetterbericht für " + self.Stadt + " in " + self.Land)
         self.wetterheute.configure(text=" Heutiges Wetter")
         self.tempakt.configure(text="Temperatur: " +str(self.Temperatur) + " C")
