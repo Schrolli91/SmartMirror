@@ -47,12 +47,22 @@ class weather:
         self.wettersituation = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
         self.wettersituation.place(x=self.startx, y=self.starty+5*self.stepy, anchor=N)
         self.wettericon = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
-        self.wettericon.place(x=self.startx, y=self.starty+7*self.stepy, anchor=N)
-
-
+        self.wettericon.place(x=self.startx+200, y=self.starty, anchor=N)
+        #Wetter am Nächsten Tag
+        self.wettermorgen = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","main_font"), bg='black')
+        self.wettermorgen.place(x=self.startx, y=self.starty+7*self.stepy, anchor=N)
+        #Max. Temperatur am nächsten Tag
+        self.tempmaxtag2 = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","main_font"), bg='black')
+        self.tempmaxtag2.place(x=self.startx, y=self.starty+8*self.stepy, anchor=N)
+        #Min. Temperatur am nächsten Tag
+        self.tempmintag2 = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","main_font"), bg='black')
+        self.tempmintag2.place(x=self.startx, y=self.starty+9*self.stepy, anchor=N)
+        #Wettersituation am nächsten Tag
+        self.wettersit2 = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","main_font"), bg='black')
+        self.wettersit2.place(x=self.startx, y=self.starty+10*self.stepy, anchor=N)
+        #Upadte routine
         self.update()
-
-
+        
     def update(self):
 
         self.fetch_data()
@@ -62,7 +72,11 @@ class weather:
         self.tempmax.configure(text=self.tempmax1)
         self.tempmin.configure(text=self.tempmin1)
         self.wettersituation.configure(text=self.wettersituation1)
-        self.wettericon.config(image=self.wettericonauswahl)
+        self.wettericon.configure(image=self.wettericonauswahl)
+        self.wettermorgen.configure(text=" Wetter am naechsten Tag")
+        self.tempmaxtag2.configure(text=self.tempmax2)
+        self.tempmintag2.configure(text=self.tempmin2)
+        self.wettersit2.configure(text=self.wettersituation2)
         self.tempakt.after(self.config.get("weather","update_interval"), self.update)
 
 
@@ -146,12 +160,13 @@ class weather:
             self.Windrichtung = "Fehler!"
 
         self.ort1 = " Wetterbericht für " + self.Stadt + " in " + self.Land
-
         self.tempakt1 = " Temperatur: " +str(self.Temperatur) + " C Celsius "
         self.tempmax1 = " Max. Temperatur: " + str(self.Wetter[0][3]) + " C Celsius "
         self.tempmin1 = " Min. Temperatur: " + str(self.Wetter[0][2]) + " C Celsius "
-
-
+        self.tempmax2 = " Max. Temperatur: " + str(self.Wetter[1][3]) + " C Celsius "
+        self.tempmin2 = " Min. Temperatur: " + str(self.Wetter[1][2]) + " C Celsius "
+        self.wettersituation2 = " Wettersituation: " + self.Wetter[1][4]
+        
     #Funktion für Wettersituation
 
         self.wettersituation1 = " Wettersituation: " + self.Wetterlage
