@@ -17,6 +17,7 @@ from modules.clock import clock
 from modules.date import date
 from modules.weather import weather
 
+from modules.weather_json import jsonweather
 
 #read the config file object
 config = configparser.ConfigParser()
@@ -36,8 +37,6 @@ root.bind("<Escape>", lambda e: e.widget.quit())#Escape Button to quit the windo
 #show the MirrorOS Logo in the middle of the screen
 logo = Label(root, text="MirrorOS", fg="white", bg="black", font="Verdana 20 bold")
 logo.place(x=w, y=h, anchor=SE)
-footer = Label(root, text="quit with [ESC]", fg="gray", bg="black", font="Verdana 10 bold")
-footer.place(x=w/2, y=h, anchor=S)
 
 
 if config.getboolean("Modules","clock"):
@@ -48,6 +47,8 @@ if config.getboolean("Modules","date"):
 
 if config.getboolean("Modules","weather"):
     wetter = weather(root, config, 10, 10, "nw") #build new date
+
+    wetter2 = jsonweather(root,config,10,500,"nw")
 
 
 root.mainloop()
