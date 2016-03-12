@@ -7,12 +7,12 @@ from tkinter import *
 import time
 
 class date:
-    def __init__(self, window, config):
+    def __init__(self, window, config, xPos, yPos):
         self.window = window
         self.config = config
 
         self.date = Label(self.window, fg=self.config.get("date","color"), font=self.config.get("date","font"), bg='black')
-        self.date.place(x=self.window.winfo_screenwidth()/2, y=self. window.winfo_screenheight()/2-80, anchor=N)
+        self.date.place(x=xPos, y=yPos, anchor=N)
 
         self.update() #starts his own update routine
 

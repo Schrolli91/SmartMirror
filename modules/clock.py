@@ -7,12 +7,12 @@ from tkinter import *
 import time
 
 class clock:
-    def __init__(self, window, config):
+    def __init__(self, window, config, xPos, yPos):
         self.window = window
         self.config = config
 
         self.clock = Label(self.window, fg=self.config.get("clock","color"), font=self.config.get("clock","font"), bg='black')
-        self.clock.place(x=self.window.winfo_screenwidth()/2, y=self. window.winfo_screenheight()/2-150, anchor=N)
+        self.clock.place(x=xPos, y=yPos, anchor=N)
 
         self.update() #starts his own update routine
 
