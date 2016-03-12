@@ -46,6 +46,7 @@ if config.getboolean("Modules","date"):
     datum = date(root, config, w/2, 210) #build new date
 
 if config.getboolean("Modules","weather"):
-    wetter = weather(root, config, w/10, 150) #build new date
+    wetter = weather(root, config, 10, 10) #build new date
+
 
 root.mainloop()

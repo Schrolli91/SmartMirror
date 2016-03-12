@@ -27,30 +27,30 @@ class weather:
 
         #Ort setzen
         self.ort = Label(self.window, fg=self.config.get("weather","main_color"), font=self.config.get("weather","main_font"), bg='black')
-        self.ort.place(x=xPos, y=yPos, anchor=N)
+        self.ort.place(x=xPos, y=yPos, anchor=NW)
         #Text mit heutiges Wetter
         self.wetterheute = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","main_font"), bg='black')
-        self.wetterheute.place(x=xPos, y=yPos+1*self.stepy, anchor=N)
+        self.wetterheute.place(x=xPos, y=yPos+1*self.stepy, anchor=NW)
         #Aktuelle Temperatur darstellen
         self.tempakt = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
-        self.tempakt.place(x=xPos, y=yPos+2*self.stepy, anchor=N)
+        self.tempakt.place(x=xPos, y=yPos+2*self.stepy, anchor=NW)
         #Max. Min. Temerpatur darstellen
         self.tempMaxMin = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
-        self.tempMaxMin.place(x=xPos, y=yPos+3*self.stepy, anchor=N)
+        self.tempMaxMin.place(x=xPos, y=yPos+3*self.stepy, anchor=NW)
         #Wettersituation darstellen
         self.wettersituation = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
-        self.wettersituation.place(x=xPos, y=yPos+4*self.stepy, anchor=N)
+        self.wettersituation.place(x=xPos, y=yPos+4*self.stepy, anchor=NW)
         self.wettericon = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
-        self.wettericon.place(x=xPos+250, y=yPos, anchor=N)
+        self.wettericon.place(x=xPos+220, y=yPos+50, anchor=NW)
         #Wetter am Nächsten Tag
         self.wettermorgen = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","main_font"), bg='black')
-        self.wettermorgen.place(x=xPos, y=yPos+6*self.stepy, anchor=N)
+        self.wettermorgen.place(x=xPos, y=yPos+6*self.stepy, anchor=NW)
         #Max. Min. Temperatur am nächsten Tag
         self.tempMaxMin2 = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
-        self.tempMaxMin2.place(x=xPos, y=yPos+7*self.stepy, anchor=N)
+        self.tempMaxMin2.place(x=xPos, y=yPos+7*self.stepy, anchor=NW)
         #Wettersituation am nächsten Tag
         self.wettersit2 = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
-        self.wettersit2.place(x=xPos, y=yPos+8*self.stepy, anchor=N)
+        self.wettersit2.place(x=xPos, y=yPos+8*self.stepy, anchor=NW)
         #Upadte routine
         self.update()
 
