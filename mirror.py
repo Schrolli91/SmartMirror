@@ -33,19 +33,19 @@ root.configure(background='black')#set background color
 root.bind("<Escape>", lambda e: e.widget.quit())#Escape Button to quit the window
 
 #show the MirrorOS Logo in the middle of the screen
-logo = Label(root, text="MirrorOS", fg="white", bg="black", font="Verdana 40 bold")
-logo.place(x=w/2, y=50, anchor=CENTER)
+logo = Label(root, text="MirrorOS", fg="white", bg="black", font="Verdana 20 bold")
+logo.place(x=w, y=h, anchor=SE)
 footer = Label(root, text="quit with [ESC]", fg="gray", bg="black", font="Verdana 10 bold")
 footer.place(x=w/2, y=h, anchor=S)
 
 
 if config.getboolean("Modules","clock"):
-    uhr = clock(root, config, w/2, h/2 -150) #build new clock
+    uhr = clock(root, config, w/2, 150) #build new clock
 
 if config.getboolean("Modules","date"):
-    datum = date(root, config, w/2, h/2 -80) #build new date
+    datum = date(root, config, w/2, 210) #build new date
 
 if config.getboolean("Modules","weather"):
-    wetter = weather(root, config, w/2, h/2 -20) #build new date
+    wetter = weather(root, config, w/2, 300) #build new date
 
 root.mainloop()
