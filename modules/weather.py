@@ -20,11 +20,11 @@ class weather:
 
         self.stepy = 22
 
-        self.cloud = PhotoImage(file="Icons/cloudy.gif")
-        self.normal = PhotoImage(file="Icons/fair.gif")
-        self.fehler = PhotoImage(file="Icons/Fehler.gif")
-        self.partlycloudy = PhotoImage(file="Icons/partlycloudy.gif")
-        self.fog = PhotoImage(file="Icons/Fog.gif")
+        self.cloud = PhotoImage(file="Icons/cloudy.gif").subsample(3,3)
+        self.normal = PhotoImage(file="Icons/fair.gif").subsample(3,3)
+        self.fehler = PhotoImage(file="Icons/Fehler.gif").subsample(3,3)
+        self.partlycloudy = PhotoImage(file="Icons/partlycloudy.gif").subsample(3,3)
+        self.fog = PhotoImage(file="Icons/Fog.gif").subsample(3,3)
 
         #Ort setzen
         self.ort = Label(self.window, fg=self.config.get("weather","main_color"), font=self.config.get("weather","main_font"), bg='black')
@@ -42,7 +42,7 @@ class weather:
         self.wettersituation = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
         self.wettersituation.place(x=xPos, y=yPos+4*self.stepy, anchor=NW)
         self.wettericon = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
-        self.wettericon.place(x=xPos+220, y=yPos+50, anchor=NW)
+        self.wettericon.place(x=xPos+150, y=yPos+35, anchor=NW)
         #Wetter am Nächsten Tag
         self.wettermorgen = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","main_font"), bg='black')
         self.wettermorgen.place(x=xPos, y=yPos+6*self.stepy, anchor=NW)
@@ -58,14 +58,14 @@ class weather:
     def update(self):
 
         self.fetch_data()
-        self.ort.configure(text="Wetterbericht fuer " + self.Stadt + " in " + self.Land)
+        self.ort.configure(text="Wetterbericht für " + self.Stadt + " in " + self.Land)
         self.wetterheute.configure(text=" Heutiges Wetter")
         self.tempakt.configure(text="Temperatur: " +str(self.Temperatur) + " C")
         self.tempMaxMin.configure(text="(" +str(self.Wetter[0][2])+ " C bis " +str(self.Wetter[0][3])+ " C)")
         self.wettersituation.configure(text=self.wettersituation1)
         self.wettericon.configure(image=self.wettericonauswahl)
 
-        self.wettermorgen.configure(text=" Wetter am naechsten Tag")
+        self.wettermorgen.configure(text=" Wetter am nächsten Tag")
         self.tempMaxMin2.configure(text="Temperatur " +str(self.Wetter[1][2])+ " C bis " +str(self.Wetter[1][3])+ " C")
         self.wettersit2.configure(text="Wettersituation: " + self.Wetter[1][4])
         self.tempakt.after(self.config.get("weather","update_interval"), self.update)
@@ -152,15 +152,23 @@ class weather:
             self.Windrichtung = "Fehler!"
 
 
-        #Funktion fuer Wettersituation
-        self.wettersituation1 = " Wettersituation: " + self.Wetterlage
+        #Funktion für Wettersituation
         if self.Wetterlage == "Mostly Cloudy":
             self.wettericonauswahl = self.cloud
+            self.Wetterlage = "meist bewölkt"
+
         elif self.Wetterlage == "Fair":
             self.wettericonauswahl = self.normal
+            #self.Wetterlage = "meist bewölkt"
+
         elif self.Wetterlage == "Partly Cloudy":
             self.wettericonauswahl = self.partlycloudy
+            self.Wetterlage = "teilweise bewölkt"
+
         elif self.Wetterlage == "Fog":
             self.wettericonauswahl = self.fog
+            self.Wetterlage = "Nebel"
         else:
             self.wettericonauswahl = self.fehler
+
+        self.wettersituation1 = " Wettersituation: " + self.Wetterlage
