@@ -1,3 +1,4 @@
+#-*- encoding: utf-8 -*-
 import math
 
 def move_to(object, to_x, to_y):

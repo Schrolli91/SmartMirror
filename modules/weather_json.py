@@ -1,3 +1,4 @@
+#-*- encoding: utf-8 -*-
 # Copyright by Kampis-Elektroecke
 # Modified by Julian R.
 # extended by Bastian Schroll & Matthias Kittler

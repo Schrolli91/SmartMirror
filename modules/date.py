@@ -1,3 +1,4 @@
+#-*- encoding: utf-8 -*-
 """
 Date module for MirrorOS
 Autor: Bastian Schroll
