@@ -47,7 +47,7 @@ class weather:
         self.wettersituation = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
         self.wettersituation.place(x=self.startx, y=self.starty+5*self.stepy, anchor=N)
         self.wettericon = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
-        self.wettericon.place(x=self.startx+200, y=self.starty, anchor=N)
+        self.wettericon.place(x=self.startx+250, y=self.starty, anchor=N)
         #Wetter am Nächsten Tag
         self.wettermorgen = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","main_font"), bg='black')
         self.wettermorgen.place(x=self.startx, y=self.starty+7*self.stepy, anchor=N)
