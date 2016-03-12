@@ -8,12 +8,12 @@ from tkinter import *
 import time
 
 class date:
-    def __init__(self, window, config, xPos, yPos):
+    def __init__(self, window, config, xPos, yPos, anc):
         self.window = window
         self.config = config
 
         self.date = Label(self.window, fg=self.config.get("date","color"), font=self.config.get("date","font"), bg='black')
-        self.date.place(x=xPos, y=yPos, anchor=N)
+        self.date.place(x=xPos, y=yPos, anchor=anc)
 
         self.update() #starts his own update routine
 

@@ -41,10 +41,10 @@ footer.place(x=w/2, y=h, anchor=S)
 
 
 if config.getboolean("Modules","clock"):
-    uhr = clock(root, config, w/2, 150) #build new clock
+    uhr = clock(root, config, w-10, 0, "ne") #build new clock
 
 if config.getboolean("Modules","date"):
-    datum = date(root, config, w/2, 210) #build new date
+    datum = date(root, config, w-20, 60, "ne") #build new date
 
 if config.getboolean("Modules","weather"):
     wetter = weather(root, config, 10, 10) #build new date

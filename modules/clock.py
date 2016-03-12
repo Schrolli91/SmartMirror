@@ -8,12 +8,12 @@ from tkinter import *
 import time
 
 class clock:
-    def __init__(self, window, config, xPos, yPos):
+    def __init__(self, window, config, xPos, yPos, anc):
         self.window = window
         self.config = config
 
         self.clock = Label(self.window, fg=self.config.get("clock","color"), font=self.config.get("clock","font"), bg='black')
-        self.clock.place(x=xPos, y=yPos, anchor=N)
+        self.clock.place(x=xPos, y=yPos, anchor=anc)
 
         self.update() #starts his own update routine
 
