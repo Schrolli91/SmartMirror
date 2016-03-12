@@ -48,7 +48,7 @@ if config.getboolean("Modules","date"):
 if config.getboolean("Modules","weather"):
     wetter = weather(root, config, 10, 10, "nw") #build new date
 
-    wetter2 = jsonweather(root,config,10,500,"nw")
+    wetter2 = jsonweather(root,config,10,250,"nw")
 
 
 #photo = PhotoImage(file="png_icons/simple_weather_icon_12.png").subsample(5,5)

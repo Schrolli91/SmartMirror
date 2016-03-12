@@ -26,13 +26,12 @@ class jsonweather:
         self.yStep = 22
 
         self.loading = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
-        self.loading.place(x=xPos, y=yPos-30, anchor=anc)
+        self.loading.place(x=xPos, y=yPos+7*self.yStep, anchor=anc)
 
         self.headline = Label(self.window, fg=self.config.get("weather","main_color"), font=self.config.get("weather","main_font"), bg='black')
         self.headline.place(x=xPos, y=yPos, anchor=anc)
         self.today = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","main_font"), bg='black')
         self.today.place(x=xPos, y=yPos+1*self.yStep, anchor=anc)
-
 
         self.description = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
         self.description.place(x=xPos, y=yPos+2*self.yStep, anchor=anc)
@@ -60,8 +59,8 @@ class jsonweather:
         self.today.configure(text="Heutiges Wetter:")
         self.description.configure(text=self.wetter["weather"][0]["description"])
         self.temp.configure(text="Temperatur: "+ str(round(self.wetter["main"]["temp"],1)) +" °C")
-        self.tempMinMax.configure(text="Min: "+ str(self.wetter["main"]["temp_min"]) +" °C Max: "+ str(self.wetter["main"]["temp_max"]) +" °C")
-        self.pressure.configure(text="Luftdruck: "+ str(self.wetter["main"]["pressure"]) +" hPa")
+        self.tempMinMax.configure(text="Min: "+ str(round(self.wetter["main"]["temp_min"],1)) +" °C / Max: "+ str(round(self.wetter["main"]["temp_max"],1)) +" °C")
+        self.pressure.configure(text="Luftdruck: "+ str(round(self.wetter["main"]["pressure"])) +" hPa")
         self.humidity.configure(text="Luftfeuchte: "+ str(self.wetter["main"]["humidity"]) +" %-rel.")
 
         self.photo_label.configure(image=self.photo)
@@ -72,7 +71,7 @@ class jsonweather:
     def fetch_data(self):
 
         #get json weather data from today
-        req = urllib.request.urlopen('http://api.openweathermap.org/data/2.5/weather?q=rosstal&lang=de&units=metric&appid=f22b16242918f11f41f1f402fa612ffb')
+        req = urllib.request.urlopen("http://api.openweathermap.org/data/2.5/weather?q="+ self.config.get("weather","city") +"&lang="+ self.config.get("weather","lang") +"&units=metric&appid="+ self.config.get("weather","api_key"))
         encoding = req.headers.get_content_charset()
         self.wetter = json.loads(req.read().decode(encoding))
 
