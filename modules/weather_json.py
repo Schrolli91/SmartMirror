@@ -42,13 +42,13 @@ class weather:
         self.wettersituation.place(x=xPos, y=yPos+4*self.stepy, anchor=N)
         self.wettericon = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
         self.wettericon.place(x=xPos+250, y=yPos, anchor=N)
-        #Wetter am Nächsten Tag
+        #Wetter am NÃ¤chsten Tag
         self.wettermorgen = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","main_font"), bg='black')
         self.wettermorgen.place(x=xPos, y=yPos+6*self.stepy, anchor=N)
-        #Max. Min. Temperatur am nächsten Tag
+        #Max. Min. Temperatur am nÃ¤chsten Tag
         self.tempMaxMin2 = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
         self.tempMaxMin2.place(x=xPos, y=yPos+7*self.stepy, anchor=N)
-        #Wettersituation am nächsten Tag
+        #Wettersituation am nÃ¤chsten Tag
         self.wettersit2 = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
         self.wettersit2.place(x=xPos, y=yPos+8*self.stepy, anchor=N)
         #Upadte routine
@@ -165,7 +165,7 @@ class weather:
             self.Windrichtung = "Fehler!"
 
 
-        #Funktion f�r Wettersituation
+        #Funktion für Wettersituation
         self.wettersituation1 = " Wettersituation: " + self.Wetterlage
         if self.Wetterlage == "Mostly Cloudy":
             self.wettericonauswahl = self.cloud
