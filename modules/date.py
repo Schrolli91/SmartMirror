@@ -8,7 +8,7 @@ from tkinter import *
 import time
 
 class date:
-    def __init__(self, window, config, xPos, yPos, anc):
+    def __init__(self, window, config, xPos, yPos, anc="n"):
         self.window = window
         self.config = config
 

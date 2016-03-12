@@ -14,7 +14,7 @@ import urllib.request
 # 1. Element = Tag, 2. Element = Datum, 3. = Niedrigste Temperatur, 4. Element = Hoechste Temperatur, 5. Element = Wettersituation
 
 class weather:
-    def __init__(self, window, config, xPos, yPos):
+    def __init__(self, window, config, xPos, yPos, anc="n"):
         self.window = window
         self.config = config
 
@@ -28,30 +28,30 @@ class weather:
 
         #Ort setzen
         self.ort = Label(self.window, fg=self.config.get("weather","main_color"), font=self.config.get("weather","main_font"), bg='black')
-        self.ort.place(x=xPos, y=yPos, anchor=NW)
+        self.ort.place(x=xPos, y=yPos, anchor=anc)
         #Text mit heutiges Wetter
         self.wetterheute = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","main_font"), bg='black')
-        self.wetterheute.place(x=xPos, y=yPos+1*self.stepy, anchor=NW)
+        self.wetterheute.place(x=xPos, y=yPos+1*self.stepy, anchor=anc)
         #Aktuelle Temperatur darstellen
         self.tempakt = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
-        self.tempakt.place(x=xPos, y=yPos+2*self.stepy, anchor=NW)
+        self.tempakt.place(x=xPos, y=yPos+2*self.stepy, anchor=anc)
         #Max. Min. Temerpatur darstellen
         self.tempMaxMin = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
-        self.tempMaxMin.place(x=xPos, y=yPos+3*self.stepy, anchor=NW)
+        self.tempMaxMin.place(x=xPos, y=yPos+3*self.stepy, anchor=anc)
         #Wettersituation darstellen
         self.wettersituation = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
-        self.wettersituation.place(x=xPos, y=yPos+4*self.stepy, anchor=NW)
+        self.wettersituation.place(x=xPos, y=yPos+4*self.stepy, anchor=anc)
         self.wettericon = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
-        self.wettericon.place(x=xPos+150, y=yPos+35, anchor=NW)
+        self.wettericon.place(x=xPos+150, y=yPos+35, anchor=anc)
         #Wetter am Nächsten Tag
         self.wettermorgen = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","main_font"), bg='black')
-        self.wettermorgen.place(x=xPos, y=yPos+6*self.stepy, anchor=NW)
+        self.wettermorgen.place(x=xPos, y=yPos+6*self.stepy, anchor=anc)
         #Max. Min. Temperatur am nächsten Tag
         self.tempMaxMin2 = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
-        self.tempMaxMin2.place(x=xPos, y=yPos+7*self.stepy, anchor=NW)
+        self.tempMaxMin2.place(x=xPos, y=yPos+7*self.stepy, anchor=anc)
         #Wettersituation am nächsten Tag
         self.wettersit2 = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
-        self.wettersit2.place(x=xPos, y=yPos+8*self.stepy, anchor=NW)
+        self.wettersit2.place(x=xPos, y=yPos+8*self.stepy, anchor=anc)
         #Upadte routine
         self.update()
 
