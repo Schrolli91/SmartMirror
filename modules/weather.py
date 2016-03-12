@@ -151,7 +151,7 @@ class weather:
             self.Windrichtung = "Fehler!"
 
 
-        #Funktion für Wettersituation
+        #Funktion fuer Wettersituation
         self.wettersituation1 = " Wettersituation: " + self.Wetterlage
         if self.Wetterlage == "Mostly Cloudy":
             self.wettericonauswahl = self.cloud
