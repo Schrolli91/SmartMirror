@@ -13,13 +13,10 @@ import urllib.request
 # 1. Element = Tag, 2. Element = Datum, 3. = Niedrigste Temperatur, 4. Element = Hoechste Temperatur, 5. Element = Wettersituation
 
 class weather:
-    def __init__(self, window, config):
+    def __init__(self, window, config, xPos, yPos):
         self.window = window
         self.config = config
 
-
-        self.startx = self.window.winfo_screenwidth()/2
-        self.starty = self. window.winfo_screenheight()/2 - 20
         self.stepy = 22
 
         self.cloud = PhotoImage(file="Icons/cloudy.gif")
@@ -30,39 +27,39 @@ class weather:
 
         #Ort setzen
         self.ort = Label(self.window, fg=self.config.get("weather","main_color"), font=self.config.get("weather","main_font"), bg='black')
-        self.ort.place(x=self.startx, y=self.starty, anchor=N)
+        self.ort.place(x=xPos, y=yPos, anchor=N)
         #Text mit heutiges Wetter
         self.wetterheute = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","main_font"), bg='black')
-        self.wetterheute.place(x=self.startx, y=self.starty+1*self.stepy, anchor=N)
+        self.wetterheute.place(x=xPos, y=yPos+1*self.stepy, anchor=N)
         #Aktuelle Temperatur darstellen
         self.tempakt = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
-        self.tempakt.place(x=self.startx, y=self.starty+2*self.stepy, anchor=N)
+        self.tempakt.place(x=xPos, y=yPos+2*self.stepy, anchor=N)
         #Max. Temerpatur darstellen
         self.tempmax = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
-        self.tempmax.place(x=self.startx, y=self.starty+3*self.stepy, anchor=N)
+        self.tempmax.place(x=xPos, y=yPos+3*self.stepy, anchor=N)
         #Min. Temperatur darstellen
         self.tempmin = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
-        self.tempmin.place(x=self.startx, y=self.starty+4*self.stepy, anchor=N)
+        self.tempmin.place(x=xPos, y=yPos+4*self.stepy, anchor=N)
         #Wettersituation darstellen
         self.wettersituation = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
-        self.wettersituation.place(x=self.startx, y=self.starty+5*self.stepy, anchor=N)
+        self.wettersituation.place(x=xPos, y=yPos+5*self.stepy, anchor=N)
         self.wettericon = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
-        self.wettericon.place(x=self.startx+250, y=self.starty, anchor=N)
+        self.wettericon.place(x=xPos+250, y=yPos, anchor=N)
         #Wetter am Nächsten Tag
         self.wettermorgen = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","main_font"), bg='black')
-        self.wettermorgen.place(x=self.startx, y=self.starty+7*self.stepy, anchor=N)
+        self.wettermorgen.place(x=xPos, y=yPos+7*self.stepy, anchor=N)
         #Max. Temperatur am nächsten Tag
         self.tempmaxtag2 = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
-        self.tempmaxtag2.place(x=self.startx, y=self.starty+8*self.stepy, anchor=N)
+        self.tempmaxtag2.place(x=xPos, y=yPos+8*self.stepy, anchor=N)
         #Min. Temperatur am nächsten Tag
         self.tempmintag2 = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
-        self.tempmintag2.place(x=self.startx, y=self.starty+9*self.stepy, anchor=N)
+        self.tempmintag2.place(x=xPos, y=yPos+9*self.stepy, anchor=N)
         #Wettersituation am nächsten Tag
         self.wettersit2 = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
-        self.wettersit2.place(x=self.startx, y=self.starty+10*self.stepy, anchor=N)
+        self.wettersit2.place(x=xPos, y=yPos+10*self.stepy, anchor=N)
         #Upadte routine
         self.update()
-        
+
     def update(self):
 
         self.fetch_data()
@@ -159,15 +156,15 @@ class weather:
         else:
             self.Windrichtung = "Fehler!"
 
-        self.ort1 = " Wetterbericht für " + self.Stadt + " in " + self.Land
+        self.ort1 = " Wetterbericht f�r " + self.Stadt + " in " + self.Land
         self.tempakt1 = " Temperatur: " +str(self.Temperatur) + " C Celsius "
         self.tempmax1 = " Max. Temperatur: " + str(self.Wetter[0][3]) + " C Celsius "
         self.tempmin1 = " Min. Temperatur: " + str(self.Wetter[0][2]) + " C Celsius "
         self.tempmax2 = " Max. Temperatur: " + str(self.Wetter[1][3]) + " C Celsius "
         self.tempmin2 = " Min. Temperatur: " + str(self.Wetter[1][2]) + " C Celsius "
         self.wettersituation2 = " Wettersituation: " + self.Wetter[1][4]
-        
-    #Funktion für Wettersituation
+
+    #Funktion f�r Wettersituation
 
         self.wettersituation1 = " Wettersituation: " + self.Wetterlage
         if self.Wetterlage == "Mostly Cloudy":
