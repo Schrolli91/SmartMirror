@@ -1,0 +1,176 @@
+{
+  "city": {
+    "id": 2844616,
+    "name": "Rosstal",
+    "coord": {
+      "lon": 10.88848,
+      "lat": 49.395672
+    },
+    "country": "DE",
+    "population": 0
+  },
+  "cod": "200",
+  "message": 0.0083,
+  "cnt": 7,
+  "list": [
+    {
+      "dt": 1457780400,
+      "temp": {
+        "day": 5.38,
+        "min": 0.43,
+        "max": 5.38,
+        "night": 0.43,
+        "eve": 3.34,
+        "morn": 5.38
+      },
+      "pressure": 984.15,
+      "humidity": 84,
+      "weather": [{
+          "id": 800,
+          "main": "Clear",
+          "description": "klarer Himmel",
+          "icon": "01d"
+        }],
+      "speed": 4.36,
+      "deg": 55,
+      "clouds": 48,
+      "snow": 0.01
+    },
+    {
+      "dt": 1457866800,
+      "temp": {
+        "day": 6.3,
+        "min": 0.24,
+        "max": 6.52,
+        "night": 1.1,
+        "eve": 4.17,
+        "morn": 0.24
+      },
+      "pressure": 987.23,
+      "humidity": 89,
+      "weather": [{
+          "id": 600,
+          "main": "Snow",
+          "description": "m‰ﬂiger Schnee",
+          "icon": "13d"
+        }],
+      "speed": 6.44,
+      "deg": 66,
+      "clouds": 12,
+      "snow": 0.16
+    },
+    {
+      "dt": 1457953200,
+      "temp": {
+        "day": 4.53,
+        "min": -1.42,
+        "max": 5.55,
+        "night": -0.7,
+        "eve": 2.84,
+        "morn": -1.42
+      },
+      "pressure": 989.32,
+      "humidity": 82,
+      "weather": [{
+          "id": 800,
+          "main": "Clear",
+          "description": "klarer Himmel",
+          "icon": "01d"
+        }],
+      "speed": 6.38,
+      "deg": 80,
+      "clouds": 0
+    },
+    {
+      "dt": 1458039600,
+      "temp": {
+        "day": 4.4,
+        "min": -2.78,
+        "max": 4.4,
+        "night": 0.8,
+        "eve": 2.14,
+        "morn": -2.78
+      },
+      "pressure": 984.67,
+      "humidity": 92,
+      "weather": [{
+          "id": 600,
+          "main": "Snow",
+          "description": "m‰ﬂiger Schnee",
+          "icon": "13d"
+        }],
+      "speed": 3.02,
+      "deg": 349,
+      "clouds": 76,
+      "rain": 3.73,
+      "snow": 0.29
+    },
+    {
+      "dt": 1458126000,
+      "temp": {
+        "day": 2.64,
+        "min": -0.53,
+        "max": 3.14,
+        "night": 0.04,
+        "eve": 1.31,
+        "morn": -0.53
+      },
+      "pressure": 985.06,
+      "humidity": 96,
+      "weather": [{
+          "id": 800,
+          "main": "Clear",
+          "description": "klarer Himmel",
+          "icon": "01d"
+        }],
+      "speed": 7.15,
+      "deg": 76,
+      "clouds": 32,
+      "snow": 0.02
+    },
+    {
+      "dt": 1458212400,
+      "temp": {
+        "day": 8.12,
+        "min": -1.92,
+        "max": 8.12,
+        "night": 2.64,
+        "eve": 6.41,
+        "morn": -1.92
+      },
+      "pressure": 986.19,
+      "humidity": 0,
+      "weather": [{
+          "id": 800,
+          "main": "Clear",
+          "description": "klarer Himmel",
+          "icon": "01d"
+        }],
+      "speed": 4.9,
+      "deg": 95,
+      "clouds": 0
+    },
+    {
+      "dt": 1458298800,
+      "temp": {
+        "day": 10.55,
+        "min": 1.02,
+        "max": 10.55,
+        "night": 4.09,
+        "eve": 8.56,
+        "morn": 1.02
+      },
+      "pressure": 983.33,
+      "humidity": 0,
+      "weather": [{
+          "id": 800,
+          "main": "Clear",
+          "description": "klarer Himmel",
+          "icon": "01d"
+        }],
+      "speed": 4.59,
+      "deg": 112,
+      "clouds": 0
+    }
+  ]
+}
