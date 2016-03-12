@@ -52,13 +52,13 @@ class weather:
         self.wettermorgen = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","main_font"), bg='black')
         self.wettermorgen.place(x=self.startx, y=self.starty+7*self.stepy, anchor=N)
         #Max. Temperatur am nächsten Tag
-        self.tempmaxtag2 = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","main_font"), bg='black')
+        self.tempmaxtag2 = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
         self.tempmaxtag2.place(x=self.startx, y=self.starty+8*self.stepy, anchor=N)
         #Min. Temperatur am nächsten Tag
-        self.tempmintag2 = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","main_font"), bg='black')
+        self.tempmintag2 = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
         self.tempmintag2.place(x=self.startx, y=self.starty+9*self.stepy, anchor=N)
         #Wettersituation am nächsten Tag
-        self.wettersit2 = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","main_font"), bg='black')
+        self.wettersit2 = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
         self.wettersit2.place(x=self.startx, y=self.starty+10*self.stepy, anchor=N)
         #Upadte routine
         self.update()
