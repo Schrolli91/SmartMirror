@@ -22,11 +22,11 @@ class weather:
         self.starty = self. window.winfo_screenheight()/2 - 20
         self.stepy = 22
 
-        #self.cloud = PhotoImage(file="iconcloud.gif")
-        #self.normal = PhotoImage(file="wolke.gif")
-        #self.fehler = PhotoImage(file="Fehler.gif")
-        #self.partlycloudy = PhotoImage(file="partlycloudy.gif")
-        #self.fog = PhotoImage(file="Fog.gif")
+        self.cloud = PhotoImage(file="Icons/cloudy.gif")
+        self.normal = PhotoImage(file="Icons/fair.gif")
+        self.fehler = PhotoImage(file="Icons/Fehler.gif")
+        self.partlycloudy = PhotoImage(file="Icons/partlycloudy.gif")
+        self.fog = PhotoImage(file="Icons/Fog.gif")
 
         #Ort setzen
         self.ort = Label(self.window, fg=self.config.get("weather","main_color"), font=self.config.get("weather","main_font"), bg='black')
@@ -46,8 +46,8 @@ class weather:
         #Wettersituation darstellen
         self.wettersituation = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
         self.wettersituation.place(x=self.startx, y=self.starty+5*self.stepy, anchor=N)
-        #self.wettericon = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
-        #self.wettericon.place(x=self.window.winfo_screenwidth()/2, y=self. window.winfo_screenheight()/2-60, anchor=N)
+        self.wettericon = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
+        self.wettericon.place(x=self.startx, y=self.starty+6*self.stepy, anchor=N)
 
 
         self.update()
@@ -62,7 +62,7 @@ class weather:
         self.tempmax.configure(text=self.tempmax1)
         self.tempmin.configure(text=self.tempmin1)
         self.wettersituation.configure(text=self.wettersituation1)
-        #wettericon.config(image=wettericonauswahl)
+        self.wettericon.config(image=self.wettericonauswahl)
         self.tempakt.after(self.config.get("weather","update_interval"), self.update)
 
 
@@ -155,13 +155,13 @@ class weather:
     #Funktion für Wettersituation
 
         self.wettersituation1 = " Wettersituation: " + self.Wetterlage
-        #if self.Wetterlage == "Mostly Cloudy":
-        #    self.wettericonauswahl = self.cloud
-        #elif self.Wetterlage == "Fair":
-        #    self.wettericonauswahl = self.normal
-        #elif self.Wetterlage == "Partly Cloudy":
-        #    self.wettericonauswahl = self.partlycloudy
-        #elif self.Wetterlage == "Fog":
-        #    self.wettericonauswahl = self.fog
-        #else:
-        #    self.wettericonauswahl = self.fehler
+        if self.Wetterlage == "Mostly Cloudy":
+            self.wettericonauswahl = self.cloud
+        elif self.Wetterlage == "Fair":
+            self.wettericonauswahl = self.normal
+        elif self.Wetterlage == "Partly Cloudy":
+            self.wettericonauswahl = self.partlycloudy
+        elif self.Wetterlage == "Fog":
+            self.wettericonauswahl = self.fog
+        else:
+            self.wettericonauswahl = self.fehler
