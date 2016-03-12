@@ -47,7 +47,7 @@ class weather:
         self.wettersituation = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
         self.wettersituation.place(x=self.startx, y=self.starty+5*self.stepy, anchor=N)
         self.wettericon = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
-        self.wettericon.place(x=self.startx, y=self.starty+6*self.stepy, anchor=N)
+        self.wettericon.place(x=self.startx, y=self.starty+7*self.stepy, anchor=N)
 
 
         self.update()
