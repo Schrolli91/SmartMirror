@@ -51,4 +51,9 @@ if config.getboolean("Modules","weather"):
     wetter2 = jsonweather(root,config,10,500,"nw")
 
 
+#photo = PhotoImage(file="png_icons/simple_weather_icon_12.png").subsample(5,5)
+#photo_label = Label(image=photo)
+#photo_label.place(x=500,y=50)
+#photo_label.image = photo
+
 root.mainloop()
