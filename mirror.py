@@ -83,11 +83,6 @@ try:
         logging.exception("cannot generate the modules")
         raise
 
-    #photo = PhotoImage(file="png_icons/simple_weather_icon_12.png").subsample(5,5)
-    #photo_label = Label(image=photo)
-    #photo_label.place(x=500,y=50)
-    #photo_label.image = photo
-
     root.mainloop()
 except:
     logging.critical("MirrorOS ended by critical Error")

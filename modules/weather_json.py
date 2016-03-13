@@ -14,11 +14,6 @@ import logging
 import urllib.request
 import json
 
-#for the image download
-#from urllib.request import urlopen
-import io
-import base64
-
 
 class jsonweather:
     def __init__(self, window, config, xPos, yPos, anc="n"):
@@ -99,12 +94,9 @@ class jsonweather:
         self.forecast = json.loads(req.read().decode(encoding))
 
         try:
-            logging.debug("load actual weather image from OWM")
-            #image download
-            image_url = "http://openweathermap.org/img/w/"+ str(self.wetter["weather"][0]["icon"]) +".png"
-            image_byt = urllib.request.urlopen(image_url).read()
-            image_b64 = base64.encodestring(image_byt)
-            self.photo = PhotoImage(data=image_b64)
+            logging.debug("load weather icon")
+            #image loading
+            self.photo = PhotoImage(file="modules/icons/"+ str(self.wetter["weather"][0]["icon"]) +".gif")
         except:
             logging.exception("error while loading, set error.png")
-            self.photo = PhotoImage(file="modules/error.png")
+            self.photo = PhotoImage(file="modules/icons/error.gif")
