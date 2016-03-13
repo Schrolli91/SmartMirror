@@ -21,5 +21,8 @@ class date:
 
     def update(self):
         logging.debug("update widget")
-        self.date.configure(text=time.strftime(self.config.get("date","format")))
+        date = time.strftime(self.config.get("date","format"))
+        date = date.replace("Monday","Montag").replace("Tuesday","Dienstag").replace("Wednesday","Mittwoch")
+        date = date.replace("Thursday","Donnerstag").replace("Friday","Freitag").replace("Saturday","Samstag").replace("Sunday","Sonntag")
+        self.date.configure(text=date)
         self.date.after(self.config.getint("date","update_interval"), self.update)
