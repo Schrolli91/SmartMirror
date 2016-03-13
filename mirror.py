@@ -32,7 +32,6 @@ try:
         #
         from modules.clock import clock
         from modules.date import date
-        from modules.weather import weather
         from modules.weather_json import jsonweather
         #
         ##### Modules Import ######
@@ -79,8 +78,7 @@ try:
             datum = date(root, config, w-20, 60, "ne") #build new date
 
         if config.getboolean("Modules","weather"):
-            wetter = weather(root, config, 10, 500, "nw") #build new date
-            wetter_json = jsonweather(root,config,10,10,"nw")
+            wetter_json = jsonweather(root,config,10,10,"nw") #build new weather
     except:
         logging.exception("cannot generate the modules")
         raise
