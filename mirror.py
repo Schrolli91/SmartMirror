@@ -12,8 +12,8 @@ from tkinter import *
 import configparser
 import logging
 
-__version__ = "0.1"
-__buildDate___ = "13.03.2016"
+__version__ = "0.2-dev"
+__buildDate___ = "none"
 
 #configure the logger
 logging.basicConfig(

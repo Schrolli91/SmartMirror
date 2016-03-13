@@ -105,7 +105,7 @@ class jsonweather:
                 #image loading
                 self.photo = PhotoImage(file="modules/icons/"+ str(self.wetter["weather"][0]["icon"]) +".gif")
             except:
-                logging.exception("error while loading, set error.png")
+                logging.exception("error while loading, set error.gif")
                 self.photo = PhotoImage(file="modules/icons/error.gif")
 
         except:
