@@ -33,6 +33,7 @@ try:
         from modules.clock import clock
         from modules.date import date
         from modules.weather_json import jsonweather
+        from modules.log_view import viewer
         #
         ##### Modules Import ######
     except:
@@ -71,6 +72,11 @@ try:
     #try to load the modules into tkinter window
     try:
         logging.debug("generate the modules")
+
+        if config.getboolean("Modules","log_view"):
+            logfile_viewer = viewer(root,config,10,h,"sw")
+
+
         if config.getboolean("Modules","clock"):
             uhr = clock(root, config, w-10, 0, "ne") #build new clock
 
@@ -79,6 +85,7 @@ try:
 
         if config.getboolean("Modules","weather"):
             wetter_json = jsonweather(root,config,10,10,"nw") #build new weather
+
     except:
         logging.exception("cannot generate the modules")
         raise

@@ -78,7 +78,7 @@ class jsonweather:
             "Übermorgen: "+ str(self.forecast["list"][1]["weather"][0]["description"]) +" ("+ str(round(self.forecast["list"][1]["temp"]["day"],1)) +"°C)"
             )
 
-        self.window.after(self.config.get("weather","update_interval"), self.update)
+        self.window.after(self.config.getint("weather","update_interval"), self.update)
 
     def fetch_data(self):
         logging.debug("load actual weather json from OWM")
