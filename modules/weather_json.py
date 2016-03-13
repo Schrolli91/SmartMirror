@@ -8,6 +8,7 @@ Autor: Bastian Schroll
 """
 
 from tkinter import *
+import time
 import logging
 
 #for json download
@@ -63,7 +64,8 @@ class jsonweather:
             self.weather_today.configure(text=
                 str(self.wetter["weather"][0]["description"]) +"\n"+
                 "Temperatur: "+ str(round(self.wetter["main"]["temp"],1)) +" °C"+"\n"+
-                "Min: "+ str(round(self.wetter["main"]["temp_min"],1)) +" °C / Max: "+ str(round(self.wetter["main"]["temp_max"],1)) +" °C"+"\n"+
+                "Min: "+ str(round(self.forecast["list"][0]["temp"]["min"],1)) +" °C"+
+                "/ Max: "+ str(round(self.forecast["list"][0]["temp"]["max"],1)) +" °C"+"\n"+
                 "Luftdruck: "+ str(round(self.wetter["main"]["pressure"])) +" hPa"+"\n"+
                 "Luftfeuchte: "+ str(self.wetter["main"]["humidity"]) +" %-rel."
                 )
@@ -75,9 +77,10 @@ class jsonweather:
             self.main_forecast.configure(text="Vorhersage:")
 
             self.weather_forecast.configure(text=
-                "Morgen: "+ str(self.forecast["list"][0]["weather"][0]["description"]) +" ("+ str(round(self.forecast["list"][0]["temp"]["day"],1)) +"°C)\n"+
-                "Übermorgen: "+ str(self.forecast["list"][1]["weather"][0]["description"]) +" ("+ str(round(self.forecast["list"][1]["temp"]["day"],1)) +"°C)"
+                "Morgen: "+ str(self.forecast["list"][1]["weather"][0]["description"]) +" ("+ str(round(self.forecast["list"][1]["temp"]["day"],1)) +"°C)\n"+
+                "Übermorgen: "+ str(self.forecast["list"][2]["weather"][0]["description"]) +" ("+ str(round(self.forecast["list"][2]["temp"]["day"],1)) +"°C)"
                 )
+
         except:
             logging.exception("cannot refresh the data")
 
@@ -93,7 +96,7 @@ class jsonweather:
 
             logging.debug("load weather forecast json for %s", self.config.get("weather","city"))
             #get json weather forecast
-            req = urllib.request.urlopen("http://api.openweathermap.org/data/2.5/forecast/daily?q="+ self.config.get("weather","city") +"&lang="+ self.config.get("weather","lang") +"&units=metric&cnt=2&appid="+ self.config.get("weather","api_key"))
+            req = urllib.request.urlopen("http://api.openweathermap.org/data/2.5/forecast/daily?q="+ self.config.get("weather","city") +"&lang="+ self.config.get("weather","lang") +"&units=metric&cnt=3&appid="+ self.config.get("weather","api_key"))
             encoding = req.headers.get_content_charset()
             self.forecast = json.loads(req.read().decode(encoding))
 
