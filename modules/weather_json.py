@@ -85,13 +85,13 @@ class jsonweather:
 
     def fetch_data(self):
         try:
-            logging.debug("load actual weather json from OWM")
+            logging.debug("load actual weather json for %s", self.config.get("weather","city"))
             #get json weather data from today
             req = urllib.request.urlopen("http://api.openweathermap.org/data/2.5/weather?q="+ self.config.get("weather","city") +"&lang="+ self.config.get("weather","lang") +"&units=metric&appid="+ self.config.get("weather","api_key"))
             encoding = req.headers.get_content_charset()
             self.wetter = json.loads(req.read().decode(encoding))
 
-            logging.debug("load weather forecast json from OWM")
+            logging.debug("load weather forecast json for %s", self.config.get("weather","city"))
             #get json weather forecast
             req = urllib.request.urlopen("http://api.openweathermap.org/data/2.5/forecast/daily?q="+ self.config.get("weather","city") +"&lang="+ self.config.get("weather","lang") +"&units=metric&cnt=2&appid="+ self.config.get("weather","api_key"))
             encoding = req.headers.get_content_charset()
