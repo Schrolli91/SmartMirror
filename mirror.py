@@ -14,9 +14,7 @@ import configparser
 import logging
 
 
-
-import logging
-
+#configure the logger
 logging.basicConfig(
     filename="log.txt",
     filemode="w",
@@ -24,7 +22,10 @@ logging.basicConfig(
     format="%(asctime)s - %(module)-15s %(funcName)-15s [%(levelname)-8s] %(message)s",
     datefmt = "%d.%m.%Y %H:%M:%S"
     )
+
+#Main program routine
 try:
+    #try to import modules
     try:
         logging.debug("import the modules")
         ##### Modules Import ######
@@ -39,19 +40,18 @@ try:
         logging.exception("cannot import the modules")
         raise
 
-
+    #try to read the config file
     try:
         logging.debug("read the config file")
-        #read the config file object
         config = configparser.ConfigParser()
         config.read("config.ini")
     except:
         logging.exception("cannot read the config file")
         raise
 
+    #try to generate tkinter window object
     try:
         logging.debug("generate the tkinter window")
-        #generate the tkinter window object
         root = Tk()
         root.title("MirrorOS")
 
@@ -69,6 +69,7 @@ try:
     logo = Label(root, text="MirrorOS", fg="white", bg="black", font="Verdana 20 bold")
     logo.place(x=w, y=h, anchor=SE)
 
+    #try to load the modules into tkinter window
     try:
         logging.debug("generate the modules")
         if config.getboolean("Modules","clock"):
@@ -78,8 +79,8 @@ try:
             datum = date(root, config, w-20, 60, "ne") #build new date
 
         if config.getboolean("Modules","weather"):
-            wetter = weather(root, config, 10, 10, "nw") #build new date
-            wetter_json = jsonweather(root,config,10,250,"nw")
+            wetter = weather(root, config, 10, 500, "nw") #build new date
+            wetter_json = jsonweather(root,config,10,10,"nw")
     except:
         logging.exception("cannot generate the modules")
         raise
@@ -93,3 +94,5 @@ try:
 except:
     logging.critical("MirrorOS ended by critical Error")
     print("MirrorOS ended by critical Error - see log.txt")
+finally:
+    logging.debug("clean up is done  - Quit()")

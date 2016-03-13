@@ -27,9 +27,11 @@ class jsonweather:
 
         self.yStep = 22
 
-        self.loading = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black')
-        self.loading.place(x=xPos, y=yPos-1*self.yStep, anchor=anc)
+        #label for the refresh info
+        self.loading = Label(self.window, fg=self.config.get("weather","main_color"), font=self.config.get("weather","font"), bg='black')
+        self.loading.place(x=xPos, y=yPos+10*self.yStep, anchor=anc)
 
+        #labels for todays weather
         self.headline = Label(self.window, fg=self.config.get("weather","main_color"), font=self.config.get("weather","main_font"), bg='black')
         self.headline.place(x=xPos, y=yPos, anchor=anc)
 
@@ -41,6 +43,7 @@ class jsonweather:
         self.icon_today = Label(bg="black")
         self.icon_today.place(x=xPos+160,y=yPos+25)
 
+        #labels for the forecast
         self.main_forecast = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","main_font"), bg='black')
         self.main_forecast.place(x=xPos, y=yPos+7*self.yStep, anchor=anc)
         self.weather_forecast = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black', justify=LEFT)
@@ -53,11 +56,11 @@ class jsonweather:
         logging.debug("load new weather data")
         self.loading.configure(text="Aktualisiere Wetterdaten ...")
         self.window.update() #redraw window
-        self.fetch_data()
+        self.fetch_data() #reload data from web
         self.loading.configure(text="")
 
         logging.debug("refresh the widgets")
-
+        #refresh the widgets for todays weather
         self.headline.configure(text="Wetterbericht für " + str(self.wetter["name"]) +" ("+ str(self.wetter["sys"]["country"]) +")")
         self.main_today.configure(text="Heutiges Wetter:")
 
@@ -66,17 +69,18 @@ class jsonweather:
             "Temperatur: "+ str(round(self.wetter["main"]["temp"],1)) +" °C"+"\n"+
             "Min: "+ str(round(self.wetter["main"]["temp_min"],1)) +" °C / Max: "+ str(round(self.wetter["main"]["temp_max"],1)) +" °C"+"\n"+
             "Luftdruck: "+ str(round(self.wetter["main"]["pressure"])) +" hPa"+"\n"+
-            "Luftfeuchte: "+ str(self.wetter["main"]["humidity"]) +" %-rel."+"\n"
+            "Luftfeuchte: "+ str(self.wetter["main"]["humidity"]) +" %-rel."
             )
 
         self.icon_today.configure(image=self.photo)
         self.icon_today.image = self.photo
 
+        #refesh the widgets for weather forecast
         self.main_forecast.configure(text="Vorhersage:")
 
         self.weather_forecast.configure(text=
             "Morgen: "+ str(self.forecast["list"][0]["weather"][0]["description"]) +" ("+ str(round(self.forecast["list"][0]["temp"]["day"],1)) +"°C)\n"+
-            "Übermorgen: "+ str(self.forecast["list"][1]["weather"][0]["description"]) +" ("+ str(round(self.forecast["list"][1]["temp"]["day"],1)) +"°C)\n"
+            "Übermorgen: "+ str(self.forecast["list"][1]["weather"][0]["description"]) +" ("+ str(round(self.forecast["list"][1]["temp"]["day"],1)) +"°C)"
             )
 
         self.window.after(self.config.get("weather","update_interval"), self.update)
