@@ -1,0 +1,37 @@
+{
+  "coord": {
+    "lon": 10.89,
+    "lat": 49.4
+  },
+  "weather": [{
+      "id": 803,
+      "main": "Clouds",
+      "description": "überwiegend bewölkt",
+      "icon": "04n"
+    }],
+  "base": "cmc stations",
+  "main": {
+    "temp": 4.04,
+    "pressure": 987.78,
+    "humidity": 77,
+    "temp_min": 4.04,
+    "temp_max": 4.04,
+    "sea_level": 1041.6,
+    "grnd_level": 987.78
+  },
+  "wind": {
+    "speed": 3.61,
+    "deg": 50.5122
+  },
+  "clouds": {"all": 76},
+  "dt": 1457805264,
+  "sys": {
+    "message": 0.0109,
+    "country": "DE",
+    "sunrise": 1457760844,
+    "sunset": 1457803110
+  },
+  "id": 2844616,
+  "name": "Rosstal",
+  "cod": 200
+}

@@ -1,3 +1,2 @@
 # SmartMirror
-Simple Framwork for an SmartMirror with an Rapsberry Pi
-
+MirrorOS is a simple and easy to use Framework for SmartMirrors

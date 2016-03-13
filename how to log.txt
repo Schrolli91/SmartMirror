@@ -1,0 +1,30 @@
+use debug for any develop information
+
+use info for general infos
+
+warning is for little problems - program can go on
+
+error is a bigger problem
+exception is the same as error but writs also the exception message to logfile
+
+critical is not recommended to use - only main program throw an critical at the end in case of an error
+
+
+
+
+how to usw:
+===========
+
+logging.debug("Debug Information")
+logging.info("Little Info for anyone")
+logging.warning("It's a warning")
+logging.error("Function abortet")
+try:
+    try:
+        print(1/0) #division by zero
+    except:
+        logging.exception("Error by an Exception") #log an error with exception test
+        raise #throw exception in lower try: clause
+except:
+    logging.debug("This was throwen by rise in higher try: clause")
+logging.critical("Critical Error - Program ended")

@@ -1,0 +1,85 @@
+{
+  "city": {
+    "id": 2844616,
+    "name": "Rosstal",
+    "coord": {
+      "lon": 10.88848,
+      "lat": 49.395672
+    },
+    "country": "DE",
+    "population": 0
+  },
+  "cod": "200",
+  "message": 0.0154,
+  "cnt": 3,
+  "list": [
+    {
+      "dt": 1457780400,
+      "temp": {
+        "day": 1.7,
+        "min": 0.43,
+        "max": 1.7,
+        "night": 0.43,
+        "eve": 1.7,
+        "morn": 1.7
+      },
+      "pressure": 985.89,
+      "humidity": 84,
+      "weather": [{
+          "id": 800,
+          "main": "Clear",
+          "description": "klarer Himmel",
+          "icon": "01d"
+        }],
+      "speed": 4.31,
+      "deg": 65,
+      "clouds": 48,
+      "snow": 0.01
+    },
+    {
+      "dt": 1457866800,
+      "temp": {
+        "day": 6.3,
+        "min": 0.24,
+        "max": 6.52,
+        "night": 1.1,
+        "eve": 4.17,
+        "morn": 0.24
+      },
+      "pressure": 987.23,
+      "humidity": 89,
+      "weather": [{
+          "id": 600,
+          "main": "Snow",
+          "description": "mäßiger Schnee",
+          "icon": "13d"
+        }],
+      "speed": 6.44,
+      "deg": 66,
+      "clouds": 12,
+      "snow": 0.16
+    },
+    {
+      "dt": 1457953200,
+      "temp": {
+        "day": 4.53,
+        "min": -1.42,
+        "max": 5.55,
+        "night": -0.7,
+        "eve": 2.84,
+        "morn": -1.42
+      },
+      "pressure": 989.32,
+      "humidity": 82,
+      "weather": [{
+          "id": 800,
+          "main": "Clear",
+          "description": "klarer Himmel",
+          "icon": "01d"
+        }],
+      "speed": 6.38,
+      "deg": 80,
+      "clouds": 0
+    }
+  ]
+}
