@@ -1,0 +1,13 @@
+#logging.debug("Debug Information")
+#logging.info("Little Info for anyone")
+#logging.warning("It's a warning")
+#logging.error("Function abortet")
+#try:
+#    try:
+#        print(1/0) #division by zero
+#    except:
+#        logging.exception("Error by an Exception") #log an error with exception test
+#        raise #throw exception in lower try: clause
+#except:
+#    logging.debug("This was throwen by rise in higher try: clause")
+#logging.critical("Critical Error - Program ended")

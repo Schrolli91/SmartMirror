@@ -11,49 +11,85 @@
 
 from tkinter import *
 import configparser
-
-#import the modules
-from modules.clock import clock
-from modules.date import date
-from modules.weather import weather
-
-from modules.weather_json import jsonweather
-
-#read the config file object
-config = configparser.ConfigParser()
-config.read("config.ini")
-
-#generate the tkinter window object
-root = Tk()
-root.title("MirrorOS")
-
-w, h = root.winfo_screenwidth(), root.winfo_screenheight()#w and h for the display resolutions
-root.overrideredirect(1)#hide the window border
-root.geometry("%dx%d+0+0" % (w, h))#set the window size
-
-root.configure(background='black')#set background color
-root.bind("<Escape>", lambda e: e.widget.quit())#Escape Button to quit the window
-
-#show the MirrorOS Logo in the middle of the screen
-logo = Label(root, text="MirrorOS", fg="white", bg="black", font="Verdana 20 bold")
-logo.place(x=w, y=h, anchor=SE)
+import logging
 
 
-if config.getboolean("Modules","clock"):
-    uhr = clock(root, config, w-10, 0, "ne") #build new clock
 
-if config.getboolean("Modules","date"):
-    datum = date(root, config, w-20, 60, "ne") #build new date
+import logging
 
-if config.getboolean("Modules","weather"):
-    wetter = weather(root, config, 10, 10, "nw") #build new date
+logging.basicConfig(
+    filename="log.txt",
+    filemode="w",
+    level=logging.DEBUG,
+    format="%(asctime)s - %(module)-15s %(funcName)-15s [%(levelname)-8s] %(message)s",
+    datefmt = "%d.%m.%Y %H:%M:%S"
+    )
+try:
+    try:
+        logging.debug("import the modules")
+        ##### Modules Import ######
+        #
+        from modules.clock import clock
+        from modules.date import date
+        from modules.weather import weather
+        from modules.weather_json import jsonweather
+        #
+        ##### Modules Import ######
+    except:
+        logging.exception("cannot import the modules")
+        raise
 
-    wetter2 = jsonweather(root,config,10,250,"nw")
 
+    try:
+        logging.debug("read the config file")
+        #read the config file object
+        config = configparser.ConfigParser()
+        config.read("config.ini")
+    except:
+        logging.exception("cannot read the config file")
+        raise
 
-#photo = PhotoImage(file="png_icons/simple_weather_icon_12.png").subsample(5,5)
-#photo_label = Label(image=photo)
-#photo_label.place(x=500,y=50)
-#photo_label.image = photo
+    try:
+        logging.debug("generate the tkinter window")
+        #generate the tkinter window object
+        root = Tk()
+        root.title("MirrorOS")
 
-root.mainloop()
+        w, h = root.winfo_screenwidth(), root.winfo_screenheight()#w and h for the display resolutions
+        root.overrideredirect(1)#hide the window border
+        root.geometry("%dx%d+0+0" % (w, h))#set the window size
+
+        root.configure(background='black')#set background color
+        root.bind("<Escape>", lambda e: e.widget.quit())#Escape Button to quit the window
+    except:
+        logging.exception("cannot generate the tkinter window")
+        raise
+
+    #show the MirrorOS Logo in the middle of the screen
+    logo = Label(root, text="MirrorOS", fg="white", bg="black", font="Verdana 20 bold")
+    logo.place(x=w, y=h, anchor=SE)
+
+    try:
+        logging.debug("generate the modules")
+        if config.getboolean("Modules","clock"):
+            uhr = clock(root, config, w-10, 0, "ne") #build new clock
+
+        if config.getboolean("Modules","date"):
+            datum = date(root, config, w-20, 60, "ne") #build new date
+
+        if config.getboolean("Modules","weather"):
+            wetter = weather(root, config, 10, 10, "nw") #build new date
+            wetter_json = jsonweather(root,config,10,250,"nw")
+    except:
+        logging.exception("cannot generate the modules")
+        raise
+
+    #photo = PhotoImage(file="png_icons/simple_weather_icon_12.png").subsample(5,5)
+    #photo_label = Label(image=photo)
+    #photo_label.place(x=500,y=50)
+    #photo_label.image = photo
+
+    root.mainloop()
+except:
+    logging.critical("MirrorOS ended by critical Error")
+    print("MirrorOS ended by critical Error - see log.txt")
