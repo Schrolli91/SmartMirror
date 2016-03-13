@@ -54,49 +54,56 @@ class jsonweather:
         self.fetch_data() #reload data from web
         self.loading.configure(text="")
 
-        logging.debug("refresh the widgets")
-        #refresh the widgets for todays weather
-        self.headline.configure(text="Wetterbericht für " + str(self.wetter["name"]) +" ("+ str(self.wetter["sys"]["country"]) +")")
-        self.main_today.configure(text="Heutiges Wetter:")
+        try:
+            logging.debug("refresh the widgets")
+            #refresh the widgets for todays weather
+            self.headline.configure(text="Wetterbericht für " + str(self.wetter["name"]) +" ("+ str(self.wetter["sys"]["country"]) +")")
+            self.main_today.configure(text="Heutiges Wetter:")
 
-        self.weather_today.configure(text=
-            str(self.wetter["weather"][0]["description"]) +"\n"+
-            "Temperatur: "+ str(round(self.wetter["main"]["temp"],1)) +" °C"+"\n"+
-            "Min: "+ str(round(self.wetter["main"]["temp_min"],1)) +" °C / Max: "+ str(round(self.wetter["main"]["temp_max"],1)) +" °C"+"\n"+
-            "Luftdruck: "+ str(round(self.wetter["main"]["pressure"])) +" hPa"+"\n"+
-            "Luftfeuchte: "+ str(self.wetter["main"]["humidity"]) +" %-rel."
-            )
+            self.weather_today.configure(text=
+                str(self.wetter["weather"][0]["description"]) +"\n"+
+                "Temperatur: "+ str(round(self.wetter["main"]["temp"],1)) +" °C"+"\n"+
+                "Min: "+ str(round(self.wetter["main"]["temp_min"],1)) +" °C / Max: "+ str(round(self.wetter["main"]["temp_max"],1)) +" °C"+"\n"+
+                "Luftdruck: "+ str(round(self.wetter["main"]["pressure"])) +" hPa"+"\n"+
+                "Luftfeuchte: "+ str(self.wetter["main"]["humidity"]) +" %-rel."
+                )
 
-        self.icon_today.configure(image=self.photo)
-        self.icon_today.image = self.photo
+            self.icon_today.configure(image=self.photo)
+            self.icon_today.image = self.photo
 
-        #refesh the widgets for weather forecast
-        self.main_forecast.configure(text="Vorhersage:")
+            #refesh the widgets for weather forecast
+            self.main_forecast.configure(text="Vorhersage:")
 
-        self.weather_forecast.configure(text=
-            "Morgen: "+ str(self.forecast["list"][0]["weather"][0]["description"]) +" ("+ str(round(self.forecast["list"][0]["temp"]["day"],1)) +"°C)\n"+
-            "Übermorgen: "+ str(self.forecast["list"][1]["weather"][0]["description"]) +" ("+ str(round(self.forecast["list"][1]["temp"]["day"],1)) +"°C)"
-            )
+            self.weather_forecast.configure(text=
+                "Morgen: "+ str(self.forecast["list"][0]["weather"][0]["description"]) +" ("+ str(round(self.forecast["list"][0]["temp"]["day"],1)) +"°C)\n"+
+                "Übermorgen: "+ str(self.forecast["list"][1]["weather"][0]["description"]) +" ("+ str(round(self.forecast["list"][1]["temp"]["day"],1)) +"°C)"
+                )
+        except:
+            logging.exception("cannot refresh the data")
 
         self.window.after(self.config.getint("weather","update_interval"), self.update)
 
     def fetch_data(self):
-        logging.debug("load actual weather json from OWM")
-        #get json weather data from today
-        req = urllib.request.urlopen("http://api.openweathermap.org/data/2.5/weather?q="+ self.config.get("weather","city") +"&lang="+ self.config.get("weather","lang") +"&units=metric&appid="+ self.config.get("weather","api_key"))
-        encoding = req.headers.get_content_charset()
-        self.wetter = json.loads(req.read().decode(encoding))
-
-        logging.debug("load weather forecast json from OWM")
-        #get json weather forecast
-        req = urllib.request.urlopen("http://api.openweathermap.org/data/2.5/forecast/daily?q="+ self.config.get("weather","city") +"&lang="+ self.config.get("weather","lang") +"&units=metric&cnt=2&appid="+ self.config.get("weather","api_key"))
-        encoding = req.headers.get_content_charset()
-        self.forecast = json.loads(req.read().decode(encoding))
-
         try:
-            logging.debug("load weather icon")
-            #image loading
-            self.photo = PhotoImage(file="modules/icons/"+ str(self.wetter["weather"][0]["icon"]) +".gif")
+            logging.debug("load actual weather json from OWM")
+            #get json weather data from today
+            req = urllib.request.urlopen("http://api.openweathermap.org/data/2.5/weather?q="+ self.config.get("weather","city") +"&lang="+ self.config.get("weather","lang") +"&units=metric&appid="+ self.config.get("weather","api_key"))
+            encoding = req.headers.get_content_charset()
+            self.wetter = json.loads(req.read().decode(encoding))
+
+            logging.debug("load weather forecast json from OWM")
+            #get json weather forecast
+            req = urllib.request.urlopen("http://api.openweathermap.org/data/2.5/forecast/daily?q="+ self.config.get("weather","city") +"&lang="+ self.config.get("weather","lang") +"&units=metric&cnt=2&appid="+ self.config.get("weather","api_key"))
+            encoding = req.headers.get_content_charset()
+            self.forecast = json.loads(req.read().decode(encoding))
+
+            try:
+                logging.debug("load weather icon")
+                #image loading
+                self.photo = PhotoImage(file="modules/icons/"+ str(self.wetter["weather"][0]["icon"]) +".gif")
+            except:
+                logging.exception("error while loading, set error.png")
+                self.photo = PhotoImage(file="modules/icons/error.gif")
+
         except:
-            logging.exception("error while loading, set error.png")
-            self.photo = PhotoImage(file="modules/icons/error.gif")
+            logging.exception("cannot fetch data from web")

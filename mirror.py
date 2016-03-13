@@ -19,7 +19,7 @@ logging.basicConfig(
     filename="log.txt",
     filemode="w",
     level=logging.DEBUG,
-    format="%(asctime)s - %(module)-15s %(funcName)-15s [%(levelname)-8s] %(message)s",
+    format="%(asctime)s - %(module)-15s %(funcName)-12s [%(levelname)-8s] %(message)s",
     datefmt = "%d.%m.%Y %H:%M:%S"
     )
 
