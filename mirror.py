@@ -4,7 +4,6 @@
 # MirrorOS
 # simple OS for smart Mirrors
 #
-# Version 0.1
 # 2016 by Bastian Schroll and Matthias Kittler
 #
 ############
@@ -13,6 +12,8 @@ from tkinter import *
 import configparser
 import logging
 
+__version__ = "0.1"
+__buildDate___ = "13.03.2016"
 
 #configure the logger
 logging.basicConfig(
@@ -22,6 +23,10 @@ logging.basicConfig(
     format="%(asctime)s - %(module)-15s %(funcName)-12s [%(levelname)-8s] %(message)s",
     datefmt = "%d.%m.%Y %H:%M:%S"
     )
+
+logging.info("MirrorOS for Smart Mirrors")
+logging.info("Version: " + __version__)
+logging.info("Build Date: " + __buildDate___)
 
 #Main program routine
 try:
