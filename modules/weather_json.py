@@ -32,19 +32,19 @@ class jsonweather:
         self.loading.place(x=xPos, y=yPos+10*self.yStep, anchor=anc)
 
         #labels for todays weather
-        self.headline = Label(self.window, fg=self.config.get("weather","main_color"), font=self.config.get("weather","main_font"), bg='black')
+        self.headline = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","main_font"), bg='black')
         self.headline.place(x=xPos, y=yPos, anchor=anc)
 
-        self.main_today = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","main_font"), bg='black')
+        self.main_today = Label(self.window, fg=self.config.get("weather","main_color"), font=self.config.get("weather","main_font"), bg='black')
         self.main_today.place(x=xPos, y=yPos+1*self.yStep, anchor=anc)
         self.weather_today = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black', justify=LEFT)
         self.weather_today.place(x=xPos, y=yPos+2*self.yStep, anchor=anc)
 
-        self.icon_today = Label(bg="black")
+        self.icon_today = Label(self.window, bg="black")
         self.icon_today.place(x=xPos+160,y=yPos+25)
 
         #labels for the forecast
-        self.main_forecast = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","main_font"), bg='black')
+        self.main_forecast = Label(self.window, fg=self.config.get("weather","main_color"), font=self.config.get("weather","main_font"), bg='black')
         self.main_forecast.place(x=xPos, y=yPos+7*self.yStep, anchor=anc)
         self.weather_forecast = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black', justify=LEFT)
         self.weather_forecast.place(x=xPos, y=yPos+8*self.yStep, anchor=anc)
