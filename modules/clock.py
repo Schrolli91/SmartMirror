@@ -10,16 +10,27 @@ import logging
 
 class clock:
     def __init__(self, window, config, xPos, yPos, anc="n"):
-        self.window = window
-        self.config = config
+        try:
+            logging.debug("generate " + __name__)
 
-        self.clock = Label(self.window, fg=self.config.get("clock","color"), font=self.config.get("clock","font"), bg='black')
-        self.clock.place(x=xPos, y=yPos, anchor=anc)
+            self.window = window
+            self.config = config
 
-        logging.debug("generated")
+            self.clock = Label(self.window, fg=self.config.get("clock","color"), font=self.config.get("clock","font"), bg='black')
+            self.clock.place(x=xPos, y=yPos, anchor=anc)
+
+        except:
+            logging.exception("cannot generate " + __name__)
+
         self.update() #starts his own update routine
 
+
     def update(self):
-        logging.debug("update widget")
-        self.clock.configure(text=time.strftime(self.config.get("clock","format")))
-        self.clock.after(self.config.getint("clock","update_interval"), self.update)
+        try:
+            logging.debug("update " + __name__)
+
+            self.clock.configure(text=time.strftime(self.config.get("clock","format")))
+            self.clock.after(self.config.getint("clock","update_interval"), self.update)
+
+        except:
+            logging.exception("cannot update " + __name__)
