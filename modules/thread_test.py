@@ -9,6 +9,6 @@ class threadTest(threading.Thread):
         self.waitTime = waitTime
 
     def run(self):
-        for i in range(1,30):
+        for i in range(1,20):
             logging.debug("Name: %s - Counter: %d", self.name, i)
-            time.sleep(self.waitTime /3)
+            time.sleep(self.waitTime /10)

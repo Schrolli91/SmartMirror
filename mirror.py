@@ -86,7 +86,7 @@ try:
 
         meine_threads = []
 
-        for i in range(1,5):
+        for i in range(1,3):
             thread = threadTest("Thread " +str(i), i)
             meine_threads.append(thread)
             thread.start()
