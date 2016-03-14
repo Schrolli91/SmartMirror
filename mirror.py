@@ -83,29 +83,25 @@ try:
 
 
 
-
-        meine_threads = []
-
-        for i in range(1,3):
-            thread = threadTest("Thread " +str(i), i)
-            meine_threads.append(thread)
-            thread.start()
-
+        #for i in range(1,3):
+            #thread = threadTest(i)
+            #thread.start()
 
 
 
         if config.getboolean("Modules","log_view"):
             logfile_viewer = viewer(root,config,10,h,"sw")
 
-
-        if config.getboolean("Modules","clock"):
-            uhr = clock(root, config, w-10, 0, "ne") #build new clock
-
         if config.getboolean("Modules","date"):
             datum = date(root, config, w-20, 60, "ne") #build new date
 
         if config.getboolean("Modules","weather"):
             wetter_json = jsonweather(root,config,10,10,"nw") #build new weather
+
+
+        if config.getboolean("Modules","clock"):
+            uhr = clock(root, config, w-10, 0, "ne") #build new clockB
+            uhr.start() #clock as thread
 
     except:
         logging.exception("cannot generate the modules")
