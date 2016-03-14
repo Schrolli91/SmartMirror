@@ -27,48 +27,47 @@ except ImportError:
 # at ~/.credentials/calendar-python-quickstart.json
 SCOPES = 'https://www.googleapis.com/auth/calendar.readonly'
 CLIENT_SECRET_FILE = 'client_secret.json'
-APPLICATION_NAME = 'Google Calendar API Python Quickstart'
+APPLICATION_NAME = 'MirrorOS'
 
-class calendar_mirror:   
+class calendar_mirror:
     def __init__(self, window, config, xPos, yPos, anc="n"):
-        self.window = window
-        self.config = config
+        try:
+            logging.debug("generate " + __name__)
+            self.window = window
+            self.config = config
 
-        self.yStep = 22
-        
-        #label for the refresh info
-        self.loading = Label(self.window, fg=self.config.get("calendar_mirror","main_color"), font=self.config.get("calendar_miror","font"), bg='black')
-        self.loading.place(x=xPos, y=yPos+10*self.yStep, anchor=anc)
+            self.yStep = 22
 
-        self.headline = Label(self.window, fg=self.config.get("calendar_mirror","color"), font=self.config.get("calendar_mirror","main_font"), bg='black')
-        self.headline.place(x=xPos, y=yPos, anchor=anc)
-        
-        logging.debug("generated")
-        self.update() #starts his own update routine
+            #label for the refresh info
+            self.loading = Label(self.window, fg=self.config.get("calendar_mirror","main_color"), font=self.config.get("calendar_miror","font"), bg='black')
+            self.loading.place(x=xPos, y=yPos+10*self.yStep, anchor=anc)
+
+            self.headline = Label(self.window, fg=self.config.get("calendar_mirror","color"), font=self.config.get("calendar_mirror","main_font"), bg='black')
+            self.headline.place(x=xPos, y=yPos, anchor=anc)
+
+            self.update() #starts his own update routine
+
+        except:
+            logging.exception("cannot generate " + __name__)
+
 
     def update(self):
-        logging.debug("load new calendar data")
-        self.loading.configure(text="Aktualisiere Kalenderdaten ...")
-        self.window.update() #redraw window
-        self.fetch_data() #reload data from web
-        self.loading.configure(text="")
-
         try:
+            logging.debug("update " + __name__)
+
+            self.loading.configure(text="Aktualisiere Kalenderdaten ...")
+            self.window.update() #redraw window
+            self.fetch_data() #reload data from web
+            self.loading.configure(text="")
+
             logging.debug("refresh the widgets")
             #refresh the widgets for events
             self.headline.configure(text=" Einträge im Kalender: "
 
-
+            self.window.after(self.config.getint("calendar_mirror","update_interval"), self.update)
 
         except:
             logging.exception("cannot refresh the data")
-
-        self.window.after(self.config.getint("calendar_mirror","update_interval"), self.update)
-
-
-
-
-
 
 
 
@@ -76,7 +75,7 @@ class calendar_mirror:
         try:
             logging.debug("load entries")
             #get events
-            
+
             """Gets valid user credentials from storage.
 
         If nothing has been stored, or if the stored credentials are invalid,
@@ -119,16 +118,5 @@ class calendar_mirror:
                 start = event['start'].get('dateTime', event['start'].get('date'))
                 print(start, event['summary'])
 
-
-
-
-
-
-
         except:
             logging.exception("cannot fetch data from web")
-
-
-
-
-        
