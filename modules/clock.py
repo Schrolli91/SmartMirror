@@ -19,10 +19,10 @@ class clock:
             self.clock = Label(self.window, fg=self.config.get("clock","color"), font=self.config.get("clock","font"), bg='black')
             self.clock.place(x=xPos, y=yPos, anchor=anc)
 
+            self.update() #starts his own update routine
+
         except:
             logging.exception("cannot generate " + __name__)
-
-        self.update() #starts his own update routine
 
 
     def update(self):

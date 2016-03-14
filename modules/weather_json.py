@@ -18,44 +18,51 @@ import json
 
 class jsonweather:
     def __init__(self, window, config, xPos, yPos, anc="n"):
-        self.window = window
-        self.config = config
+        try:
+            logging.debug("generate " + __name__)
 
-        self.yStep = 22
+            self.window = window
+            self.config = config
 
-        #label for the refresh info
-        self.loading = Label(self.window, fg=self.config.get("weather","main_color"), font=self.config.get("weather","font"), bg='black')
-        self.loading.place(x=xPos, y=yPos+10*self.yStep, anchor=anc)
+            self.yStep = 22
 
-        #labels for todays weather
-        self.headline = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","main_font"), bg='black')
-        self.headline.place(x=xPos, y=yPos, anchor=anc)
+            #label for the refresh info
+            self.loading = Label(self.window, fg=self.config.get("weather","main_color"), font=self.config.get("weather","font"), bg='black')
+            self.loading.place(x=xPos, y=yPos+10*self.yStep, anchor=anc)
 
-        self.main_today = Label(self.window, fg=self.config.get("weather","main_color"), font=self.config.get("weather","main_font"), bg='black')
-        self.main_today.place(x=xPos, y=yPos+1*self.yStep, anchor=anc)
-        self.weather_today = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black', justify=LEFT)
-        self.weather_today.place(x=xPos, y=yPos+2*self.yStep, anchor=anc)
+            #labels for todays weather
+            self.headline = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","main_font"), bg='black')
+            self.headline.place(x=xPos, y=yPos, anchor=anc)
 
-        self.icon_today = Label(self.window, bg="black")
-        self.icon_today.place(x=xPos+160,y=yPos+25)
+            self.main_today = Label(self.window, fg=self.config.get("weather","main_color"), font=self.config.get("weather","main_font"), bg='black')
+            self.main_today.place(x=xPos, y=yPos+1*self.yStep, anchor=anc)
+            self.weather_today = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black', justify=LEFT)
+            self.weather_today.place(x=xPos, y=yPos+2*self.yStep, anchor=anc)
 
-        #labels for the forecast
-        self.main_forecast = Label(self.window, fg=self.config.get("weather","main_color"), font=self.config.get("weather","main_font"), bg='black')
-        self.main_forecast.place(x=xPos, y=yPos+7*self.yStep, anchor=anc)
-        self.weather_forecast = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black', justify=LEFT)
-        self.weather_forecast.place(x=xPos, y=yPos+8*self.yStep, anchor=anc)
+            self.icon_today = Label(self.window, bg="black")
+            self.icon_today.place(x=xPos+160,y=yPos+25)
 
-        logging.debug("generated")
-        self.update()
+            #labels for the forecast
+            self.main_forecast = Label(self.window, fg=self.config.get("weather","main_color"), font=self.config.get("weather","main_font"), bg='black')
+            self.main_forecast.place(x=xPos, y=yPos+7*self.yStep, anchor=anc)
+            self.weather_forecast = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black', justify=LEFT)
+            self.weather_forecast.place(x=xPos, y=yPos+8*self.yStep, anchor=anc)
+
+            self.update()
+
+        except:
+            logging.exception("cannot generate " + __name__)
+
 
     def update(self):
-        logging.debug("load new weather data")
-        self.loading.configure(text="Aktualisiere Wetterdaten ...")
-        self.window.update() #redraw window
-        self.fetch_data() #reload data from web
-        self.loading.configure(text="")
-
         try:
+            logging.debug("update " + __name__)
+
+            self.loading.configure(text="Aktualisiere Wetterdaten ...")
+            self.window.update() #redraw window
+            self.fetch_data() #reload data from web
+            self.loading.configure(text="")
+
             logging.debug("refresh the widgets")
             #refresh the widgets for todays weather
             self.headline.configure(text="Wetterbericht für " + str(self.wetter["name"]) +" ("+ str(self.wetter["sys"]["country"]) +")")
@@ -81,10 +88,12 @@ class jsonweather:
                 "Übermorgen: "+ str(self.forecast["list"][2]["weather"][0]["description"]) +" ("+ str(round(self.forecast["list"][2]["temp"]["day"],1)) +"°C)"
                 )
 
-        except:
-            logging.exception("cannot refresh the data")
+            self.window.after(self.config.getint("weather","update_interval"), self.update)
 
-        self.window.after(self.config.getint("weather","update_interval"), self.update)
+        except:
+            logging.exception("cannot update " + __name__)
+
+
 
     def fetch_data(self):
         try:

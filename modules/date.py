@@ -19,10 +19,10 @@ class date:
             self.date = Label(self.window, fg=self.config.get("date","color"), font=self.config.get("date","font"), bg='black')
             self.date.place(x=xPos, y=yPos, anchor=anc)
 
+            self.update() #starts his own update routine
+
         except:
             logging.exception("cannot generate " + __name__)
-
-        self.update() #starts his own update routine
 
 
     def update(self):
