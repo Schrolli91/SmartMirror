@@ -12,6 +12,9 @@ from tkinter import *
 import configparser
 import logging
 
+import threading
+from modules.thread_test import threadTest
+
 __version__ = "0.2-dev"
 __buildDate___ = "none"
 
@@ -77,6 +80,19 @@ try:
     #try to load the modules into tkinter window
     try:
         logging.debug("generate the modules")
+
+
+
+
+        meine_threads = []
+
+        for i in range(1,5):
+            thread = threadTest("Thread " +str(i), i)
+            meine_threads.append(thread)
+            thread.start()
+
+
+
 
         if config.getboolean("Modules","log_view"):
             logfile_viewer = viewer(root,config,10,h,"sw")
