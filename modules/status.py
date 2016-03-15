@@ -26,7 +26,7 @@ class status(threading.Thread):
             self.yPos = yPos
             self.anc = anc
 
-            self.active_threads = Label(self.window, fg=self.config.get("log_view","color"), font=self.config.get("log_view","font"), bg='black', justify="left")
+            self.active_threads = Label(self.window, fg=self.config.get("status","color"), font=self.config.get("status","font"), bg='black', justify="left")
             self.active_threads.place(x=self.xPos, y=self.yPos, anchor=self.anc)
 
         except:
@@ -47,7 +47,7 @@ class status(threading.Thread):
 
                 self.active_threads.configure(text=self.thread_text)
 
-                time.sleep(self.config.getfloat("log_view","update_interval"))
+                time.sleep(self.config.getfloat("status","update_interval"))
 
             except:
                 logging.exception("cannot read config file %s", __name__)
