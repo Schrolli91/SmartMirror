@@ -8,21 +8,30 @@ Autor: Bastian Schroll
 """
 
 from tkinter import *
-import time
+import threading
 import logging
+import time
 
 #for json download
 import urllib.request
 import json
 
-
-class jsonweather:
+class jsonWeather(threading.Thread):
     def __init__(self, window, config, xPos, yPos, anc="n"):
+        threading.Thread.__init__(self)
+        self.name = __name__
+        self.daemon = True
         try:
-            logging.debug("generate " + __name__)
+            logging.debug("load " + __name__)
 
             self.window = window
             self.config = config
+            self.xPos = xPos
+            self.yPos = yPos
+            self.anc = anc
+
+            ##############
+            # init section
 
             self.yStep = 22
 
@@ -48,50 +57,59 @@ class jsonweather:
             self.weather_forecast = Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black', justify=LEFT)
             self.weather_forecast.place(x=xPos, y=yPos+8*self.yStep, anchor=anc)
 
-            self.update()
+            # init section
+            ##############
 
         except:
-            logging.exception("cannot generate " + __name__)
+            logging.exception("cannot load " + __name__)
 
 
-    def update(self):
-        try:
-            logging.debug("update " + __name__)
+    def run(self):
+        logging.debug("run " + __name__)
+        while 1: #infinite loop from thread - on exit, thread dies
+            try:
+                logging.debug("update %s", __name__)
 
-            self.loading.configure(text="Aktualisiere Wetterdaten ...")
-            self.window.update() #redraw window
-            self.fetch_data() #reload data from web
-            self.loading.configure(text="")
+                ##############
+                # code section
 
-            logging.debug("refresh the widgets")
-            #refresh the widgets for todays weather
-            self.headline.configure(text="Wetterbericht für " + str(self.wetter["name"]) +" ("+ str(self.wetter["sys"]["country"]) +")")
-            self.main_today.configure(text="Heutiges Wetter:")
+                self.loading.configure(text="Aktualisiere Wetterdaten ...")
+                #self.window.update() #redraw window
+                self.fetch_data() #reload data from web
+                self.loading.configure(text="")
 
-            self.weather_today.configure(text=
-                str(self.wetter["weather"][0]["description"]) +"\n"+
-                "Temperatur: "+ str(round(self.wetter["main"]["temp"],1)) +" °C"+"\n"+
-                "Min: "+ str(round(self.forecast["list"][0]["temp"]["min"],1)) +" °C"+
-                "/ Max: "+ str(round(self.forecast["list"][0]["temp"]["max"],1)) +" °C"+"\n"+
-                "Luftdruck: "+ str(round(self.wetter["main"]["pressure"])) +" hPa"+"\n"+
-                "Luftfeuchte: "+ str(self.wetter["main"]["humidity"]) +" %-rel."
-                )
+                logging.debug("refresh the widgets")
+                #refresh the widgets for todays weather
+                self.headline.configure(text="Wetterbericht für " + str(self.wetter["name"]) +" ("+ str(self.wetter["sys"]["country"]) +")")
+                self.main_today.configure(text="Heutiges Wetter:")
 
-            self.icon_today.configure(image=self.photo)
-            self.icon_today.image = self.photo
+                self.weather_today.configure(text=
+                    str(self.wetter["weather"][0]["description"]) +"\n"+
+                    "Temperatur: "+ str(round(self.wetter["main"]["temp"],1)) +" °C"+"\n"+
+                    "Min: "+ str(round(self.forecast["list"][0]["temp"]["min"],1)) +" °C"+
+                    "/ Max: "+ str(round(self.forecast["list"][0]["temp"]["max"],1)) +" °C"+"\n"+
+                    "Luftdruck: "+ str(round(self.wetter["main"]["pressure"])) +" hPa"+"\n"+
+                    "Luftfeuchte: "+ str(self.wetter["main"]["humidity"]) +" %-rel."
+                    )
 
-            #refesh the widgets for weather forecast
-            self.main_forecast.configure(text="Vorhersage:")
+                self.icon_today.configure(image=self.photo)
+                self.icon_today.image = self.photo
 
-            self.weather_forecast.configure(text=
-                "Morgen: "+ str(self.forecast["list"][1]["weather"][0]["description"]) +" ("+ str(round(self.forecast["list"][1]["temp"]["day"],1)) +"°C)\n"+
-                "Übermorgen: "+ str(self.forecast["list"][2]["weather"][0]["description"]) +" ("+ str(round(self.forecast["list"][2]["temp"]["day"],1)) +"°C)"
-                )
+                #refesh the widgets for weather forecast
+                self.main_forecast.configure(text="Vorhersage:")
 
-            self.window.after(self.config.getint("weather","update_interval"), self.update)
+                self.weather_forecast.configure(text=
+                    "Morgen: "+ str(self.forecast["list"][1]["weather"][0]["description"]) +" ("+ str(round(self.forecast["list"][1]["temp"]["day"],1)) +"°C)\n"+
+                    "Übermorgen: "+ str(self.forecast["list"][2]["weather"][0]["description"]) +" ("+ str(round(self.forecast["list"][2]["temp"]["day"],1)) +"°C)"
+                    )
 
-        except:
-            logging.exception("cannot update " + __name__)
+                # code section
+                ##############
+
+            except:
+                logging.exception("cannot update %s", __name__)
+            finally:
+                time.sleep(self.config.getfloat("weather","update_interval"))
 
 
 

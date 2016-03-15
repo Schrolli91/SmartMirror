@@ -38,7 +38,7 @@ try:
         #
         from modules.clock import clock
         from modules.date import date
-        from modules.weather_json import jsonweather
+        from modules.weather_json import jsonWeather
         from modules.log_view import viewer
         from modules.status import status
         #
@@ -81,7 +81,6 @@ try:
         logging.debug("generate the modules")
 
 
-
         #for i in range(1,2):
         #    thread = threadTest(i)
         #    thread.start()
@@ -89,27 +88,24 @@ try:
 
         if config.getboolean("Modules","date"):
             datum = date(root, config, w-20, 60, "ne") #build new date
-            #datum.start()
 
         if config.getboolean("Modules","weather"):
-            wetter_json = jsonweather(root,config,10,10,"nw") #build new weather
+            wetter_json = jsonWeather(root,config,10,10,"nw") #build new weather
 
         if config.getboolean("Modules","clock"):
             uhr = clock(root, config, w-10, 0, "ne") #build new clock
-            #uhr.start() #clock as thread
 
         if config.getboolean("Modules","log_view"):
             logfile_viewer = viewer(root,config,10,h,"sw")
-            #logfile_viewer.start()
 
-        if config.getboolean("Modules","log_view"):
+        if config.getboolean("Modules","status"):
             status_view = status(root,config,800,h,"sw")
-            #status_view.start()
 
         uhr.start()
         datum.start()
         logfile_viewer.start()
         status_view.start()
+        wetter_json.start()
 
     except:
         logging.exception("cannot generate the modules")
