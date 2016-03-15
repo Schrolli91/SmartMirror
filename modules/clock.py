@@ -30,12 +30,13 @@ class clock(threading.Thread):
 
 
     def run(self):
-        try:
-            while 1:
+        logging.debug("run " + __name__)
+        while 1:
+            try:
                 logging.debug("update " + __name__)
 
                 self.clock.configure(text=time.strftime(self.config.get("clock","format")))
-                time.sleep(self.config.getint("clock","update_interval"))
+                time.sleep(self.config.getfloat("clock","update_interval"))
 
-        except:
-            logging.exception("cannot update " + __name__)
+            except:
+                logging.exception("cannot update " + __name__)

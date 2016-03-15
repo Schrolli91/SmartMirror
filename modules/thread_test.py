@@ -1,3 +1,9 @@
+#-*- encoding: utf-8 -*-
+"""
+Simple Threading Modul Test
+Autor: Bastian Schroll
+"""
+
 import threading
 import logging
 import time
@@ -8,8 +14,9 @@ class threadTest(threading.Thread):
         self.daemon = True
         try:
             logging.debug("load " + __name__)
-
             self.daemon = True
+
+            #init self given args
             self.waitTime = waitTime
 
         except:
@@ -17,10 +24,11 @@ class threadTest(threading.Thread):
 
 
     def run(self):
-        try:
-            while 1:
+        logging.debug("run " + __name__)
+        while 1: #infinite loop from thread - on exit, thread dies
+            try:
                 logging.debug("update %s", __name__)
                 time.sleep(self.waitTime*2)
 
-        except:
-            logging.exception("cannot update %s", __name__)
+            except:
+                logging.exception("cannot update %s", __name__)
