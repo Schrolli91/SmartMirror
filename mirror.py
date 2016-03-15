@@ -85,27 +85,27 @@ try:
         #    thread = threadTest(i)
         #    thread.start()
 
+        modules = []
 
         if config.getboolean("Modules","date"):
-            datum = date(root, config, w-20, 60, "ne") #build new date
+            modules.append(date(root, config, w-20, 60, "ne"))
 
         if config.getboolean("Modules","weather"):
-            wetter_json = jsonWeather(root,config,10,10,"nw") #build new weather
+            modules.append(jsonWeather(root,config,10,10,"nw"))
 
         if config.getboolean("Modules","clock"):
-            uhr = clock(root, config, w-10, 0, "ne") #build new clock
+            modules.append(clock(root, config, w-10, 0, "ne"))
 
         if config.getboolean("Modules","log_view"):
-            logfile_viewer = viewer(root,config,10,h,"sw")
+            modules.append(viewer(root,config,10,h,"sw"))
 
         if config.getboolean("Modules","status"):
-            status_view = status(root,config,800,h,"sw")
+            modules.append(status(root,config,800,h,"sw"))
 
-        uhr.start()
-        datum.start()
-        logfile_viewer.start()
-        status_view.start()
-        wetter_json.start()
+
+        for thr in modules:
+            thr.daemon = True
+            thr.start()
 
     except:
         logging.exception("cannot generate the modules")
