@@ -88,25 +88,26 @@ try:
         #    thread.start()
 
 
-
-        if config.getboolean("Modules","log_view"):
-            logfile_viewer = viewer(root,config,10,h,"sw")
-
         if config.getboolean("Modules","date"):
             datum = date(root, config, w-20, 60, "ne") #build new date
 
         if config.getboolean("Modules","weather"):
             wetter_json = jsonweather(root,config,10,10,"nw") #build new weather
 
-
         if config.getboolean("Modules","clock"):
             uhr = clock(root, config, w-10, 0, "ne") #build new clockB
             uhr.start() #clock as threadB
+
+        if config.getboolean("Modules","log_view"):
+            logfile_viewer = viewer(root,config,10,h,"sw")
+            logfile_viewer.start()
+
 
     except:
         logging.exception("cannot generate the modules")
         raise
 
+    logging.debug("tkinter mainloop started")
     root.mainloop()
 except:
     logging.critical("MirrorOS ended by critical Error")
