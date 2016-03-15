@@ -47,7 +47,7 @@ class status(threading.Thread):
 
                 self.active_threads.configure(text=self.thread_text)
 
-                time.sleep(self.config.getfloat("status","update_interval"))
-
             except:
                 logging.exception("cannot read config file %s", __name__)
+            finally:
+                time.sleep(self.config.getfloat("status","update_interval"))

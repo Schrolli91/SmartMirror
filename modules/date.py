@@ -41,7 +41,8 @@ class date(threading.Thread):
                 date = date.replace("Monday","Montag").replace("Tuesday","Dienstag").replace("Wednesday","Mittwoch")
                 date = date.replace("Thursday","Donnerstag").replace("Friday","Freitag").replace("Saturday","Samstag").replace("Sunday","Sonntag")
                 self.date.configure(text=date)
-                time.sleep(self.config.getfloat("date","update_interval"))
 
             except:
                 logging.exception("cannot update " + __name__)
+            finally:
+                time.sleep(self.config.getfloat("date","update_interval"))

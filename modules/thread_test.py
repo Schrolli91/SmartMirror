@@ -4,6 +4,7 @@ Simple Threading Modul Test
 Autor: Bastian Schroll
 """
 
+from tkinter import *
 import threading
 import logging
 import time
@@ -25,8 +26,7 @@ class threadTest(threading.Thread):
             ##############
             # init section
 
-            #init self given args
-            self.waitTime = waitTime
+
 
             # init section
             ##############
@@ -45,10 +45,11 @@ class threadTest(threading.Thread):
                 # code section
 
                 print("Thread Test")
-
-                time.sleep(1)
+        
                 # code section
                 ##############
 
             except:
                 logging.exception("cannot update %s", __name__)
+            finally:
+                time.sleep(1)

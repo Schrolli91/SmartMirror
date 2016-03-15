@@ -48,7 +48,7 @@ class viewer(threading.Thread):
 
                 self.logfile.configure(text=logfile_text)
 
-                time.sleep(self.config.getfloat("log_view","update_interval"))
-
             except:
                 logging.exception("cannot read config file %s", __name__)
+            finally:
+                time.sleep(self.config.getfloat("log_view","update_interval"))

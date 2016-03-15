@@ -37,7 +37,8 @@ class clock(threading.Thread):
                 logging.debug("update " + __name__)
 
                 self.clock.configure(text=time.strftime(self.config.get("clock","format")))
-                time.sleep(self.config.getfloat("clock","update_interval"))
 
             except:
                 logging.exception("cannot update " + __name__)
+            finally:
+                time.sleep(self.config.getfloat("clock","update_interval"))
