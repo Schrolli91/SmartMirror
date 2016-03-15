@@ -11,6 +11,7 @@ import time
 class threadTest(threading.Thread):
     def __init__(self, waitTime):
         threading.Thread.__init__(self)
+        self.name = __name__
         self.daemon = True
         try:
             logging.debug("load " + __name__)
