@@ -42,6 +42,7 @@ try:
         from modules.date import date
         from modules.weather_json import jsonweather
         from modules.log_view import viewer
+        from modules.status import status
         #
         ##### Modules Import ######
     except:
@@ -95,12 +96,16 @@ try:
             wetter_json = jsonweather(root,config,10,10,"nw") #build new weather
 
         if config.getboolean("Modules","clock"):
-            uhr = clock(root, config, w-10, 0, "ne") #build new clockB
-            uhr.start() #clock as threadB
+            uhr = clock(root, config, w-10, 0, "ne") #build new clock
+            uhr.start() #clock as thread
 
         if config.getboolean("Modules","log_view"):
             logfile_viewer = viewer(root,config,10,h,"sw")
             logfile_viewer.start()
+
+        #if config.getboolean("Modules","log_view"):
+        status_view = status(root,config,800,h,"sw")
+        status_view.start()
 
 
     except:
