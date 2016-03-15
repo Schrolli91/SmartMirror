@@ -23,7 +23,7 @@ logging.basicConfig(
     filename="log.txt",
     filemode="w",
     level=logging.DEBUG,
-    format="%(asctime)s - %(module)-15s %(funcName)-12s [%(levelname)-8s] %(message)s",
+    format="%(asctime)s - %(module)-15s %(funcName)-12s %(threadName)-10s [%(levelname)-8s] %(message)s",
     datefmt = "%d.%m.%Y %H:%M:%S"
     )
 
@@ -83,9 +83,9 @@ try:
 
 
 
-        #for i in range(1,3):
-            #thread = threadTest(i)
-            #thread.start()
+        #for i in range(1,2):
+        #    thread = threadTest(i)
+        #    thread.start()
 
 
 
@@ -101,7 +101,7 @@ try:
 
         if config.getboolean("Modules","clock"):
             uhr = clock(root, config, w-10, 0, "ne") #build new clockB
-            uhr.start() #clock as thread
+            uhr.start() #clock as threadB
 
     except:
         logging.exception("cannot generate the modules")

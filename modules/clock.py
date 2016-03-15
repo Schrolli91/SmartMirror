@@ -14,7 +14,7 @@ class clock(threading.Thread):
         threading.Thread.__init__(self)
         self.daemon = True
         try:
-            logging.debug("generate " + __name__)
+            logging.debug("load " + __name__)
 
             self.window = window
             self.config = config
@@ -22,28 +22,20 @@ class clock(threading.Thread):
             self.yPos = yPos
             self.anc = anc
 
-        except:
-            logging.exception("cannot generate " + __name__)
-
-    def run(self):
-        try:
-            logging.debug("start thread " + self.name)
             self.clock = Label(self.window, fg=self.config.get("clock","color"), font=self.config.get("clock","font"), bg='black')
             self.clock.place(x=self.xPos, y=self.yPos, anchor=self.anc)
 
-            self.update()
         except:
-            logging.exception("cannot run " + __name__)
+            logging.exception("cannot load " + __name__)
 
 
-    def update(self):
+    def run(self):
         try:
-            logging.debug("update " + __name__)
+            while 1:
+                logging.debug("update " + __name__)
 
-            self.clock.configure(text=time.strftime(self.config.get("clock","format")))
-
-            self.t = threading.Timer(self.config.getint("clock","update_interval"),self.update)
-            self.t.start()
+                self.clock.configure(text=time.strftime(self.config.get("clock","format")))
+                time.sleep(self.config.getint("clock","update_interval"))
 
         except:
             logging.exception("cannot update " + __name__)
