@@ -1,15 +1,15 @@
 #-*- encoding: utf-8 -*-
 """
-Clock module for MirrorOS
+Simple Threading Modul Test
 Autor: Bastian Schroll
 """
 
 from tkinter import *
-import time
-import logging
 import threading
+import logging
+import time
 
-class clock(threading.Thread):
+class threadTest(threading.Thread):
     def __init__(self, window, config, xPos, yPos, anc="n"):
         threading.Thread.__init__(self)
         self.name = __name__
@@ -23,8 +23,13 @@ class clock(threading.Thread):
             self.yPos = yPos
             self.anc = anc
 
-            self.clock = Label(self.window, fg=self.config.get("clock","color"), font=self.config.get("clock","font"), bg='black')
-            self.clock.place(x=self.xPos, y=self.yPos, anchor=self.anc)
+            ##############
+            # init section
+
+
+
+            # init section
+            ##############
 
         except:
             logging.exception("cannot load " + __name__)
@@ -32,13 +37,19 @@ class clock(threading.Thread):
 
     def run(self):
         logging.debug("run " + __name__)
-        while 1:
+        while 1: #infinite loop from thread - on exit, thread dies
             try:
-                logging.debug("update " + __name__)
+                logging.debug("update %s", __name__)
 
-                self.clock.configure(text=time.strftime(self.config.get("clock","format")))
+                ##############
+                # code section
+
+                print("Thread Test")
+        
+                # code section
+                ##############
 
             except:
-                logging.exception("cannot update " + __name__)
+                logging.exception("cannot update %s", __name__)
             finally:
-                time.sleep(self.config.getfloat("clock","update_interval"))
+                time.sleep(1)

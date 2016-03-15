@@ -1,6 +1,6 @@
 #-*- encoding: utf-8 -*-
 """
-simple inMirror Logfile viewer for MirrorOS
+Thread Status Display for MirrorOS
 Autor: Bastian Schroll
 """
 
@@ -10,7 +10,7 @@ import time
 
 from tkinter import *
 
-class viewer(threading.Thread):
+class status(threading.Thread):
     def __init__(self, window, config, xPos, yPos, anc="n"):
         threading.Thread.__init__(self)
         self.name = __name__
@@ -26,8 +26,8 @@ class viewer(threading.Thread):
             self.yPos = yPos
             self.anc = anc
 
-            self.logfile = Label(self.window, fg=self.config.get("log_view","color"), font=self.config.get("log_view","font"), bg='black', justify="left")
-            self.logfile.place(x=self.xPos, y=self.yPos, anchor=self.anc)
+            self.active_threads = Label(self.window, fg=self.config.get("status","color"), font=self.config.get("status","font"), bg='black', justify="left")
+            self.active_threads.place(x=self.xPos, y=self.yPos, anchor=self.anc)
 
         except:
             logging.exception("cannot load " + __name__)
@@ -37,18 +37,17 @@ class viewer(threading.Thread):
         logging.debug("run " + __name__)
         while 1: #infinite loop from thread - on exit, thread dies
             try:
-                fileHandle = open ( 'log.txt',"r" )
-                lineList = fileHandle.readlines()
-                fileHandle.close()
+                self.thread_text = ""
+                self.thread_text += "Active Threads running: " + str(threading.active_count()) + "\n"
 
-                logfile_text = ""
+                for t in threading.enumerate():
+                	if t is "main_thread":
+                		continue
+                	self.thread_text += " - " + t.getName() + "\n"
 
-                for line in range(1,10):
-                    logfile_text += lineList[len(lineList)-line]
-
-                self.logfile.configure(text=logfile_text)
+                self.active_threads.configure(text=self.thread_text)
 
             except:
                 logging.exception("cannot read config file %s", __name__)
             finally:
-                time.sleep(self.config.getfloat("log_view","update_interval"))
+                time.sleep(self.config.getfloat("status","update_interval"))

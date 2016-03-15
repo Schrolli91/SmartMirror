@@ -1,16 +1,17 @@
 #-*- encoding: utf-8 -*-
-#########
-#
-# MirrorOS
-# simple OS for smart Mirrors
-#
-# 2016 by Bastian Schroll and Matthias Kittler
-#
-############
+"""
+MirrorOS
+simple OS for smart Mirrors
+
+2016 by Bastian Schroll and Matthias Kittler
+"""
 
 from tkinter import *
 import configparser
 import logging
+
+import threading
+from modules.thread_test import threadTest
 
 __version__ = "0.2-dev"
 __buildDate___ = "none"
@@ -37,8 +38,9 @@ try:
         #
         from modules.clock import clock
         from modules.date import date
-        from modules.weather_json import jsonweather
+        from modules.weather_json import jsonWeather
         from modules.log_view import viewer
+        from modules.status import status
         #
         ##### Modules Import ######
     except:
@@ -78,23 +80,38 @@ try:
     try:
         logging.debug("generate the modules")
 
-        if config.getboolean("Modules","log_view"):
-            logfile_viewer = viewer(root,config,10,h,"sw")
 
+        #for i in range(1,2):
+        #    thread = threadTest(i)
+        #    thread.start()
 
-        if config.getboolean("Modules","clock"):
-            uhr = clock(root, config, w-10, 0, "ne") #build new clock
+        modules = []
 
         if config.getboolean("Modules","date"):
-            datum = date(root, config, w-20, 60, "ne") #build new date
+            modules.append(date(root, config, w-20, 60, "ne"))
 
         if config.getboolean("Modules","weather"):
-            wetter_json = jsonweather(root,config,10,10,"nw") #build new weather
+            modules.append(jsonWeather(root,config,10,10,"nw"))
+
+        if config.getboolean("Modules","clock"):
+            modules.append(clock(root, config, w-10, 0, "ne"))
+
+        if config.getboolean("Modules","log_view"):
+            modules.append(viewer(root,config,10,h,"sw"))
+
+        if config.getboolean("Modules","status"):
+            modules.append(status(root,config,800,h,"sw"))
+
+
+        for thr in modules:
+            thr.daemon = True
+            thr.start()
 
     except:
         logging.exception("cannot generate the modules")
         raise
 
+    logging.debug("tkinter mainloop started")
     root.mainloop()
 except:
     logging.critical("MirrorOS ended by critical Error")
