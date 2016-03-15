@@ -23,7 +23,7 @@ logging.basicConfig(
     filename="log.txt",
     filemode="w",
     level=logging.DEBUG,
-    format="%(asctime)s - %(module)-15s %(funcName)-12s %(threadName)-10s [%(levelname)-8s] %(message)s",
+    format="%(asctime)s - %(module)-15s %(funcName)-12s [%(levelname)-8s] %(message)s",
     datefmt = "%d.%m.%Y %H:%M:%S"
     )
 
@@ -91,22 +91,27 @@ try:
 
         if config.getboolean("Modules","date"):
             datum = date(root, config, w-20, 60, "ne") #build new date
+            #datum.start()
 
         if config.getboolean("Modules","weather"):
             wetter_json = jsonweather(root,config,10,10,"nw") #build new weather
 
         if config.getboolean("Modules","clock"):
             uhr = clock(root, config, w-10, 0, "ne") #build new clock
-            uhr.start() #clock as thread
+            #uhr.start() #clock as thread
 
         if config.getboolean("Modules","log_view"):
             logfile_viewer = viewer(root,config,10,h,"sw")
-            logfile_viewer.start()
+            #logfile_viewer.start()
 
-        #if config.getboolean("Modules","log_view"):
-        status_view = status(root,config,800,h,"sw")
+        if config.getboolean("Modules","log_view"):
+            status_view = status(root,config,800,h,"sw")
+            #status_view.start()
+
+        uhr.start()
+        datum.start()
+        logfile_viewer.start()
         status_view.start()
-
 
     except:
         logging.exception("cannot generate the modules")
