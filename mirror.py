@@ -1,12 +1,10 @@
 #-*- encoding: utf-8 -*-
-#########
-#
-# MirrorOS
-# simple OS for smart Mirrors
-#
-# 2016 by Bastian Schroll and Matthias Kittler
-#
-############
+"""
+MirrorOS
+simple OS for smart Mirrors
+
+2016 by Bastian Schroll and Matthias Kittler
+"""
 
 from tkinter import *
 import configparser
