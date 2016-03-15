@@ -100,7 +100,7 @@ try:
             modules.append(viewer(root,config,10,h,"sw"))
 
         if config.getboolean("Modules","status"):
-            modules.append(status(root,config,800,h,"sw"))
+            modules.append(status(root,config,0,h/2,"w"))
 
 
         for thr in modules:

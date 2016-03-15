@@ -38,7 +38,7 @@ class status(threading.Thread):
         while 1: #infinite loop from thread - on exit, thread dies
             try:
                 self.thread_text = ""
-                self.thread_text += "Active Threads running: " + str(threading.active_count()) + "\n"
+                self.thread_text += "Threads running: " + str(threading.active_count()) + "\n"
 
                 for t in threading.enumerate():
                 	if t is "main_thread":

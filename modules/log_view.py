@@ -43,8 +43,8 @@ class viewer(threading.Thread):
 
                 logfile_text = ""
 
-                for line in range(1,10):
-                    logfile_text += lineList[len(lineList)-line]
+                for line in range(10,0,-1):
+                    logfile_text += str(len(lineList)-line) +"| "+ lineList[len(lineList)-line]
 
                 self.logfile.configure(text=logfile_text)
 
