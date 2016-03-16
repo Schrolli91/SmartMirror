@@ -25,9 +25,9 @@ class welcome(threading.Thread):
 
             ##############
             # init section
+
             self.welcome  = Label(self.window, fg=self.config.get("welcome","color"), font=self.config.get("welcome","font"), bg='black')
             self.welcome.place(x=self.xPos, y=self.yPos, anchor=self.anc)
-
 
             # init section
             ##############
@@ -45,6 +45,7 @@ class welcome(threading.Thread):
                 ##############
                 # code section
                 self.dayTime = time.strftime
+                print(self.dayTime)
 
                 if self.dayTime >= 3*3600 and self.time <= 9*3600+29*60:
                     self.welcome_text = " Guten Morgen "
@@ -56,10 +57,10 @@ class welcome(threading.Thread):
                     self.welcome1 = " Servus "
                 self.welcome.configure(text=self.welcome_text)
 
-                # code section≈
+                # code section
                 ##############
 
             except:
                 logging.exception("cannot update %s", __name__)
             finally:
-                time.sleep(self.config.getfloat("welcome","update_intervall"))
+                time.sleep(self.config.getfloat("welcome","update_interval"))
