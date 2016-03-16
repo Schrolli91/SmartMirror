@@ -18,7 +18,7 @@ Follgende Module sind derzeit in MirrorOS implementiert oder geplant:
 |Wetter|Zeigt das Aktuelle Wetter + 2 Tages  Vorhersage an|:white_check_mark:|
 |Kalender|Zeigt die nächsten Termine aus dem Google Calendar|:x:|
 |Focus News|Liest den RSS Feed der Focus Eilmeldungen|:white_check_mark:|
-|Begrüßung|Uhrzeitabhängige Begrüßungen|:x:|
+|Begrüßung|Uhrzeitabhängige Begrüßungen|:white_check_mark:|
 
 #### Debug und Entwickler Module
 |Modul|Beschreibung|Fertig|
