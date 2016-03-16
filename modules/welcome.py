@@ -47,13 +47,12 @@ class welcome(threading.Thread):
                 ##############
                 # code section
                 self.dayTime = time.strftime("%H:%M")
-               
 
                 if self.dayTime >= "03:00" and self.dayTime <= "09:29":
                     self.welcome_text = " Guten Morgen "
                 elif self.dayTime >= "09:30" and self.dayTime <= "15:59":
                     self.welcome_text = " Hallo "
-                elif self.dayTime >= "16:00" and self.dayTime <= "02:59":
+                elif self.dayTime >= "16:00" and self.dayTime >= "02:59":
                     self.welcome_text = " Guten Abend "
                 else:
                     self.welcome_text = " Servus "
