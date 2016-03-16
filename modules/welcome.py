@@ -4,10 +4,12 @@ welcome module for MirrorOS
 Autor: Matthias Kittler
 """
 
+from datetime import datetime, time
 from tkinter import *
 import threading
 import logging
 import time
+
 
 class welcome(threading.Thread):
     def __init__(self, window, config, xPos, yPos, anc="n"):
@@ -44,17 +46,18 @@ class welcome(threading.Thread):
 
                 ##############
                 # code section
-                self.dayTime = time.strftime
-                print(self.dayTime)
+                self.dayTime = time.strftime("%H:%M")
+               
 
-                if self.dayTime >= 3*3600 and self.time <= 9*3600+29*60:
+                if self.dayTime >= "03:00" and self.dayTime <= "09:29":
                     self.welcome_text = " Guten Morgen "
-                elif self.dayTime >= 9*3600+30*60 and self.time <= 15*3600+59*60:
+                elif self.dayTime >= "09:30" and self.dayTime <= "15:59":
                     self.welcome_text = " Hallo "
-                elif self.dayTime >= 16*3600 and self.time <= 2*3600+59*60:
+                elif self.dayTime >= "16:00" and self.dayTime <= "02:59":
                     self.welcome_text = " Guten Abend "
                 else:
-                    self.welcome1 = " Servus "
+                    self.welcome_text = " Servus "
+
                 self.welcome.configure(text=self.welcome_text)
 
                 # code section
