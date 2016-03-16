@@ -9,9 +9,13 @@ import time
 import logging
 import threading
 
-class clock(threading.Thread):
+from inc.modul import modul
+
+
+class clock(threading.Thread, modul):
     def __init__(self, window, config, xPos, yPos, anc="nw"):
         threading.Thread.__init__(self)
+        modul.__init__(self)
         self.name = __name__
         self.daemon = True
         try:
@@ -23,8 +27,8 @@ class clock(threading.Thread):
             self.yPos = yPos
             self.anc = anc
 
-            self.clock = Label(self.window, fg=self.config.get("clock","color"), font=self.config.get("clock","font"), bg='black')
-            self.clock.place(x=self.xPos, y=self.yPos, anchor=self.anc)
+            self.addWidget("clock", Label(self.window, text="test", fg=self.config.get("clock","color"), font=self.config.get("clock","font"), bg='black'))
+            self.posWidget("clock", self.xPos, self.yPos, self.anc)
 
         except:
             logging.exception("cannot load %s", __name__)
@@ -36,7 +40,13 @@ class clock(threading.Thread):
             try:
                 logging.debug("update %s", __name__)
 
-                self.clock.configure(text=time.strftime(self.config.get("clock","format")))
+                self.getWidget("clock").configure(text=time.strftime(self.config.get("clock","format")))
+
+                #simple test for hide and show mechanism
+                time.sleep(3)
+                self.hideWidget("clock")
+                time.sleep(3)
+                self.showWidget("clock")
 
             except:
                 logging.exception("cannot update %s", __name__)
