@@ -42,6 +42,7 @@ try:
         from modules.log_view import viewer
         from modules.status import status
         from modules.news import news_focus
+        from modules.welcome import welcome
         #
         ##### Modules Import ######
     except:
@@ -105,6 +106,9 @@ try:
 
         if config.getboolean("Modules","news"):
             modules.append(news_focus(root,config,w/2,h/2,"center"))
+
+        if config.getboolean("Modules","welcome"):
+            modules.append(welcome(root,config,w/2,150,"center"))
 
         for thr in modules:
             thr.daemon = True

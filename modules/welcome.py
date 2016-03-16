@@ -44,17 +44,17 @@ class welcome(threading.Thread):
 
                 ##############
                 # code section
-                self.time = time.strftime()
-                self.welcome1
-                if self.time >= 3*3600 and self.time <= 9*3600+29*60:
-                    self.welcome1 = " Guten Morgen "
-                elif self.time >= 9*3600+30*60 and self.time <= 15*3600+59*60:
-                    self.welcome1 = " Hallo "
-                elif self.time >= 16*3600 and self.time <= 2*3600+59*60:
-                    self.welcome1 = " Guten Abend "
+                self.dayTime = time.strftime
+
+                if self.dayTime >= 3*3600 and self.time <= 9*3600+29*60:
+                    self.welcome_text = " Guten Morgen "
+                elif self.dayTime >= 9*3600+30*60 and self.time <= 15*3600+59*60:
+                    self.welcome_text = " Hallo "
+                elif self.dayTime >= 16*3600 and self.time <= 2*3600+59*60:
+                    self.welcome_text = " Guten Abend "
                 else:
                     self.welcome1 = " Servus "
-                self.welcome.configure(text=self.welcome1(self.config.get("welcome", "format")))
+                self.welcome.configure(text=self.welcome_text)
 
                 # code section≈
                 ##############
