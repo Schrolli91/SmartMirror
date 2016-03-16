@@ -41,6 +41,7 @@ try:
         from modules.weather_json import jsonWeather
         from modules.log_view import viewer
         from modules.status import status
+        from modules.news import news_focus
         #
         ##### Modules Import ######
     except:
@@ -102,6 +103,7 @@ try:
         if config.getboolean("Modules","status"):
             modules.append(status(root,config,0,h/2,"w"))
 
+        modules.append(news_focus(root,config,w/2,h/2,"center"))
 
         for thr in modules:
             thr.daemon = True
