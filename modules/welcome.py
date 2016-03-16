@@ -4,7 +4,7 @@ welcome module for MirrorOS
 Autor: Matthias Kittler
 """
 
-from datetime import datetime, time
+
 from tkinter import *
 import threading
 import logging
