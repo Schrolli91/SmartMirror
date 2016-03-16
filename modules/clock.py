@@ -10,7 +10,7 @@ import logging
 import threading
 
 class clock(threading.Thread):
-    def __init__(self, window, config, xPos, yPos, anc="n"):
+    def __init__(self, window, config, xPos, yPos, anc="nw"):
         threading.Thread.__init__(self)
         self.name = __name__
         self.daemon = True
