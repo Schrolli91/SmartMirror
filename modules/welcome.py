@@ -40,18 +40,26 @@ class welcome(threading.Thread):
         logging.debug("run " + __name__)
         while 1: #infinite loop from thread - on exit, thread dies
             try:
-                logging.debug("update %s", __name__)
+                logging.debug("update " + __name__)
 
                 ##############
                 # code section
-
-                print("Thread Test")
-        
+                self.time = time.strftime()
+                self.welcome1
+                if self.time >= 03:00 and self.time <= 09.29:
+                    self.welcome1 = " Guten Morgen "
+                elif self.time >= 09:30 and self.time <= 15:59:
+                    self.welcome1 = " Hallo "
+                elif self.time >= 16:00 and self.time <= 02:59:
+                    self.welcome1 = " Guten Abend "
+                else self.welcome1 = " Servus "
+                self.welcome.configure(text=self.welcome1(self.config.get("welcome", "format")))
+                
                 # code section
                 ##############
 
             except:
-                logging.exception("cannot update %s", __name__)
+                logging.exception("cannot update " + __name__)
             finally:
-                time.sleep(1)
+                time.sleep(self.config.getfloat("welcome","update_intervall"))
 
