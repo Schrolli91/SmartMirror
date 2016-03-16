@@ -15,7 +15,7 @@ class clock(threading.Thread):
         self.name = __name__
         self.daemon = True
         try:
-            logging.debug("load " + __name__)
+            logging.debug("load %s", __name__)
 
             self.window = window
             self.config = config
@@ -27,18 +27,18 @@ class clock(threading.Thread):
             self.clock.place(x=self.xPos, y=self.yPos, anchor=self.anc)
 
         except:
-            logging.exception("cannot load " + __name__)
+            logging.exception("cannot load %s", __name__)
 
 
     def run(self):
-        logging.debug("run " + __name__)
+        logging.debug("run %s", __name__)
         while 1:
             try:
-                logging.debug("update " + __name__)
+                logging.debug("update %s", __name__)
 
                 self.clock.configure(text=time.strftime(self.config.get("clock","format")))
 
             except:
-                logging.exception("cannot update " + __name__)
+                logging.exception("cannot update %s", __name__)
             finally:
                 time.sleep(self.config.getfloat("clock","update_interval"))

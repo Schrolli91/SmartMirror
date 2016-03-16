@@ -15,7 +15,7 @@ class welcome(threading.Thread):
         self.name = __name__
         self.daemon = True
         try:
-            logging.debug("load " + __name__)
+            logging.debug("load %s", __name__)
 
             self.window = window
             self.config = config
@@ -33,14 +33,14 @@ class welcome(threading.Thread):
             ##############
 
         except:
-            logging.exception("cannot load " + __name__)
+            logging.exception("cannot load %s", __name__)
 
 
     def run(self):
-        logging.debug("run " + __name__)
+        logging.debug("run %s", __name__)
         while 1: #infinite loop from thread - on exit, thread dies
             try:
-                logging.debug("update " + __name__)
+                logging.debug("update %s", __name__)
 
                 ##############
                 # code section
@@ -55,12 +55,11 @@ class welcome(threading.Thread):
                 else:
                     self.welcome1 = " Servus "
                 self.welcome.configure(text=self.welcome1(self.config.get("welcome", "format")))
-                
+
                 # code section≈
                 ##############
 
             except:
-                logging.exception("cannot update " + __name__)
+                logging.exception("cannot update %s", __name__)
             finally:
                 time.sleep(self.config.getfloat("welcome","update_intervall"))
-

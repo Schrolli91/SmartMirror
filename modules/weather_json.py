@@ -3,7 +3,7 @@
 Weather Modul for MirrorOS
 based on the OpenWeatherMap API
 fetch the weather data per json
-and downloads the condition image
+and show the condition image
 Autor: Bastian Schroll
 """
 
@@ -22,7 +22,7 @@ class jsonWeather(threading.Thread):
         self.name = __name__
         self.daemon = True
         try:
-            logging.debug("load " + __name__)
+            logging.debug("load %s", __name__)
 
             self.window = window
             self.config = config
@@ -61,11 +61,11 @@ class jsonWeather(threading.Thread):
             ##############
 
         except:
-            logging.exception("cannot load " + __name__)
+            logging.exception("cannot load %s", __name__)
 
 
     def run(self):
-        logging.debug("run " + __name__)
+        logging.debug("run %s", __name__)
         while 1: #infinite loop from thread - on exit, thread dies
             try:
                 logging.debug("update %s", __name__)

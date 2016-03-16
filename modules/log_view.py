@@ -16,7 +16,7 @@ class viewer(threading.Thread):
         self.name = __name__
         self.daemon = True
         try:
-            logging.debug("load " + __name__)
+            logging.debug("load %s", __name__)
             self.daemon = True
 
             #init self given args
@@ -30,11 +30,11 @@ class viewer(threading.Thread):
             self.logfile.place(x=self.xPos, y=self.yPos, anchor=self.anc)
 
         except:
-            logging.exception("cannot load " + __name__)
+            logging.exception("cannot load %s", __name__)
 
 
     def run(self):
-        logging.debug("run " + __name__)
+        logging.debug("run %s", __name__)
         while 1: #infinite loop from thread - on exit, thread dies
             try:
                 fileHandle = open ( 'log.txt',"r" )
