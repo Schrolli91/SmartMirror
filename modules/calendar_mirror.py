@@ -92,10 +92,17 @@ class calendar_mirror(threading.Thread):
                 for event in events:
                     start = event['start'].get('dateTime', event['start'].get('date'))
                     print(start, event['summary'])
+                self.calendar_text1 = ""
+                if not events:
+                    self.calendar_text1 = " Keine Einträge gefunden "
+                for event in events:
+                    start = event['start'].get('dateTime', event['start'].get('date'))
+                    self.calendar_text1 = (start, event['summary']) + "\n"
 
                 self.loading.configure(text="Aktualisiere Kalenderdaten ...")
                 self.loading.configure(text="")
                 self.headline.configure(text=" Einträge im Kalender: ")
+                self.calendar_text.configure(text=self.calendar_text1)
                 # code section
                 ##############
 
