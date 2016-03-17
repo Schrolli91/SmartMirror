@@ -39,14 +39,14 @@ class modul(widget, threading.Thread):
         """for own code you must override with an cild method"""
         pass
 
-    def setStatus(self, name, status):
-        """set the Status for an modul"""
-        logging.debug("Status: %s [%s]", name, status)
-        self.__modules[name] = status
+    def setStatus(self, status):
+        """set the Status"""
+        logging.debug("Status: %s [%s]", self.name, status)
+        self.__modules[self.name] = status
 
-    def getStatus(self, name):
-        """get the Status for an modul"""
-        return self.__modules[name]
+    def getStatus(self):
+        """get the Status"""
+        return self.__modules[self.name]
 
     #static method to return all modules and status
     def getAllModules():

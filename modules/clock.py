@@ -35,7 +35,7 @@ class clock(modul):
 
 
         #simple test for hide and show mechanism
-        self.setStatus(__name__, "R")
+        self.setStatus("R")
         self.getWidget("clock").configure(text=time.strftime(self.config.get("clock","format")))
         time.sleep(3)
         self.hideWidget("clock")
@@ -44,7 +44,7 @@ class clock(modul):
         self.showWidget("clock")
         time.sleep(3)
         self.delWidget("clock")
-        self.setStatus(__name__, "S")
+        self.setStatus("S")
 
 
         while 0:
