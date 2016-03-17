@@ -43,6 +43,7 @@ try:
         from modules.status import status
         from modules.news import news_focus
         from modules.welcome import welcome
+        from modules.calendar_mirror import calendar_mirror
         #
         ##### Modules Import ######
     except:
@@ -111,7 +112,7 @@ try:
             modules.append(welcome(root,config,w/2,150,"center"))
 
         if config.getboolean("Modules","calendar_mirror"):
-            modules.append(welcome(root,config,w/2,250,"center"))
+            modules.append(calendar_mirror(root,config,w/2,250,"center"))
 
         for thr in modules:
             thr.daemon = True
