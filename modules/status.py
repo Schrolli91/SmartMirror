@@ -48,6 +48,8 @@ class status(threading.Thread):
                 	self.thread_text += " - " + t.getName() + "\n"
 
                 self.thread_text += "\n"
+                self.thread_text += "Activ Moduls: "+ str(len(modul.getAllModules())) +"\n"
+
                 for key, value in modul.getAllModules().items():
                     self.thread_text += "["+value+"] "+ key + "\n"
 

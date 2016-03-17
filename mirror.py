@@ -116,9 +116,6 @@ try:
             thr.daemon = True
             thr.start()
 
-        for key, value in modul.getAllModules().items():
-            print("["+value+"] "+ key)
-
 
     except:
         logging.exception("cannot generate the modules")
