@@ -49,8 +49,8 @@ class calendar_mirror(threading.Thread):
 
             ##############
             # init section
-            
-            self.loading = Label(self.window, fg=self.config.get("calendar_mirror","main_color"), font=self.config.get("calendar_miror","font"), bg='black')
+
+            self.loading = Label(self.window, fg=self.config.get("calendar_mirror","main_color"), font=self.config.get("calendar_mirror","font"), bg='black')
             self.loading.place(x=self.xPos, y=self.yPos+2*self.yStep, anchor=self.anc)
 
             self.headline = Label(self.window, fg=self.config.get("calendar_mirror","color"), font=self.config.get("calendar_mirror","main_font"), bg='black')
