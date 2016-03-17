@@ -23,7 +23,7 @@ logging.basicConfig(
     filename="log.txt",
     filemode="w",
     level=logging.DEBUG,
-    format="%(asctime)s - %(module)-15s %(funcName)-12s [%(levelname)-8s] %(message)s",
+    format="%(asctime)s - %(threadName)-18s %(module)-15s %(funcName)-12s [%(levelname)-8s] %(message)s",
     datefmt = "%d.%m.%Y %H:%M:%S"
     )
 
@@ -116,7 +116,6 @@ try:
             thr.daemon = True
             thr.start()
 
-        print(modul.getAllModules())
         for key, value in modul.getAllModules().items():
             print("["+value+"] "+ key)
 

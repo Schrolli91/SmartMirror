@@ -35,7 +35,6 @@ class widget():
         self.__widgets[name].place(x=xPos, y=yPos, anchor=anc)
         self.__widgets[name].pi = self.__widgets[name].place_info()
 
-
     def getWidget(self, name):
         """return the widget object"""
         return self.__widgets[name]

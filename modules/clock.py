@@ -21,12 +21,10 @@ class clock(modul):
 
             self.window = window
             self.config = config
-            self.xPos = xPos
-            self.yPos = yPos
-            self.anc = anc
+
 
             self.addWidget("clock", Label(self.window, fg=self.config.get("clock","color"), font=self.config.get("clock","font"), bg='black'))
-            self.posWidget("clock", self.xPos, self.yPos, self.anc)
+            self.posWidget("clock", xPos, yPos, anc)
 
         except:
             logging.exception("cannot load %s", __name__)
@@ -34,24 +32,26 @@ class clock(modul):
 
     def run(self):
         logging.debug("run %s", __name__)
-        while 1:
+
+
+        #simple test for hide and show mechanism
+        self.setStatus(__name__, "R")
+        self.getWidget("clock").configure(text=time.strftime(self.config.get("clock","format")))
+        time.sleep(3)
+        self.hideWidget("clock")
+        time.sleep(3)
+        self.posWidget("clock", 500,500,"n")
+        self.showWidget("clock")
+        time.sleep(3)
+        self.delWidget("clock")
+        self.setStatus(__name__, "S")
+
+
+        while 0:
             try:
                 logging.debug("update %s", __name__)
 
-                self.setStatus(__name__, "R")
-
                 self.getWidget("clock").configure(text=time.strftime(self.config.get("clock","format")))
-
-                #simple test for hide and show mechanism
-                time.sleep(3)
-                self.hideWidget("clock")
-                time.sleep(3)
-                self.posWidget("clock", 500,500,"n")
-                self.showWidget("clock")
-                time.sleep(3)
-                self.delWidget("clock")
-
-                self.setStatus(__name__, "S")
 
             except:
                 logging.exception("cannot update %s", __name__)

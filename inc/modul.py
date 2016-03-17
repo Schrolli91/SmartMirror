@@ -22,19 +22,23 @@ class modul(widget, threading.Thread):
         self.name = childName
         self.daemon = True
 
+        logging.debug("load new modul: %s", self.name)
+
         self.__modules[self.name] = "?"
 
     def __del__(self):
+        logging.debug("kill modul: %s", self.name)
         del self.__modules[self.name]
 
     def setStatus(self, name, status):
         """set the Status for an modul"""
-        logging.debug("Status: %s %s", name, status)
+        logging.debug("Status: %s [%s]", name, status)
         self.__modules[name] = status
 
     def getStatus(self, name):
         """get the Status for an modul"""
         return self.__modules[name]
 
+    #static method to return all modules and status
     def getAllModules():
         return modul.__modules
