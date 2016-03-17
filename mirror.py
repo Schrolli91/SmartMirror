@@ -112,7 +112,7 @@ try:
             modules.append(welcome(root,config,w/2,150,"center"))
 
         if config.getboolean("Modules","calendar_mirror"):
-            modules.append(calendar_mirror(root,config,w/2,250,"center"))
+            modules.append(calendar_mirror(root,config,w,250,"ne"))
 
         for thr in modules:
             thr.daemon = True

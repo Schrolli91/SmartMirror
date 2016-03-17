@@ -45,19 +45,18 @@ class calendar_mirror(threading.Thread):
             self.xPos = xPos
             self.yPos = yPos
             self.anc = anc
-            self.yStep = 22
 
             ##############
             # init section
 
             self.loading = Label(self.window, fg=self.config.get("calendar_mirror","main_color"), font=self.config.get("calendar_mirror","font"), bg='black')
-            self.loading.place(x=self.xPos, y=self.yPos+2*self.yStep, anchor=self.anc)
+            self.loading.place(x=self.xPos, y=self.yPos-100, anchor=self.anc)
 
             self.headline = Label(self.window, fg=self.config.get("calendar_mirror","color"), font=self.config.get("calendar_mirror","main_font"), bg='black')
-            self.headline.place(x=self.xPos, y=self.yPos, anchor=self.anc)
+            self.headline.place(x=self.xPos, y=self.yPos-50, anchor=self.anc)
 
             self.calendar_text = Label(self.window, fg=self.config.get("calendar_mirror","color"), font=self.config.get("calendar_mirror", "font"), bg='black')
-            self.calendar_text.place(x=self.xPos, y=self.yPos+4*self.yStep, anchor=self.anc)
+            self.calendar_text.place(x=self.xPos, y=self.yPos, anchor=self.anc)
             # init section
             ##############
 
@@ -120,7 +119,7 @@ class calendar_mirror(threading.Thread):
                     self.calendar_text1 = " Keine Einträge gefunden "
                 for event in events:
                     start = event['start'].get('dateTime', event['start'].get('date'))
-                    self.calendar_text1 = (start, event['summary']) + "\n"
+                    self.calendar_text1 += start +" - "+ event['summary'] + "\n"
 
                 self.loading.configure(text="Aktualisiere Kalenderdaten ...")
                 self.loading.configure(text="")
