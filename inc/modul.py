@@ -1,43 +1,36 @@
 #-*- encoding: utf-8 -*-
 """
-Clock module for MirrorOS
+
 Autor: Bastian Schroll
 """
 import logging
+import threading
+from inc.widget import widget
 
-class modul():
-#"""Container for the Modules"""
 
-    def __init__(self):
-        #Dict of all widgets
-        self.__widgets = {}
-        pass
 
-    def addWidget(self, name, widget):
-        """add a new widget with a name"""
-        logging.debug("add new widget: %s", name)
-        self.__widgets[name] = widget
+"""Container for the Widgets"""
+class modul(widget, threading.Thread):
 
-    def posWidget(self, name, xPos, yPos, anc):
-        """set place for the given widget"""
-        logging.debug("pos widget: %s", name)
-        self.__widgets[name].place(x=xPos, y=yPos, anchor=anc)
+    __modules = {}
 
-    def getWidget(self, name):
-        """return the widget object"""
-        logging.debug("get widget: %s", name)
-        return self.__widgets[name]
+    def __init__(self, childName):
+        widget.__init__(self, childName)
+        threading.Thread.__init__(self)
+        self.name = childName
+        self.daemon = True
 
-    def showWidget(self, name):
-        """show the given widget"""
-        logging.debug("show widget: %s", name)
-        #show the widget at des saved palacement
-        self.__widgets[name].place(self.__widgets[name].pi)
+        self.__modulStatus = {}
+        self.__modules[childName] = "?"
 
-    def hideWidget(self, name):
-        """hide the given widget"""
-        logging.debug("hide widget: %s", name)
-        #save the pace information in .pi
-        self.__widgets[name].pi = self.__widgets[name].place_info()
-        #forget the palacement -> hide
-        self.__widgets[name].place_forget()
+    def setStatus(self, name, status):
+        """set the Status for an modul"""
+        logging.debug("Status: %s %s", name, status)
+        self.__modules[name] = status
+
+    def getStatus(self, name):
+        """get the Status for an modul"""
+        return self.__modules[name]
+
+    def getModules(self):
+        return self.__modules

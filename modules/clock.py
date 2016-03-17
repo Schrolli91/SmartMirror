@@ -12,12 +12,11 @@ import threading
 from inc.modul import modul
 
 
-class clock(threading.Thread, modul):
+class clock(modul):
     def __init__(self, window, config, xPos, yPos, anc="nw"):
-        threading.Thread.__init__(self)
-        modul.__init__(self)
-        self.name = __name__
-        self.daemon = True
+        #threading.Thread.__init__(self)
+        modul.__init__(self, __name__)
+
         try:
             logging.debug("load %s", __name__)
 
@@ -27,7 +26,7 @@ class clock(threading.Thread, modul):
             self.yPos = yPos
             self.anc = anc
 
-            self.addWidget("clock", Label(self.window, text="test", fg=self.config.get("clock","color"), font=self.config.get("clock","font"), bg='black'))
+            self.addWidget("clock", Label(self.window, fg=self.config.get("clock","color"), font=self.config.get("clock","font"), bg='black'))
             self.posWidget("clock", self.xPos, self.yPos, self.anc)
 
         except:
@@ -40,6 +39,8 @@ class clock(threading.Thread, modul):
             try:
                 logging.debug("update %s", __name__)
 
+                self.setStatus(__name__, "R")
+
                 self.getWidget("clock").configure(text=time.strftime(self.config.get("clock","format")))
 
                 #simple test for hide and show mechanism
@@ -47,6 +48,10 @@ class clock(threading.Thread, modul):
                 self.hideWidget("clock")
                 time.sleep(3)
                 self.showWidget("clock")
+                time.sleep(3)
+                self.delWidget("clock")
+
+                self.setStatus(__name__, "S")
 
             except:
                 logging.exception("cannot update %s", __name__)
