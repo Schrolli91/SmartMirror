@@ -15,9 +15,6 @@ class widget():
         self.__childName = childName
         pass
 
-    def __del__(self):
-        del self.__widgets
-
     def addWidget(self, name, widget):
         """add a new widget with a name"""
         logging.debug("add new widget: %s %s", self.__childName, name)

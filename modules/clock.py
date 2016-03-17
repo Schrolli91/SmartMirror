@@ -30,7 +30,7 @@ class clock(modul):
             logging.exception("cannot load %s", __name__)
 
 
-    def run(self):
+    def main(self):
         logging.debug("run %s", __name__)
 
 

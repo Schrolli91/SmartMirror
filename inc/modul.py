@@ -26,9 +26,18 @@ class modul(widget, threading.Thread):
 
         self.__modules[self.name] = "?"
 
-    def __del__(self):
+    def run(self):
+        """override the run method from the threading Module
+        call the main, where must override in your own program
+        when your main method ends, the module kill himself"""
+        self.main()
+        #destruct the module instance
         logging.debug("kill modul: %s", self.name)
         del self.__modules[self.name]
+
+    def main(self):
+        """for own code you must override with an cild method"""
+        pass
 
     def setStatus(self, name, status):
         """set the Status for an modul"""
@@ -41,4 +50,5 @@ class modul(widget, threading.Thread):
 
     #static method to return all modules and status
     def getAllModules():
+        """return the dict of all active modules with ther status"""
         return modul.__modules
