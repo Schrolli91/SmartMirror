@@ -35,3 +35,6 @@ class modul(widget, threading.Thread):
     def getStatus(self, name):
         """get the Status for an modul"""
         return self.__modules[name]
+
+    def getAllModules():
+        return modul.__modules
