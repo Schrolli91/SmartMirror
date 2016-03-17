@@ -110,6 +110,9 @@ try:
         if config.getboolean("Modules","welcome"):
             modules.append(welcome(root,config,w/2,150,"center"))
 
+        if config.getboolean("Modules","calendar_mirror"):
+            modules.append(welcome(root,config,w/2,250,"center"))
+
         for thr in modules:
             thr.daemon = True
             thr.start()
