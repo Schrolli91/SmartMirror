@@ -3,11 +3,34 @@
 Calendar Modul with threading
 Autor: Matthias Kittler
 """
+from __future__ import print_function
+import httplib2
+import os
+
+from apiclient import discovery
+import oauth2client
+from oauth2client import client
+from oauth2client import tools
 
 from tkinter import *
 import threading
 import logging
 import time
+import datetime
+
+
+try:
+    import argparse
+    flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
+except ImportError:
+    flags = None
+
+# If modifying these scopes, delete your previously saved credentials
+# at ~/.credentials/calendar-python-quickstart.json
+SCOPES = 'https://www.googleapis.com/auth/calendar.readonly'
+CLIENT_SECRET_FILE = 'client_secret.json'
+APPLICATION_NAME = 'Google Calendar API Python Quickstart'
+
 
 class calendar_mirror(threading.Thread):
     def __init__(self, window, config, xPos, yPos, anc="nw"):
@@ -33,7 +56,7 @@ class calendar_mirror(threading.Thread):
             self.headline = Label(self.window, fg=self.config.get("calendar_mirror","color"), font=self.config.get("calendar_mirror","main_font"), bg='black')
             self.headline.place(x=self.xPos, y=self.yPos, anchor=self.anc)
 
-            self.calendar_text = Label(self.window, fg=self.config.get("calendar_mirror","color"), font=self.config.get("news", "font"), bg='black')
+            self.calendar_text = Label(self.window, fg=self.config.get("calendar_mirror","color"), font=self.config.get("calendar_mirror", "font"), bg='black')
             self.calendar_text.place(x=self.xPos, y=self.yPos+4*self.yStep, anchor=self.anc)
             # init section
             ##############
@@ -59,7 +82,7 @@ class calendar_mirror(threading.Thread):
             Returns:
                 Credentials, the obtained credential.
             """
-                home_dir = os.path.expanduser('C:')
+                home_dir = os.path.expanduser('~')
                 credential_dir = os.path.join(home_dir, '.credentials')
                 if not os.path.exists(credential_dir):
                     os.makedirs(credential_dir)
@@ -109,4 +132,4 @@ class calendar_mirror(threading.Thread):
             except:
                 logging.exception("cannot update " + __name__)
             finally:
-                time.sleep(self.config.getfloat("calendar_mirror","update_intervall"))
+                time.sleep(self.config.getfloat("calendar_mirror","update_interval"))
