@@ -50,10 +50,10 @@ class calendar_mirror(threading.Thread):
             # init section
 
             self.loading = Label(self.window, fg=self.config.get("calendar_mirror","main_color"), font=self.config.get("calendar_mirror","font"), bg='black')
-            self.loading.place(x=self.xPos, y=self.yPos-100, anchor=self.anc)
+            self.loading.place(x=self.xPos, y=self.yPos-50, anchor=self.anc)
 
             self.headline = Label(self.window, fg=self.config.get("calendar_mirror","color"), font=self.config.get("calendar_mirror","main_font"), bg='black')
-            self.headline.place(x=self.xPos, y=self.yPos-50, anchor=self.anc)
+            self.headline.place(x=self.xPos, y=self.yPos-25, anchor=self.anc)
 
             self.calendar_text = Label(self.window, fg=self.config.get("calendar_mirror","color"), font=self.config.get("calendar_mirror", "font"), bg='black')
             self.calendar_text.place(x=self.xPos, y=self.yPos, anchor=self.anc)
@@ -81,6 +81,9 @@ class calendar_mirror(threading.Thread):
             Returns:
                 Credentials, the obtained credential.
             """
+                self.loading.configure(text="Aktualisiere Kalenderdaten ...")
+                self.headline.configure(text=" Einträge im Kalender: ")
+
                 home_dir = os.path.expanduser('~')
                 credential_dir = os.path.join(home_dir, '.credentials')
                 if not os.path.exists(credential_dir):
@@ -121,9 +124,9 @@ class calendar_mirror(threading.Thread):
                     start = event['start'].get('dateTime', event['start'].get('date'))
                     self.calendar_text1 += start +" - "+ event['summary'] + "\n"
 
-                self.loading.configure(text="Aktualisiere Kalenderdaten ...")
+
                 self.loading.configure(text="")
-                self.headline.configure(text=" Einträge im Kalender: ")
+
                 self.calendar_text.configure(text=self.calendar_text1)
                 # code section
                 ##############
