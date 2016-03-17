@@ -18,39 +18,45 @@ class widget():
         pass
 
     def addWidget(self, name, widget):
-        """add a new widget with a name"""
+        """Add a new widget with a name"""
         logging.debug("add new widget: %s %s", self.__childName, name)
         self.__widgets[name] = widget
 
     def delWidget(self, name):
-        """delete the given widget"""
+        """Delete the given widget"""
         self.hideWidget(name)
         logging.debug("delete widget: %s %s", self.__childName, name)
         del self.__widgets[name]
 
+    def delAllWidgets(self):
+        """Delete all widgets"""
+        self.hideAllWidgets()
+        logging.debug("delete all widgets: %s", self.__childName)
+        del self.__widgets
+
     def posWidget(self, name, xPos, yPos, anc="nw"):
-        """set place for the given widget"""
+        """Set place for the given widget"""
         logging.debug("pos widget: %s %s", self.__childName, name)
         self.__widgets[name].place(x=xPos, y=yPos, anchor=anc)
         self.__widgets[name].pi = self.__widgets[name].place_info()
 
     def getWidget(self, name):
-        """return the widget object"""
+        """Return the widget object"""
         return self.__widgets[name]
 
     def showWidget(self, name):
-        """show the given widget"""
+        """Show the given widget"""
         logging.debug("show widget: %s %s", self.__childName, name)
         #show the widget at des saved palacement
         self.__widgets[name].place(self.__widgets[name].pi)
 
     def showAllWidgets(self):
-        """show all widgets"""
-        for wid in self.__widgets.keys():
-            self.showWidget(wid)
+        """Show all widgets by calling showWidget() for each widget"""
+        for wgt in self.__widgets.keys():
+            self.showWidget(wgt)
 
     def hideWidget(self, name):
-        """hide the given widget"""
+        """Hide the given widget"""
         logging.debug("hide widget: %s %s", self.__childName, name)
         #save the pace information in .pi
         self.__widgets[name].pi = self.__widgets[name].place_info()
@@ -58,9 +64,9 @@ class widget():
         self.__widgets[name].place_forget()
 
     def hideAllWidgets(self):
-        """hide all widgets"""
-        for wid in self.__widgets.keys():
-            self.hideWidget(wid)
+        """Hide all widgets by calling hideWidget() for each widget"""
+        for wgt in self.__widgets.keys():
+            self.hideWidget(wgt)
 
 
     # def moveWidget(self, name, xNew, yNew):

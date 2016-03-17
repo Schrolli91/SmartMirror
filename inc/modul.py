@@ -3,6 +3,7 @@
 
 Autor: Bastian Schroll
 """
+import time
 import logging
 import threading
 from inc.widget import widget
@@ -34,21 +35,29 @@ class modul(widget, threading.Thread):
         #destruct the module instance
         logging.debug("kill modul: %s", self.name)
         del self.__modules[self.name]
+        self.delAllWidgets() #run to kill all widgets
 
     def main(self):
-        """for own code you must override with an cild method"""
+        """For own code you must override with an cild method"""
         pass
 
+
+    def wait(self, waitTime):
+        """Wait for a given time - sets automaticly the status"""
+        self.setStatus("S")
+        time.sleep(float(waitTime))
+        self.setStatus("R")
+
     def setStatus(self, status):
-        """set the Status"""
+        """Set the Status of the Module"""
         logging.debug("Status: %s [%s]", self.name, status)
         self.__modules[self.name] = status
 
     def getStatus(self):
-        """get the Status"""
+        """Get the Status the Modul"""
         return self.__modules[self.name]
 
     #static method to return all modules and status
     def getAllModules():
-        """return the dict of all active modules with ther status"""
+        """Return the dict of all active modules with ther status"""
         return modul.__modules
