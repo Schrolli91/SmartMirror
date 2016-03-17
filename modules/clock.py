@@ -26,6 +26,9 @@ class clock(modul):
             self.addWidget("clock", Label(self.window, fg=self.config.get("clock","color"), font=self.config.get("clock","font"), bg='black'))
             self.posWidget("clock", xPos, yPos, anc)
 
+            self.addWidget("test", Label(self.window,text="test123456", fg=self.config.get("clock","color"), font=self.config.get("clock","font"), bg='black'))
+            self.posWidget("test", xPos, yPos+55, anc)
+
         except:
             logging.exception("cannot load %s", __name__)
 
@@ -35,6 +38,7 @@ class clock(modul):
 
 
         #simple test for hide and show mechanism
+
         self.setStatus("R")
         self.getWidget("clock").configure(text=time.strftime(self.config.get("clock","format")))
         time.sleep(3)
@@ -42,6 +46,10 @@ class clock(modul):
         time.sleep(3)
         self.posWidget("clock", 500,500,"n")
         self.showWidget("clock")
+        time.sleep(3)
+        self.hideAllWidgets()
+        time.sleep(3)
+        self.showAllWidgets()
         time.sleep(3)
         self.delWidget("clock")
         self.setStatus("S")
