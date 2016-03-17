@@ -14,8 +14,7 @@ from inc.modul import modul
 
 class clock(modul):
     def __init__(self, window, config, xPos, yPos, anc="nw"):
-        #threading.Thread.__init__(self)
-        modul.__init__(self, __name__)
+        modul.__init__(self, __name__) #load modul container
 
         try:
             logging.debug("load %s", __name__)
@@ -47,6 +46,7 @@ class clock(modul):
                 time.sleep(3)
                 self.hideWidget("clock")
                 time.sleep(3)
+                self.posWidget("clock", 500,500,"n")
                 self.showWidget("clock")
                 time.sleep(3)
                 self.delWidget("clock")

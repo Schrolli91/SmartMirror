@@ -13,6 +13,8 @@ import logging
 import threading
 from modules.thread_test import threadTest
 
+from inc.modul import modul
+
 __version__ = "0.2-dev"
 __buildDate___ = "none"
 

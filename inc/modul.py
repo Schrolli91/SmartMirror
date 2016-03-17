@@ -9,19 +9,23 @@ from inc.widget import widget
 
 
 
-"""Container for the Widgets"""
+"""Container for the Modul"""
 class modul(widget, threading.Thread):
 
-    __modules = {}
+    __modules = {} #all active modules
 
     def __init__(self, childName):
         widget.__init__(self, childName)
         threading.Thread.__init__(self)
+
+        #Set Thread vars
         self.name = childName
         self.daemon = True
 
-        self.__modulStatus = {}
-        self.__modules[childName] = "?"
+        self.__modules[self.name] = "?"
+
+    def __del__(self):
+        del self.__modules[self.name]
 
     def setStatus(self, name, status):
         """set the Status for an modul"""
@@ -31,6 +35,3 @@ class modul(widget, threading.Thread):
     def getStatus(self, name):
         """get the Status for an modul"""
         return self.__modules[name]
-
-    def getModules(self):
-        return self.__modules
