@@ -40,6 +40,11 @@ class widget():
         self.__widgets[name].place(x=xPos, y=yPos, anchor=anc)
         self.__widgets[name].pi = self.__widgets[name].place_info()
 
+    def txtWidget(self, name, setText=""):
+        """Set text for the given widget"""
+        self.__widgets[name].configure(text=setText)
+
+
     def getWidget(self, name):
         """Return the widget object"""
         return self.__widgets[name]
