@@ -7,7 +7,6 @@ Autor: Bastian Schroll
 from tkinter import *
 import time
 import logging
-import threading
 
 from inc.modul import modul
 
@@ -15,56 +14,25 @@ from inc.modul import modul
 class clock(modul):
     def __init__(self, window, config, xPos, yPos, anc="nw"):
         modul.__init__(self, __name__) #load modul container
+        self.window = window
+        self.config = config
 
         try:
-            logging.debug("load %s", __name__)
 
-            self.window = window
-            self.config = config
-
-
-            self.addWidget("clock", Label(self.window, fg=self.config.get("clock","color"), font=self.config.get("clock","font"), bg='black'))
+            self.addWidget("clock", Label(window, fg=config.get("clock","color"), font=config.get("clock","font"), bg='black'))
             self.posWidget("clock", xPos, yPos, anc)
-
-            self.addWidget("test", Label(self.window,text="test123456", fg=self.config.get("clock","color"), font=self.config.get("clock","font"), bg='black'))
-            self.posWidget("test", xPos, yPos+55, anc)
 
         except:
             logging.exception("cannot load %s", __name__)
 
 
     def main(self):
-        logging.debug("run %s", __name__)
-
-
-        #simple test for hide and show mechanism
-
-        time.sleep(3) #to show the ? status
-        self.setStatus("R") #set status to RUN
-
-        self.getWidget("clock").configure(text=time.strftime(self.config.get("clock","format")))
-        time.sleep(3)
-        self.hideWidget("clock")
-        time.sleep(3)
-        self.posWidget("clock", 500,500,"n")
-        self.showWidget("clock")
-        time.sleep(3)
-        self.hideAllWidgets()
-        self.wait(3)
-        self.showAllWidgets()
-        time.sleep(3)
-        self.delWidget("clock")
-
-        self.setStatus("S") #set status to SLEEP
-
-
-        while 0:
+        while 1:
             try:
-                logging.debug("update %s", __name__)
 
                 self.getWidget("clock").configure(text=time.strftime(self.config.get("clock","format")))
 
             except:
                 logging.exception("cannot update %s", __name__)
             finally:
-                time.sleep(self.config.getfloat("clock","update_interval"))
+                self.wait(self.config.getfloat("clock","update_interval"))

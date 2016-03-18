@@ -14,13 +14,15 @@ from inc.widget import widget
 class modul(widget, threading.Thread):
 
     __modules = {} #all active modules
+    __modulCtr = 0
 
     def __init__(self, childName):
         widget.__init__(self, childName)
         threading.Thread.__init__(self)
 
         #Set Thread vars
-        self.name = childName
+        self.name = str(self.__modulCtr) +"-"+ childName
+        modul.__modulCtr += 1 #incr the modulCtr
         self.daemon = True
 
         logging.debug("load new modul: %s", self.name)
@@ -31,6 +33,9 @@ class modul(widget, threading.Thread):
         """override the run method from the threading Module
         call the main, where must override in your own program
         when your main method ends, the module kill himself"""
+        time.sleep(0.1) #wait a moment to start tkinter mainloop
+        logging.debug("run %s", self.name)
+        self.setStatus("R")
         self.main()
         #destruct the module instance
         logging.debug("kill modul: %s", self.name)

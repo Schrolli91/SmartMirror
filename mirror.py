@@ -85,11 +85,11 @@ try:
         logging.debug("generate the modules")
 
 
-        #for i in range(1,2):
-        #    thread = threadTest(i)
-        #    thread.start()
-
         modules = []
+
+        #modules.append(threadTest(root, config, 0,0))
+        #modules.append(threadTest(root, config, 0,0))
+        #modules.append(threadTest(root, config, 0,0))
 
         if config.getboolean("Modules","date"):
             modules.append(date(root, config, w-20, 60, "ne"))
