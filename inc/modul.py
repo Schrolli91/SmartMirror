@@ -45,7 +45,7 @@ class modul(widget, threading.Thread):
     def main(self):
         """For own code you must override with an cild method"""
         pass
-
+        
 
     def wait(self, waitTime):
         """Wait for a given time - sets automaticly the status"""

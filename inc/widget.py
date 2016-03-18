@@ -44,7 +44,6 @@ class widget():
         """Set text for the given widget"""
         self.__widgets[name].configure(text=setText)
 
-
     def getWidget(self, name):
         """Return the widget object"""
         return self.__widgets[name]

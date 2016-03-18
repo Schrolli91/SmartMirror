@@ -30,7 +30,6 @@ class clock(modul):
         while 1:
             try:
 
-                #self.getWidget("clock").configure(text=time.strftime(self.config.get("clock","format")))
                 self.txtWidget("clock", time.strftime(self.config.get("clock","format")))
 
             except:

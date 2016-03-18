@@ -88,8 +88,6 @@ try:
         modules = []
 
         #modules.append(threadTest(root, config, 0,0))
-        #modules.append(threadTest(root, config, 0,0))
-        #modules.append(threadTest(root, config, 0,0))
 
         if config.getboolean("Modules","date"):
             modules.append(date(root, config, w-20, 60, "ne"))
@@ -115,7 +113,6 @@ try:
         for thr in modules:
             thr.daemon = True
             thr.start()
-
 
     except:
         logging.exception("cannot generate the modules")

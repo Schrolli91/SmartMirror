@@ -6,7 +6,6 @@ Autor: Bastian Schroll
 
 from tkinter import *
 import logging
-import time
 
 from inc.modul import modul
 
