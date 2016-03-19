@@ -45,7 +45,7 @@ try:
         from modules.status import status
         from modules.news import news_focus
         from modules.welcome import welcome
-        from modules.calendar_mirror import calendar_mirror
+        from modules.calendar import calendar_mirror
         #
         ##### Modules Import ######
     except:
