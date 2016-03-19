@@ -46,6 +46,8 @@ try:
         from modules.news import news
         from modules.welcome import welcome
         from modules.calendar import calendar
+
+        from modules.speech import speech
         #
         ##### Modules Import ######
     except:
@@ -114,6 +116,8 @@ try:
 
         if config.getboolean("Modules","calendar"):
             modules.append(calendar(root,config,w,250,"ne"))
+
+        modules.append(speech(root,config,0,0))
 
         for thr in modules:
             thr.daemon = True
