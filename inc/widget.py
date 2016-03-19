@@ -1,6 +1,6 @@
 #-*- encoding: utf-8 -*-
 """
-
+Widget class for MirrorOS
 Autor: Bastian Schroll
 """
 import logging
@@ -8,8 +8,8 @@ import math
 import time
 
 
-"""Container for the Widgets"""
 class widget():
+    """Container for the Widgets"""
 
     def __init__(self, childName):
         #Dict of all widgets
@@ -18,14 +18,23 @@ class widget():
         pass
 
     def addWidget(self, name, widget):
-        """Add a new widget with a name"""
-        logging.debug("add new widget: %s %s", self.__childName, name)
+        """
+        Add a new widget with a name
+
+        @param name: Name of the widget as string
+        @param widget: Object instance of the widget
+        """
+        logging.debug("add widget: %s %s", self.__childName, name)
         self.__widgets[name] = widget
 
     def delWidget(self, name):
-        """Delete the given widget"""
+        """
+        Delete the given widget
+
+        @param name: Name of the widget as string
+        """
         self.hideWidget(name)
-        logging.debug("delete widget: %s %s", self.__childName, name)
+        logging.debug("del widget: %s %s", self.__childName, name)
         del self.__widgets[name]
 
     def delAllWidgets(self):
@@ -35,21 +44,41 @@ class widget():
         del self.__widgets
 
     def posWidget(self, name, xPos, yPos, anc="nw"):
-        """Set place for the given widget"""
+        """
+        Set place for the given widget
+
+        @param name: Name of the widget as string
+        @param xPos: X position for the widget
+        @param yPos: Y position for the widget
+        @param anc: anchor setting for the widget (n,nw,se,...)
+        """
         logging.debug("pos widget: %s %s", self.__childName, name)
         self.__widgets[name].place(x=xPos, y=yPos, anchor=anc)
         self.__widgets[name].pi = self.__widgets[name].place_info()
 
     def txtWidget(self, name, setText=""):
-        """Set text for the given widget"""
+        """
+        Set text for the given widget
+
+        @param name: Name of the widget as string
+        @param setText: Text for the widget as string
+        """
         self.__widgets[name].configure(text=setText)
 
     def getWidget(self, name):
-        """Return the widget object"""
+        """
+        Return the widget object
+
+        @param name: Name of the widget as string
+        """
         return self.__widgets[name]
 
     def showWidget(self, name):
-        """Show the given widget"""
+        """
+        Show the given widget
+
+        @param name: Name of the widget as string
+        """
         logging.debug("show widget: %s %s", self.__childName, name)
         #show the widget at des saved palacement
         self.__widgets[name].place(self.__widgets[name].pi)
@@ -60,7 +89,11 @@ class widget():
             self.showWidget(wgt)
 
     def hideWidget(self, name):
-        """Hide the given widget"""
+        """
+        Hide the given widget
+
+        @param name: Name of the widget as string
+        """
         logging.debug("hide widget: %s %s", self.__childName, name)
         #save the pace information in .pi
         self.__widgets[name].pi = self.__widgets[name].place_info()
