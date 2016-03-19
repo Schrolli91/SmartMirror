@@ -8,6 +8,8 @@ import threading
 import logging
 import time
 
+from inc.modul import modul
+
 from tkinter import *
 
 class status(threading.Thread):
@@ -41,9 +43,15 @@ class status(threading.Thread):
                 self.thread_text += "Threads running: " + str(threading.active_count()) + "\n"
 
                 for t in threading.enumerate():
-                	if t is "main_thread":
+                	if t is "MainThread":
                 		continue
                 	self.thread_text += " - " + t.getName() + "\n"
+
+                self.thread_text += "\n"
+                self.thread_text += "Activ Moduls: "+ str(len(modul.getAllModules())) +"\n"
+
+                for key, value in modul.getAllModules().items():
+                    self.thread_text += "["+value+"] "+ key + "\n"
 
                 self.active_threads.configure(text=self.thread_text)
 

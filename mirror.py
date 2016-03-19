@@ -13,6 +13,8 @@ import logging
 import threading
 from modules.thread_test import threadTest
 
+from inc.modul import modul
+
 __version__ = "0.2-dev"
 __buildDate___ = "none"
 
@@ -21,7 +23,7 @@ logging.basicConfig(
     filename="log.txt",
     filemode="w",
     level=logging.DEBUG,
-    format="%(asctime)s - %(module)-15s %(funcName)-12s [%(levelname)-8s] %(message)s",
+    format="%(asctime)s - %(threadName)-18s %(module)-15s %(funcName)-12s [%(levelname)-8s] %(message)s",
     datefmt = "%d.%m.%Y %H:%M:%S"
     )
 
@@ -84,11 +86,9 @@ try:
         logging.debug("generate the modules")
 
 
-        #for i in range(1,2):
-        #    thread = threadTest(i)
-        #    thread.start()
-
         modules = []
+
+        #modules.append(threadTest(root, config, 0,0))
 
         if config.getboolean("Modules","date"):
             modules.append(date(root, config, w-20, 60, "ne"))
