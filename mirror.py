@@ -40,7 +40,7 @@ try:
         #
         from modules.clock import clock
         from modules.date import date
-        from modules.weather_json import jsonWeather
+        from modules.weather import jsonWeather
         from modules.log_view import viewer
         from modules.status import status
         from modules.news import news_focus
