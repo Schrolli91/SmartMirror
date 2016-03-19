@@ -7,25 +7,19 @@ Autor: Bastian Schroll
 from tkinter import *
 import time
 import logging
-import threading
 
-class date(threading.Thread):
+from inc.modul import modul
+
+class date(modul):
     def __init__(self, window, config, xPos, yPos, anc="nw"):
-        threading.Thread.__init__(self)
-        self.name = __name__
-        self.daemon = True
+        modul.__init__(self, __name__)
+        self.window = window
+        self.config = config
+
         try:
-            logging.debug("load %s", __name__)
 
-            self.window = window
-            self.config = config
-            self.xPos = xPos
-            self.yPos = yPos
-            self.anc = anc
-
-
-            self.date = Label(self.window, fg=self.config.get("date","color"), font=self.config.get("date","font"), bg='black')
-            self.date.place(x=self.xPos, y=self.yPos, anchor=self.anc)
+            self.addWidget("date", Label(self.window, fg=self.config.get("date","color"), font=self.config.get("date","font"), bg='black'))
+            self.posWidget("date", xPos, yPos, anc)
 
         except:
             logging.exception("cannot load %s", __name__)
@@ -40,9 +34,9 @@ class date(threading.Thread):
                 date = time.strftime(self.config.get("date","format"))
                 date = date.replace("Monday","Montag").replace("Tuesday","Dienstag").replace("Wednesday","Mittwoch")
                 date = date.replace("Thursday","Donnerstag").replace("Friday","Freitag").replace("Saturday","Samstag").replace("Sunday","Sonntag")
-                self.date.configure(text=date)
+                self.txtWidget("date", date)
 
             except:
                 logging.exception("cannot update %s", __name__)
             finally:
-                time.sleep(self.config.getfloat("date","update_interval"))
+                self.wait(self.config.getfloat("date","update_interval"))
