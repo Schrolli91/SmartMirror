@@ -4,51 +4,57 @@ simple inMirror Logfile viewer for MirrorOS
 Autor: Bastian Schroll
 """
 
-import threading
+from tkinter import *
 import logging
 import time
 
-from tkinter import *
+from inc.modul import modul
 
-class viewer(threading.Thread):
+class viewer(modul):
     def __init__(self, window, config, xPos, yPos, anc="nw"):
-        threading.Thread.__init__(self)
-        self.name = __name__
-        self.daemon = True
+        modul.__init__(self, __name__) #load modul container
+        self.window = window
+        self.config = config
+
         try:
-            logging.debug("load %s", __name__)
-            self.daemon = True
 
-            #init self given args
-            self.window = window
-            self.config = config
-            self.xPos = xPos
-            self.yPos = yPos
-            self.anc = anc
+            ##############
+            # init section
 
-            self.logfile = Label(self.window, fg=self.config.get("log_view","color"), font=self.config.get("log_view","font"), bg='black', justify="left")
-            self.logfile.place(x=self.xPos, y=self.yPos, anchor=self.anc)
+            self.addWidget("logfile", Label(self.window, fg=self.config.get("log_view","color"), font=self.config.get("log_view","font"), bg='black', justify="left"))
+            self.posWidget("logfile", xPos, yPos, anc)
+
+            # init section
+            ##############
 
         except:
             logging.exception("cannot load %s", __name__)
 
 
-    def run(self):
-        logging.debug("run %s", __name__)
+    def main(self):
+
         while 1: #infinite loop from thread - on exit, thread dies
             try:
+
+                ##############
+                # code section
+
                 fileHandle = open ( 'log.txt',"r" )
                 lineList = fileHandle.readlines()
                 fileHandle.close()
 
-                logfile_text = ""
+                self.logfile_text = ""
 
                 for line in range(10,0,-1):
-                    logfile_text += str(len(lineList)-line).zfill(3) +"| "+ lineList[len(lineList)-line]
+                    self.logfile_text += str(len(lineList)-line).zfill(3) +"| "+ lineList[len(lineList)-line]
 
-                self.logfile.configure(text=logfile_text)
+                self.txtWidget("logfile", self.logfile_text)
+
+                # code section
+                ##############
 
             except:
-                logging.exception("cannot read config file %s", __name__)
+                logging.exception("cannot update %s", __name__)
             finally:
-                time.sleep(self.config.getfloat("log_view","update_interval"))
+                #here time.sleep() is used, to prevent for too many status update logs
+                time.sleep(self.config.getfloat("status","update_interval"))

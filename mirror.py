@@ -70,9 +70,10 @@ try:
         w, h = root.winfo_screenwidth(), root.winfo_screenheight()#w and h for the display resolutions
         root.overrideredirect(1)#hide the window border
         root.geometry("%dx%d+0+0" % (w, h))#set the window size
+        root.focus_set()
 
         root.configure(background='black')#set background color
-        root.bind("<Escape>", lambda e: e.widget.quit())#Escape Button to quit the window
+        root.bind("<Escape>", lambda e: root.quit())#Escape Button to quit the window
     except:
         logging.exception("cannot generate the tkinter window")
         raise
