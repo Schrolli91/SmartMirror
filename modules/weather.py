@@ -92,8 +92,8 @@ class weather(threading.Thread):
                     "Luftfeuchte: "+ str(self.wetter["main"]["humidity"]) +" %-rel."
                     )
 
-                #self.icon_today.configure(image=self.photo)
-                #self.icon_today.image = self.photo
+                self.icon_today.configure(image=self.photo)
+                self.icon_today.image = self.photo
 
                 #refesh the widgets for weather forecast
                 self.main_forecast.configure(text="Vorhersage:")
@@ -131,13 +131,13 @@ class weather(threading.Thread):
 
             print(self.wetter)
 
-            # try:
-            #     logging.debug("load weather icon")
-            #     #image loading
-            #     self.photo = PhotoImage(file="modules/icons/"+ str(self.wetter["weather"][0]["icon"]) +".gif")
-            # except:
-            #     logging.exception("error while loading, set error.gif")
-            #     self.photo = PhotoImage(file="modules/icons/error.gif")
+            try:
+                logging.debug("load weather icon")
+                #image loading
+                self.photo = PhotoImage(file="modules/icons/"+ str(self.wetter["weather"][0]["icon"]) +".gif")
+            except:
+                logging.exception("error while loading, set error.gif")
+                self.photo = PhotoImage(file="modules/icons/error.gif")
 
         except:
             logging.exception("cannot fetch data from web")
