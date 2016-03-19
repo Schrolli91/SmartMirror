@@ -32,7 +32,7 @@ CLIENT_SECRET_FILE = 'client_secret.json'
 APPLICATION_NAME = 'MirrorOS'
 
 
-class calendar_mirror(threading.Thread):
+class calendar(threading.Thread):
     def __init__(self, window, config, xPos, yPos, anc="nw"):
         threading.Thread.__init__(self)
         self.name = __name__
@@ -49,13 +49,13 @@ class calendar_mirror(threading.Thread):
             ##############
             # init section
 
-            self.loading = Label(self.window, fg=self.config.get("calendar_mirror","main_color"), font=self.config.get("calendar_mirror","font"), bg='black')
+            self.loading = Label(self.window, fg=self.config.get("calendar","main_color"), font=self.config.get("calendar","font"), bg='black')
             self.loading.place(x=self.xPos, y=self.yPos-50, anchor=self.anc)
 
-            self.headline = Label(self.window, fg=self.config.get("calendar_mirror","color"), font=self.config.get("calendar_mirror","main_font"), bg='black')
+            self.headline = Label(self.window, fg=self.config.get("calendar","color"), font=self.config.get("calendar","main_font"), bg='black')
             self.headline.place(x=self.xPos, y=self.yPos-25, anchor=self.anc)
 
-            self.calendar_text = Label(self.window, fg=self.config.get("calendar_mirror","color"), font=self.config.get("calendar_mirror", "font"), bg='black')
+            self.calendar_text = Label(self.window, fg=self.config.get("calendar","color"), font=self.config.get("calendar", "font"), bg='black')
             self.calendar_text.place(x=self.xPos, y=self.yPos, anchor=self.anc)
             # init section
             ##############
@@ -134,4 +134,4 @@ class calendar_mirror(threading.Thread):
             except:
                 logging.exception("cannot update " + __name__)
             finally:
-                time.sleep(self.config.getfloat("calendar_mirror","update_interval"))
+                time.sleep(self.config.getfloat("calendar","update_interval"))

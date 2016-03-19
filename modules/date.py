@@ -29,8 +29,7 @@ class date(modul):
         logging.debug("run %s", __name__)
         while 1:
             try:
-                logging.debug("update %s", __name__)
-
+                
                 date = time.strftime(self.config.get("date","format"))
                 date = date.replace("Monday","Montag").replace("Tuesday","Dienstag").replace("Wednesday","Mittwoch")
                 date = date.replace("Thursday","Donnerstag").replace("Friday","Freitag").replace("Saturday","Samstag").replace("Sunday","Sonntag")

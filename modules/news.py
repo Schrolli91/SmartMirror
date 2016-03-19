@@ -12,7 +12,7 @@ import time
 from xml.dom.minidom import *
 import urllib.request
 
-class news_focus(threading.Thread):
+class news(threading.Thread):
     def __init__(self, window, config, xPos, yPos, anc="nw"):
         threading.Thread.__init__(self)
         self.name = __name__

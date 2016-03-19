@@ -16,7 +16,7 @@ import time
 import urllib.request
 import json
 
-class jsonWeather(threading.Thread):
+class weather(threading.Thread):
     def __init__(self, window, config, xPos, yPos, anc="nw"):
         threading.Thread.__init__(self)
         self.name = __name__
@@ -92,8 +92,8 @@ class jsonWeather(threading.Thread):
                     "Luftfeuchte: "+ str(self.wetter["main"]["humidity"]) +" %-rel."
                     )
 
-                self.icon_today.configure(image=self.photo)
-                self.icon_today.image = self.photo
+                #self.icon_today.configure(image=self.photo)
+                #self.icon_today.image = self.photo
 
                 #refesh the widgets for weather forecast
                 self.main_forecast.configure(text="Vorhersage:")
@@ -112,6 +112,8 @@ class jsonWeather(threading.Thread):
                 time.sleep(self.config.getfloat("weather","update_interval"))
 
 
+    def fetch_json(self, link):
+        pass
 
     def fetch_data(self):
         try:
@@ -127,13 +129,15 @@ class jsonWeather(threading.Thread):
             encoding = req.headers.get_content_charset()
             self.forecast = json.loads(req.read().decode(encoding))
 
-            try:
-                logging.debug("load weather icon")
-                #image loading
-                self.photo = PhotoImage(file="modules/icons/"+ str(self.wetter["weather"][0]["icon"]) +".gif")
-            except:
-                logging.exception("error while loading, set error.gif")
-                self.photo = PhotoImage(file="modules/icons/error.gif")
+            print(self.wetter)
+
+            # try:
+            #     logging.debug("load weather icon")
+            #     #image loading
+            #     self.photo = PhotoImage(file="modules/icons/"+ str(self.wetter["weather"][0]["icon"]) +".gif")
+            # except:
+            #     logging.exception("error while loading, set error.gif")
+            #     self.photo = PhotoImage(file="modules/icons/error.gif")
 
         except:
             logging.exception("cannot fetch data from web")

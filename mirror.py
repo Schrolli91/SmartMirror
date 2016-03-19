@@ -40,12 +40,12 @@ try:
         #
         from modules.clock import clock
         from modules.date import date
-        from modules.weather import jsonWeather
+        from modules.weather import weather
         from modules.log_view import viewer
         from modules.status import status
-        from modules.news import news_focus
+        from modules.news import news
         from modules.welcome import welcome
-        from modules.calendar import calendar_mirror
+        from modules.calendar import calendar
         #
         ##### Modules Import ######
     except:
@@ -94,7 +94,7 @@ try:
             modules.append(date(root, config, w-20, 60, "ne"))
 
         if config.getboolean("Modules","weather"):
-            modules.append(jsonWeather(root,config,10,10,"nw"))
+            modules.append(weather(root,config,10,10,"nw"))
 
         if config.getboolean("Modules","clock"):
             modules.append(clock(root, config, w-10, 0, "ne"))
@@ -106,13 +106,13 @@ try:
             modules.append(status(root,config,0,h/2,"w"))
 
         if config.getboolean("Modules","news"):
-            modules.append(news_focus(root,config,w/2,h/2,"center"))
+            modules.append(news(root,config,w/2,h/2,"center"))
 
         if config.getboolean("Modules","welcome"):
             modules.append(welcome(root,config,w/2,150,"center"))
 
-        if config.getboolean("Modules","calendar_mirror"):
-            modules.append(calendar_mirror(root,config,w,250,"ne"))
+        if config.getboolean("Modules","calendar"):
+            modules.append(calendar(root,config,w,250,"ne"))
 
         for thr in modules:
             thr.daemon = True
