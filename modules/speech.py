@@ -2,6 +2,9 @@
 """
 Speech Recognition Modul for MirrorOS
 using the Python Libary SpeechRecognition
+you must install SpeechRecognition and pyAudio
+- pip install SpeechRecognition
+- pip install pyaudio
 Autor: Bastian Schroll
 """
 
@@ -22,7 +25,7 @@ class speech(modul):
             ##############
             # init section
 
-            print("Thread Test init")
+            pass
 
             # init section
             ##############
@@ -42,19 +45,24 @@ class speech(modul):
                 r = sr.Recognizer()
 
                 with sr.Microphone() as source:
-                    r.adjust_for_ambient_noise(source)
-                    r.pause_threshold = 0.5
+                    #r.adjust_for_ambient_noise(source)
+                    #r.pause_threshold = 0.5
                     logging.debug("listen for speech")
                     audio = r.listen(source)
 
                 # recognize speech using Google Speech Recognition
                 try:
                     logging.debug("process spech")
-                    logging.debug("You said: "+ r.recognize_google(audio, show_all=False, language = "de-DE"))
+                    self.speech_data = r.recognize_google(audio, show_all=False, language = "de-DE")
+                    logging.debug("You said: "+ self.speech_data)
+
+                    if self.speech_data == "beenden" or self.speech_data == "ende":
+                        self.window.quit()
+
                 except sr.UnknownValueError:
                     logging.debug("Google Speech Recognition could not understand audio")
                 except sr.RequestError as e:
-                    logging.debug("Could not request results from Google Speech Recognition service; {0}".format(e))
+                    logging.error("Could not request results from Google Speech Recognition service; {0}".format(e))
 
                 # code section
                 ##############
