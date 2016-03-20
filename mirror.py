@@ -47,7 +47,7 @@ try:
         from modules.welcome import welcome
         from modules.calendar import calendar
 
-        from modules.speech import speech
+        #from modules.speech import speech
         #
         ##### Modules Import ######
     except:
