@@ -39,7 +39,7 @@ class status(modul):
                 ##############
                 # code section
 
-                self.thread_text = "Activ Moduls: "+ modul.cntAllModules() +"\n"
+                self.thread_text = "Activ Modules: "+ modul.cntAllModules() +"\n"
 
                 for key, value in modul.getAllModules().items():
                     self.thread_text += "["+value+"] "+ key + "\n"
