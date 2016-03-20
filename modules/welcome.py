@@ -1,7 +1,7 @@
 #-*- encoding: utf-8 -*-
 """
 welcome module for MirrorOS
-Autor: Matthias Kittler
+Autor: Matthias Kittler, Bastian Schroll
 """
 
 from tkinter import *
@@ -34,14 +34,16 @@ class welcome(modul):
                 # code section
                 self.dayTime = time.strftime("%H:%M")
 
-                if self.dayTime >= "03:00" and self.dayTime <= "09:29":
-                    self.welcome_text = " Guten Morgen "
-                elif self.dayTime >= "09:30" and self.dayTime <= "15:59":
-                    self.welcome_text = " Hallo "
-                elif self.dayTime >= "16:00" and self.dayTime >= "02:59":
-                    self.welcome_text = " Guten Abend "
-                else:
-                    self.welcome_text = " Servus "
+                #set default text
+                self.welcome_text = self.config.get("welcome", "default")
+
+                #check all entrys from config file
+                for key, val in self.config.items("welcome"):
+                    if "msg" in key:
+                        msg = val.split(";")
+                        print(msg)
+                        if self.dayTime >= msg[0] and self.dayTime <= msg[1]:
+                            self.welcome_text = msg[2]
 
                 self.txtWidget("welcome", self.welcome_text)
 
