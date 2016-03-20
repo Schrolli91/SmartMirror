@@ -45,7 +45,7 @@ class viewer(modul):
 
                 self.logfile_text = ""
 
-                for line in range(10,0,-1):
+                for line in range(self.config.getint("log_view", "max_lines"),0,-1):
                     self.logfile_text += str(len(lineList)-line).zfill(3) +"| "+ lineList[len(lineList)-line]
 
                 self.txtWidget("logfile", self.logfile_text)
