@@ -101,9 +101,12 @@ class calendar(modul):
                     hour = start[11:13]
                     minute = start[14:16]
                     dauer = start[20:22] + ":" + start[23:25]
-
-                    self.calendar_text += day + "." + month + "." + year + "  um  " + hour + ":" + minute + " Uhr " + " für: " + dauer + " h " +" - "+ event['summary'] + "\n" + "\n"
-
+                    
+                    if hour != 0:
+                        self.calendar_text += day + "." + month + "." + year + "  um  " + hour + ":" + minute + " Uhr " + " für: " + dauer + " h " +" - "+ event['summary'] + "\n" + "\n"
+                    else:
+                        self.calendar_text += day + "." + month + "." + year + event['summary'] + "\n" + "\n"
+                        
                 self.txtWidget("calendar", self.calendar_text)
 
 
