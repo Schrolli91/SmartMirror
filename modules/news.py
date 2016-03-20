@@ -43,7 +43,7 @@ class news(modul):
                 ##############
                 # code section
 
-                self.newsText = self.fetch_data()
+                self.newsText = self.fetch_rss()
                 self.txtWidget("news", self.newsText)
 
                 # code section
@@ -55,7 +55,7 @@ class news(modul):
                 self.wait(self.config.getfloat("news","update_interval"))
 
 
-    def fetch_data(self):
+    def fetch_rss(self):
         try:
             logging.debug("load rss feed from web")
             tree = urllib.request.urlopen("http://rss.focus.de/fol/XML/rss_folnews_eilmeldungen.xml").read()
