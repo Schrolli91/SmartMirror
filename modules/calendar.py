@@ -108,7 +108,7 @@ class calendar(threading.Thread):
                 now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
                 
                 eventsResult = service.events().list(
-                    calendarId='primary', timeMin=now, maxResults=10, singleEvents=True,
+                    calendarId='primary', timeMin=now, maxResults=5, singleEvents=True,
                     orderBy='startTime').execute()
                 events = eventsResult.get('items', [])
 
@@ -124,7 +124,7 @@ class calendar(threading.Thread):
                     minute = start[14:16]
                     dauer = start[20:22] + ":" + start[23:25]
 
-                    self.calendar_text1 += " Am " + day + "." + month + "." + year + " um " + hour + ":" + minute + " Für: " + dauer + " Stunden " +" - "+ event['summary'] + "\n"
+                    self.calendar_text1 += day + "." + month + "." + year + "  um  " + hour + ":" + minute + " Uhr " + " für: " + dauer + " h " +" - "+ event['summary'] + "\n" + "\n"
                     
                     
 
