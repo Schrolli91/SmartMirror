@@ -13,7 +13,8 @@ class modul(widget, threading.Thread):
     """Container for the Modul"""
 
     __modules = {} #all active modules
-    __modulCtr = 0
+    __modulCtr = 0 #for uniqe modulname ID
+
 
     def __init__(self, childName):
         threading.Thread.__init__(self)
@@ -26,7 +27,10 @@ class modul(widget, threading.Thread):
 
         logging.debug("load new modul: %s", self.name)
 
-        self.__modules[self.name] = "?"
+        # 0 = module instance
+        # 1 = status
+        self.__modules[self.name] = [self, "?"]
+
 
     def run(self):
         """override the run method from the threading Module
@@ -63,11 +67,11 @@ class modul(widget, threading.Thread):
         @param status: staus as string
         """
         logging.debug("Status: %s [%s]", self.name, status)
-        self.__modules[self.name] = status
+        self.__modules[self.name][1] = status
 
     def getStatus(self):
         """Get the Status the Modul"""
-        return self.__modules[self.name]
+        return self.__modules[self.name][1]
 
     #static method to return all modules and status
     def getAllModules():

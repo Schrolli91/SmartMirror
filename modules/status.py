@@ -42,7 +42,7 @@ class status(modul):
                 self.thread_text = "Activ Modules: "+ modul.cntAllModules() +"\n"
 
                 for key, value in modul.getAllModules().items():
-                    self.thread_text += "["+value+"] "+ key + "\n"
+                    self.thread_text += "["+value[1]+"] "+ key + "\n"
 
                 self.txtWidget("threads", self.thread_text)
 
