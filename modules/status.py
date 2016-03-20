@@ -6,7 +6,6 @@ Autor: Bastian Schroll
 
 from tkinter import *
 import logging
-import threading
 import time
 
 from inc.modul import modul
@@ -40,15 +39,7 @@ class status(modul):
                 ##############
                 # code section
 
-                self.thread_text = "Threads running: " + str(threading.active_count()) + "\n"
-
-                for t in threading.enumerate():
-                	if t is "MainThread":
-                		continue
-                	self.thread_text += " - " + t.getName() + "\n"
-
-                self.thread_text += "\n"
-                self.thread_text += "Activ Moduls: "+ modul.cntAllModules() +"\n"
+                self.thread_text = "Activ Moduls: "+ modul.cntAllModules() +"\n"
 
                 for key, value in modul.getAllModules().items():
                     self.thread_text += "["+value+"] "+ key + "\n"
