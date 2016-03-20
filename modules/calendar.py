@@ -106,23 +106,27 @@ class calendar(threading.Thread):
                 service = discovery.build('calendar', 'v3', http=http)
 
                 now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
-                print('Getting the upcoming 10 events')
+                
                 eventsResult = service.events().list(
                     calendarId='primary', timeMin=now, maxResults=10, singleEvents=True,
                     orderBy='startTime').execute()
                 events = eventsResult.get('items', [])
 
-                if not events:
-                    print('No upcoming events found.')
-                for event in events:
-                    start = event['start'].get('dateTime', event['start'].get('date'))
-                    print(start, event['summary'])
                 self.calendar_text1 = ""
                 if not events:
                     self.calendar_text1 = " Keine Einträge gefunden "
                 for event in events:
                     start = event['start'].get('dateTime', event['start'].get('date'))
-                    self.calendar_text1 += start +" - "+ event['summary'] + "\n"
+                    day = start[8:10]
+                    month = start[5:7]
+                    year = start[0:4]
+                    hour = start[11:13]
+                    minute = start[14:16]
+                    dauer = start[20:22] + ":" + start[23:25]
+
+                    self.calendar_text1 += " Am " + day + "." + month + "." + year + " um " + hour + ":" + minute + " Für: " + dauer + " Stunden " +" - "+ event['summary'] + "\n"
+                    
+                    
 
 
                 self.loading.configure(text="")
