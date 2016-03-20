@@ -3,7 +3,6 @@
 Calendar Modul with threading
 Autor: Matthias Kittler
 """
-from __future__ import print_function
 import httplib2
 import os
 
@@ -15,74 +14,53 @@ from oauth2client import tools
 from tkinter import *
 import threading
 import logging
-import time
+#import time
 import datetime
 
 
-try:
-    import argparse
-    flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
-except ImportError:
-    flags = None
+from inc.modul import modul
 
-# If modifying these scopes, delete your previously saved credentials
-# at ~/.credentials/calendar-python-quickstart.json
-SCOPES = 'https://www.googleapis.com/auth/calendar.readonly'
-CLIENT_SECRET_FILE = 'client_secret.json'
-APPLICATION_NAME = 'MirrorOS'
-
-
-class calendar(threading.Thread):
+class calendar(modul):
     def __init__(self, window, config, xPos, yPos, anc="nw"):
-        threading.Thread.__init__(self)
-        self.name = __name__
-        self.daemon = True
-        try:
-            logging.debug("load " + __name__)
+        modul.__init__(self, __name__) #load modul container
+        self.window = window
+        self.config = config
 
-            self.window = window
-            self.config = config
-            self.xPos = xPos
-            self.yPos = yPos
-            self.anc = anc
+        try:
 
             ##############
             # init section
 
-            self.loading = Label(self.window, fg=self.config.get("calendar","main_color"), font=self.config.get("calendar","font"), bg='black')
-            self.loading.place(x=self.xPos, y=self.yPos-50, anchor=self.anc)
+            self.addWidget("headline", Label(self.window, fg=self.config.get("calendar","main_color"), font=self.config.get("calendar","main_font"), bg='black'))
+            self.addWidget("calendar", Label(self.window, fg=self.config.get("calendar","color"), font=self.config.get("calendar", "font"), bg='black'))
 
-            self.headline = Label(self.window, fg=self.config.get("calendar","color"), font=self.config.get("calendar","main_font"), bg='black')
-            self.headline.place(x=self.xPos, y=self.yPos-25, anchor=self.anc)
+            self.posWidget("headline", xPos, yPos, anc)
+            self.posWidget("calendar", xPos, yPos+25, anc)
 
-            self.calendar_text = Label(self.window, fg=self.config.get("calendar","color"), font=self.config.get("calendar", "font"), bg='black')
-            self.calendar_text.place(x=self.xPos, y=self.yPos, anchor=self.anc)
             # init section
             ##############
 
         except:
-            logging.exception("cannot load " + __name__)
+            logging.exception("cannot load %s", __name__)
 
 
-    def run(self):
-        logging.debug("run " + __name__)
+    def main(self):
+
         while 1: #infinite loop from thread - on exit, thread dies
             try:
-                logging.debug("update " + __name__)
 
                 ##############
                 # code section
 
                 """Gets valid user credentials from storage.
 
-            If nothing has been stored, or if the stored credentials are invalid,
-            the OAuth2 flow is completed to obtain the new credentials.
+                If nothing has been stored, or if the stored credentials are invalid,
+                the OAuth2 flow is completed to obtain the new credentials.
 
-            Returns:
-                Credentials, the obtained credential.
-            """
-                self.loading.configure(text="Aktualisiere Kalenderdaten ...")
-                self.headline.configure(text=" Einträge im Kalender: ")
+                Returns:
+                    Credentials, the obtained credential.
+                """
+                self.txtWidget("headline", "Einträge im Kalender:")
 
                 home_dir = os.path.expanduser('~')
                 credential_dir = os.path.join(home_dir, '.credentials')
@@ -106,15 +84,15 @@ class calendar(threading.Thread):
                 service = discovery.build('calendar', 'v3', http=http)
 
                 now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
-                
+
                 eventsResult = service.events().list(
-                    calendarId='primary', timeMin=now, maxResults=5, singleEvents=True,
+                    calendarId='primary', timeMin=now, maxResults=self.config.getint("calendar", "max_events"), singleEvents=True,
                     orderBy='startTime').execute()
                 events = eventsResult.get('items', [])
 
-                self.calendar_text1 = ""
+                self.calendar_text = ""
                 if not events:
-                    self.calendar_text1 = " Keine Einträge gefunden "
+                    self.calendar_text = " Keine Einträge gefunden "
                 for event in events:
                     start = event['start'].get('dateTime', event['start'].get('date'))
                     day = start[8:10]
@@ -124,18 +102,15 @@ class calendar(threading.Thread):
                     minute = start[14:16]
                     dauer = start[20:22] + ":" + start[23:25]
 
-                    self.calendar_text1 += day + "." + month + "." + year + "  um  " + hour + ":" + minute + " Uhr " + " für: " + dauer + " h " +" - "+ event['summary'] + "\n" + "\n"
-                    
-                    
+                    self.calendar_text += day + "." + month + "." + year + "  um  " + hour + ":" + minute + " Uhr " + " für: " + dauer + " h " +" - "+ event['summary'] + "\n" + "\n"
+
+                self.txtWidget("calendar", self.calendar_text)
 
 
-                self.loading.configure(text="")
-
-                self.calendar_text.configure(text=self.calendar_text1)
                 # code section
                 ##############
 
             except:
-                logging.exception("cannot update " + __name__)
+                logging.exception("cannot update %s", __name__)
             finally:
-                time.sleep(self.config.getfloat("calendar","update_interval"))
+                self.wait(self.config.getfloat("calendar","update_interval"))

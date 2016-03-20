@@ -41,7 +41,6 @@ class welcome(modul):
                 for key, val in self.config.items("welcome"):
                     if "msg" in key:
                         msg = val.split(";")
-                        print(msg)
                         if self.dayTime >= msg[0] and self.dayTime <= msg[1]:
                             self.welcome_text = msg[2]
 
