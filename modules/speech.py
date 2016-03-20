@@ -43,10 +43,12 @@ class speech(modul):
                 # code section
 
                 r = sr.Recognizer()
+                r.dynamic_energy_threshold = True
 
                 with sr.Microphone() as source:
-                    r.adjust_for_ambient_noise(source)
-                    r.pause_threshold = 0.5
+                    r.adjust_for_ambient_noise(source,0.5)
+                    r.non_speaking_duration = 0.3
+                    r.pause_threshold = 0.3
                     logging.debug("listen for speech")
                     audio = r.listen(source)
 
@@ -54,11 +56,23 @@ class speech(modul):
                 try:
                     logging.debug("process spech")
                     #self.speech_data = r.recognize_google(audio, show_all=False, language = "de-DE")
-                    self.speech_data = r.recognize_wit(audio, "APIKEY", show_all=False)
+                    self.speech_data = r.recognize_wit(audio, "VER22U4DU7TLIMWUUEAPFDEWLZUDFOAY", show_all=False)
+                    self.speech_data = self.speech_data.lower()
                     logging.debug("You said: "+ self.speech_data)
 
                     if self.speech_data == "beenden" or self.speech_data == "ende":
                         self.window.quit()
+
+                    if self.speech_data == "uhr aus":
+                        for key, value in modul.getAllModules().items():
+                            if "clock" in key:
+                                value[0].hideAllWidgets()
+
+                    if self.speech_data == "uhr an":
+                        for key, value in modul.getAllModules().items():
+                            if "clock" in key:
+                                value[0].showAllWidgets()
+
 
                 except sr.UnknownValueError:
                     logging.debug("Speech Recognition could not understand audio")
