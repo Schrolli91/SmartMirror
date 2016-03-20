@@ -71,5 +71,10 @@ class modul(widget, threading.Thread):
 
     #static method to return all modules and status
     def getAllModules():
-        """Return the dict of all active modules with ther status"""
+        """Return the dict of all active modules with their status"""
         return modul.__modules
+
+    #static method to return number of running modules
+    def cntAllModules():
+        """Return the number of all active modules"""
+        return str(len(modul.__modules))
