@@ -102,7 +102,7 @@ class calendar(modul):
                     minute = start[14:16]
                     dauer = start[20:22] + ":" + start[23:25]
                     
-                    if hour != 0:
+                    if hour != "":
                         self.calendar_text += day + "." + month + "." + year + "  um  " + hour + ":" + minute + " Uhr " + " für: " + dauer + " h " +" - "+ event['summary'] + "\n" + "\n"
                     else:
                         self.calendar_text += day + "." + month + "." + year + event['summary'] + "\n" + "\n"
