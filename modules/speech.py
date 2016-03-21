@@ -68,7 +68,7 @@ class speech(modul):
                     modName["calendar"] = ["termine", "kalender"]
                     modName["welcome"] = ["begrüßung"]
 
-                    modName["log_view"] = ["log"]
+                    #modName["log_view"] = ["log"]
                     modName["status"] = ["status"]
 
                     onKey = ["anschalten", "anzeigen","zeig", "zeige", "zeigen", "einblenden"]

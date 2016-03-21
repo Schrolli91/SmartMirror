@@ -42,8 +42,8 @@ class weather(modul):
             self.posWidget("today_headline", xPos, yPos+yStep*1, anc)
             self.posWidget("today_weather", xPos, yPos+yStep*2, anc)
             self.posWidget("today_icon", xPos+160, yPos+25, anc)
-            self.posWidget("forecast_headline", xPos, yPos+yStep*7, anc)
-            self.posWidget("forecast_weather", xPos, yPos+yStep*8, anc)
+            self.posWidget("forecast_headline", xPos, yPos+yStep*6, anc)
+            self.posWidget("forecast_weather", xPos, yPos+yStep*7, anc)
 
 
             # init section
@@ -78,13 +78,11 @@ class weather(modul):
                             "Temperatur: "+ str(round(self.weather["main"]["temp"],1)) +" °C"+"\n"+
                             "Min: "+ str(round(self.forecast["list"][0]["temp"]["min"],1)) +" °C"+
                             "/ Max: "+ str(round(self.forecast["list"][0]["temp"]["max"],1)) +" °C"+"\n"+
-                            "Luftdruck: "+ str(round(self.weather["main"]["pressure"])) +" hPa"+"\n"+
                             "Luftfeuchte: "+ str(self.weather["main"]["humidity"]) +" %-rel."
                         )
 
                         self.icon = self.loadIcon(self.weather["weather"][0]["icon"])
                         self.getWidget("today_icon").configure(image=self.icon)
-                        self.getWidget("today_icon").image = self.icon
 
                     ##############
                     #Weather forecast
