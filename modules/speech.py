@@ -47,31 +47,73 @@ class speech(modul):
 
                 with sr.Microphone() as source:
                     r.adjust_for_ambient_noise(source,0.5)
-                    r.non_speaking_duration = 0.3
-                    r.pause_threshold = 0.3
+                    #r.non_speaking_duration = 0.5
+                    r.pause_threshold = 1
                     logging.debug("listen for speech")
                     audio = r.listen(source)
 
                 # recognize speech using Google Speech Recognition
                 try:
                     logging.debug("process spech")
-                    #self.speech_data = r.recognize_google(audio, show_all=False, language = "de-DE")
-                    self.speech_data = r.recognize_wit(audio, "VER22U4DU7TLIMWUUEAPFDEWLZUDFOAY", show_all=False)
+                    self.speech_data = r.recognize_google(audio, show_all=False, language = "de-DE")
+                    #self.speech_data = r.recognize_wit(audio, "VER22U4DU7TLIMWUUEAPFDEWLZUDFOAY", show_all=False)
                     self.speech_data = self.speech_data.lower()
                     logging.debug("You said: "+ self.speech_data)
 
+                    modName = {}
+                    modName["clock"] = ["uhr", "zeit", "uhrzeit"]
+                    modName["date"] = ["datum", "tag"]
+                    modName["news"] = ["news", "nachrichten", "meldungen"]
+                    modName["weather"] = ["wetter", "vorhersage"]
+                    modName["calendar"] = ["termine", "kalender"]
+                    modName["welcome"] = ["begrüßung"]
+
+                    modName["log_view"] = ["log"]
+                    modName["status"] = ["status"]
+
+                    onKey = ["anschalten", "anzeigen","zeig", "zeige", "zeigen", "einblenden"]
+                    offKey = ["ausschalten", "ausblenden", "verbergen"]
+
+                    sayedModules = []
+                    mode = 0
+
+                    for name in modName:
+                        for n in modName[name]:
+                            if n in self.speech_data or "alles" in self.speech_data:
+                                logging.debug("found: "+name+" - with: " +n)
+                                sayedModules.append(name)
+                                break
+
+                    #print(sayedModules)
+
+                    for key in onKey:
+                        if key in self.speech_data:
+                            logging.debug("found: "+key+" - in onKey")
+                            mode = 1
+                            break
+
+                    for key in offKey:
+                        if key in self.speech_data:
+                            logging.debug("found: "+key+" - in offKey")
+                            mode = 2
+                            break
+
+                    for sayedmod in sayedModules:
+                        for mod, value in modul.getAllModules().items():
+                            if sayedmod in mod:
+
+                                if mode == 1:
+                                    logging.debug("Do it!")
+                                    value[0].showAllWidgets()
+                                if mode == 2:
+                                    logging.debug("Do it!")
+                                    value[0].hideAllWidgets()
+
+                                break
+
+
                     if self.speech_data == "beenden" or self.speech_data == "ende":
                         self.window.quit()
-
-                    if self.speech_data == "uhr aus":
-                        for key, value in modul.getAllModules().items():
-                            if "clock" in key:
-                                value[0].hideAllWidgets()
-
-                    if self.speech_data == "uhr an":
-                        for key, value in modul.getAllModules().items():
-                            if "clock" in key:
-                                value[0].showAllWidgets()
 
 
                 except sr.UnknownValueError:
