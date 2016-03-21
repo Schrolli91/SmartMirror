@@ -36,6 +36,9 @@ class weather(modul):
             self.addWidget("forecast_headline", Label(self.window, fg=self.config.get("weather","main_color"), font=self.config.get("weather","main_font"), bg='black'))
             self.addWidget("forecast_weather", Label(self.window, fg=self.config.get("weather","color"), font=self.config.get("weather","font"), bg='black', justify=LEFT))
 
+            #self.addWidget("icon1", Label(self.window, bg="black"))
+            #self.addWidget("icon2", Label(self.window, bg="black"))
+
             yStep = 22
 
             self.posWidget("headline", xPos, yPos, anc)
@@ -44,6 +47,9 @@ class weather(modul):
             self.posWidget("today_icon", xPos+160, yPos+25, anc)
             self.posWidget("forecast_headline", xPos, yPos+yStep*6, anc)
             self.posWidget("forecast_weather", xPos, yPos+yStep*7, anc)
+
+            #self.posWidget("icon1", xPos, yPos+yStep*9, anc)
+            #self.posWidget("icon2", xPos+50, yPos+yStep*9, anc)
 
 
             # init section
@@ -94,6 +100,11 @@ class weather(modul):
                             "Morgen: "+ str(self.forecast["list"][1]["weather"][0]["description"]) +" ("+ str(round(self.forecast["list"][1]["temp"]["day"],1)) +"°C)\n"+
                             "Übermorgen: "+ str(self.forecast["list"][2]["weather"][0]["description"]) +" ("+ str(round(self.forecast["list"][2]["temp"]["day"],1)) +"°C)"
                             )
+
+                        #self.icon1 = self.loadIcon(self.forecast["list"][1]["weather"][0]["icon"])
+                        #self.getWidget("icon1").configure(image=self.icon1)
+                        #self.icon2 = self.loadIcon(self.forecast["list"][2]["weather"][0]["icon"])
+                        #self.getWidget("icon2").configure(image=self.icon2)
 
 
 
