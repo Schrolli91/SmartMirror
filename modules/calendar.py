@@ -32,7 +32,7 @@ class calendar(modul):
             # init section
 
             self.addWidget("headline", Label(self.window, fg=self.config.get("calendar","main_color"), font=self.config.get("calendar","main_font"), bg='black'))
-            self.addWidget("calendar", Label(self.window, fg=self.config.get("calendar","color"), font=self.config.get("calendar", "font"), bg='black'))
+            self.addWidget("calendar", Label(self.window, fg=self.config.get("calendar","color"), font=self.config.get("calendar", "font"), bg='black', justify='left'))
 
             self.posWidget("headline", xPos, yPos, anc)
             self.posWidget("calendar", xPos, yPos+25, anc)
@@ -60,7 +60,7 @@ class calendar(modul):
                 Returns:
                     Credentials, the obtained credential.
                 """
-                self.txtWidget("headline", "Einträge im Kalender:")
+                self.txtWidget("headline", "Aktuelle Termine:")
 
                 home_dir = os.path.expanduser('~')
                 credential_dir = os.path.join(home_dir, '.credentials')
@@ -101,12 +101,14 @@ class calendar(modul):
                     hour = start[11:13]
                     minute = start[14:16]
                     dauer = start[20:22] + ":" + start[23:25]
-                    
+
+                    self.calendar_text += day + "." + month + "." + year
                     if hour != "":
-                        self.calendar_text += day + "." + month + "." + year + "  um  " + hour + ":" + minute + " Uhr " + " für: " + dauer + " h " +" - "+ event['summary'] + "\n" + "\n"
+                         self.calendar_text += " um " + hour + ":" + minute + " Uhr (" + dauer + "h)"
                     else:
-                        self.calendar_text += day + "." + month + "." + year + " - " + event['summary'] + "\n" + "\n"
-                        
+                        self.calendar_text += "\t\t"
+                    self.calendar_text += "\t" +  event['summary'] + "\n"
+
                 self.txtWidget("calendar", self.calendar_text)
 
 

@@ -103,19 +103,19 @@ try:
             modules.append(clock(root, config, w-10, 0, "ne"))
 
         if config.getboolean("Modules","log_view"):
-            modules.append(viewer(root,config,10,h,"sw"))
+            modules.append(viewer(root,config,10,h/2,"w"))
 
         if config.getboolean("Modules","status"):
-            modules.append(status(root,config,0,h/2,"w"))
+            modules.append(status(root,config,10,h,"sw"))
 
         if config.getboolean("Modules","news"):
-            modules.append(news(root,config,w/2,h/2,"center"))
+            modules.append(news(root,config,w/2,h,"s"))
 
         if config.getboolean("Modules","welcome"):
-            modules.append(welcome(root,config,w/2,150,"center"))
+            modules.append(welcome(root,config,w/2,50,"center"))
 
         if config.getboolean("Modules","calendar"):
-            modules.append(calendar(root,config,w,250,"ne"))
+            modules.append(calendar(root,config,w-20,100,"ne"))
 
         #modules.append(speech(root,config,0,0))
 
