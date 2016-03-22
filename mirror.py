@@ -58,7 +58,7 @@ try:
     try:
         logging.debug("read the config file")
         config = configparser.ConfigParser()
-        config.read("config.ini")
+        config.read("config.ini", encoding='utf-8')
     except:
         logging.exception("cannot read the config file")
         raise
