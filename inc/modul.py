@@ -22,6 +22,7 @@ class modul(widget, threading.Thread):
         self.name = str(self.__modulCtr) +"-"+ childName
         modul.__modulCtr += 1 #incr the modulCtr
         self.daemon = True
+        self.event = threading.Event() #generate an event object
 
         widget.__init__(self, self.name)
 
