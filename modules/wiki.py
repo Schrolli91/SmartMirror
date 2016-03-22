@@ -7,6 +7,10 @@ Autor: Bastian Schroll
 from tkinter import *
 import logging
 
+#for json download
+import urllib.request
+import json
+
 from inc.modul import modul
 
 class wiki(modul):
@@ -20,7 +24,7 @@ class wiki(modul):
             ##############
             # init section
 
-            pass
+            self.searchString = ""
 
             # init section
             ##############
@@ -41,6 +45,16 @@ class wiki(modul):
                 self.event.wait()
                 self.setStatus("R")
 
+                logging.debug("starte wiki: " + self.searchString)
+
+                self.searchString = self.searchString.replace(" ", "+")
+                self.wikiLink = "https://de.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&exintro=1&explaintext=1&utf8=1&titles="+self.searchString
+                self.wikiRet = self.fetch_json(self.wikiLink)
+
+                logging.debug(self.wikiRet["query"])
+
+
+
                 # code section
                 ##############
 
@@ -48,4 +62,18 @@ class wiki(modul):
                 logging.exception("cannot update %s", __name__)
             finally:
                 #self.wait(1)
-                pass
+                self.event.clear()
+
+
+    def fetch_json(self, link):
+        try:
+            logging.debug("fetch json from: %s", link)
+            #get json weather data from today
+            req = urllib.request.urlopen(link)
+            encoding = req.headers.get_content_charset()
+            logging.debug("fetching data is done")
+            return json.loads(req.read().decode(encoding))
+
+        except:
+            logging.exception("cannot fetch data from web")
+            return False

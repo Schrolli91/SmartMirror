@@ -79,6 +79,17 @@ class speech(modul):
                     sayedModules = []
                     mode = 0
 
+
+                    if "wiki" in self.speech_data:
+                        self.speech_data = self.speech_data.replace("wiki", "").replace("pedia", "").strip()
+                        logging.debug("WIKI: "+ self.speech_data)
+                        for mod, value in modul.getAllModules().items():
+                            if "wiki" in mod:
+                                value[0].searchString = self.speech_data
+                                value[0].event.set()
+
+
+
                     for name in modName:
                         for n in modName[name]:
                             if n in self.speech_data or "alles" in self.speech_data:
