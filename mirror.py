@@ -33,28 +33,6 @@ logging.info("Build Date: " + __buildDate___)
 
 #Main program routine
 try:
-    #try to import modules
-    try:
-        logging.debug("import the modules")
-        ##### Modules Import ######
-        #
-        from modules.clock import clock
-        from modules.date import date
-        from modules.weather import weather
-        from modules.log_view import viewer
-        from modules.status import status
-        from modules.news import news
-        from modules.welcome import welcome
-        from modules.calendar import calendar
-        from modules.wiki import wiki
-
-        #from modules.speech import speech
-        #
-        ##### Modules Import ######
-    except:
-        logging.exception("cannot import the modules")
-        raise
-
     #try to read the config file
     try:
         logging.debug("read the config file")
@@ -62,6 +40,40 @@ try:
         config.read("config.ini", encoding='utf-8')
     except:
         logging.exception("cannot read the config file")
+        raise
+
+    #try to import modules
+    try:
+        logging.debug("import the modules")
+        ##### Modules Import ######
+        #
+        if config.getboolean("Modules","clock"):
+            from modules.clock import clock
+        if config.getboolean("Modules","date"):
+            from modules.date import date
+        if config.getboolean("Modules","weather"):
+            from modules.weather import weather
+        if config.getboolean("Modules","news"):
+            from modules.news import news
+        if config.getboolean("Modules","welcome"):
+            from modules.welcome import welcome
+        if config.getboolean("Modules","calendar"):
+            from modules.calendar import calendar
+
+        if config.getboolean("Modules","wiki"):
+            from modules.wiki import wiki
+        if config.getboolean("Modules","speech"):
+            from modules.speech import speech
+
+
+        if config.getboolean("Modules","log_view"):
+            from modules.log_view import viewer
+        if config.getboolean("Modules","status"):
+            from modules.status import status
+        #
+        ##### Modules Import ######
+    except:
+        logging.exception("cannot import the modules")
         raise
 
     #try to generate tkinter window object
@@ -94,36 +106,31 @@ try:
 
         #modules.append(threadTest(root, config, 0,0))
 
-        if config.getboolean("Modules","date"):
-            modules.append(date(root, config, w-20, 60, "ne"))
-
-        if config.getboolean("Modules","weather"):
-            modules.append(weather(root,config,10,10,"nw"))
-
         if config.getboolean("Modules","clock"):
             modules.append(clock(root, config, w-10, 0, "ne"))
-
-        if config.getboolean("Modules","log_view"):
-            modules.append(viewer(root,config,10,h/2,"w"))
-
-        if config.getboolean("Modules","status"):
-            modules.append(status(root,config,10,h,"sw"))
-
+        if config.getboolean("Modules","date"):
+            modules.append(date(root, config, w-20, 60, "ne"))
+        if config.getboolean("Modules","weather"):
+            modules.append(weather(root,config,10,10,"nw"))
         if config.getboolean("Modules","news"):
             modules.append(news(root,config,w/2,h,"s"))
-
         if config.getboolean("Modules","welcome"):
             modules.append(welcome(root,config,w/2,50,"center"))
-
         if config.getboolean("Modules","calendar"):
             modules.append(calendar(root,config,w-20,100,"ne"))
 
         if config.getboolean("Modules","wiki"):
             modules.append(wiki(root,config,w/2,100,"n"))
+        if config.getboolean("Modules","speech"):
+            modules.append(speech(root,config,0,0))
 
 
-        #modules.append(speech(root,config,0,0))
+        if config.getboolean("Modules","log_view"):
+            modules.append(viewer(root,config,10,h/2,"w"))
+        if config.getboolean("Modules","status"):
+            modules.append(status(root,config,10,h,"sw"))
 
+        logging.debug("start the modules")
         for thr in modules:
             thr.daemon = True
             thr.start()
