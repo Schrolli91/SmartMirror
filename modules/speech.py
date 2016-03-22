@@ -50,8 +50,10 @@ class speech(modul):
                     #r.non_speaking_duration = 0.5
                     r.pause_threshold = 1
                     logging.debug("listen for speech")
+                    self.setStatus("W")
                     audio = r.listen(source)
 
+                self.setStatus("R")
                 # recognize speech using Google Speech Recognition
                 try:
                     logging.debug("process spech")

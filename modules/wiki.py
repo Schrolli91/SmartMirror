@@ -20,8 +20,7 @@ class wiki(modul):
             ##############
             # init section
 
-            print("Wiki init")
-            
+            pass
 
             # init section
             ##############
@@ -38,8 +37,9 @@ class wiki(modul):
                 ##############
                 # code section
 
-                print("Wiki update")
+                self.setStatus("W")
                 self.event.wait()
+                self.setStatus("R")
 
                 # code section
                 ##############
@@ -47,4 +47,5 @@ class wiki(modul):
             except:
                 logging.exception("cannot update %s", __name__)
             finally:
-                self.wait(3)
+                #self.wait(1)
+                pass
