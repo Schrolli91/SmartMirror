@@ -1,0 +1,162 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Smartmirror by Schrolli91</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-dark.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Smartmirror</h1>
+        <p>Simple Framwork for an SmartMirror with an Rapsberry Pi</p>
+        <p class="view"><a href="https://github.com/Schrolli91/SmartMirror">View the Project on GitHub <small>Schrolli91/SmartMirror</small></a></p>
+        <ul>
+          <li><a href="https://github.com/Schrolli91/SmartMirror/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/Schrolli91/SmartMirror/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/Schrolli91/SmartMirror">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="smartmirror" class="anchor" href="#smartmirror" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SmartMirror</h1>
+
+<p>MirrorOS is a simple and easy to use Framework for SmartMirrors</p>
+
+<h2>
+<a id="allgemein" class="anchor" href="#allgemein" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Allgemein</h2>
+
+<p>MirrorOS ist ein Python Script zum Betrieb eines Smart Mirrors.</p>
+
+<p>Jedes Modul wird in einem eigenen Thread ausgeführt. Durch die dadurch erreichte Parallelisierung der Module ist ein reibungsloser Ablauf garantiert.</p>
+
+<h2>
+<a id="aktuelle-module" class="anchor" href="#aktuelle-module" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Aktuelle Module</h2>
+
+<p>Follgende Module sind derzeit in MirrorOS implementiert oder geplant:</p>
+
+<p><img class="emoji" title=":white_check_mark:" alt=":white_check_mark:" src="https://assets-cdn.github.com/images/icons/emoji/unicode/2705.png" height="20" width="20" align="absmiddle"> fertig implementiert | <img class="emoji" title=":x:" alt=":x:" src="https://assets-cdn.github.com/images/icons/emoji/unicode/274c.png" height="20" width="20" align="absmiddle"> bisher nicht implementiert | <img class="emoji" title=":question:" alt=":question:" src="https://assets-cdn.github.com/images/icons/emoji/unicode/2753.png" height="20" width="20" align="absmiddle"> evtl. geplant</p>
+
+<table>
+<thead>
+<tr>
+<th>Modul</th>
+<th>Beschreibung</th>
+<th align="center">Fertig</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Uhrzeit</td>
+<td>Zeigt die aktuelle Uhrzeit an</td>
+<td align="center"><img class="emoji" title=":white_check_mark:" alt=":white_check_mark:" src="https://assets-cdn.github.com/images/icons/emoji/unicode/2705.png" height="20" width="20" align="absmiddle"></td>
+</tr>
+<tr>
+<td>Datum</td>
+<td>Zeigt das aktuelle Datum an</td>
+<td align="center"><img class="emoji" title=":white_check_mark:" alt=":white_check_mark:" src="https://assets-cdn.github.com/images/icons/emoji/unicode/2705.png" height="20" width="20" align="absmiddle"></td>
+</tr>
+<tr>
+<td>Wetter</td>
+<td>Zeigt das Aktuelle Wetter + 2 Tages  Vorhersage an</td>
+<td align="center"><img class="emoji" title=":white_check_mark:" alt=":white_check_mark:" src="https://assets-cdn.github.com/images/icons/emoji/unicode/2705.png" height="20" width="20" align="absmiddle"></td>
+</tr>
+<tr>
+<td>Kalender</td>
+<td>Zeigt die nächsten Termine aus dem Google Calendar</td>
+<td align="center"><img class="emoji" title=":white_check_mark:" alt=":white_check_mark:" src="https://assets-cdn.github.com/images/icons/emoji/unicode/2705.png" height="20" width="20" align="absmiddle"></td>
+</tr>
+<tr>
+<td>Focus News</td>
+<td>Liest den RSS Feed der Focus Eilmeldungen aus</td>
+<td align="center"><img class="emoji" title=":white_check_mark:" alt=":white_check_mark:" src="https://assets-cdn.github.com/images/icons/emoji/unicode/2705.png" height="20" width="20" align="absmiddle"></td>
+</tr>
+<tr>
+<td>Begrüßung</td>
+<td>Uhrzeitabhängige Begrüßungen</td>
+<td align="center"><img class="emoji" title=":white_check_mark:" alt=":white_check_mark:" src="https://assets-cdn.github.com/images/icons/emoji/unicode/2705.png" height="20" width="20" align="absmiddle"></td>
+</tr>
+<tr>
+<td>Spracherkennung</td>
+<td>Steuerung des Mirrors durch Spracheingaben</td>
+<td align="center"><img class="emoji" title=":x:" alt=":x:" src="https://assets-cdn.github.com/images/icons/emoji/unicode/274c.png" height="20" width="20" align="absmiddle"></td>
+</tr>
+<tr>
+<td>Text to Speech</td>
+<td>Sprachausgabe durch den Mirror</td>
+<td align="center"><img class="emoji" title=":x:" alt=":x:" src="https://assets-cdn.github.com/images/icons/emoji/unicode/274c.png" height="20" width="20" align="absmiddle"></td>
+</tr>
+<tr>
+<td>Wikipedia</td>
+<td>Suche auf Wikipedia</td>
+<td align="center"><img class="emoji" title=":x:" alt=":x:" src="https://assets-cdn.github.com/images/icons/emoji/unicode/274c.png" height="20" width="20" align="absmiddle"></td>
+</tr>
+<tr>
+<td>Gesichtserkennung</td>
+<td>Benutzer durch Webcam unterscheiden</td>
+<td align="center"><img class="emoji" title=":question:" alt=":question:" src="https://assets-cdn.github.com/images/icons/emoji/unicode/2753.png" height="20" width="20" align="absmiddle"></td>
+</tr>
+<tr>
+<td>Maps</td>
+<td>Zeigt eine Karte oder Route an</td>
+<td align="center"><img class="emoji" title=":question:" alt=":question:" src="https://assets-cdn.github.com/images/icons/emoji/unicode/2753.png" height="20" width="20" align="absmiddle"></td>
+</tr>
+<tr>
+<td>Verkehr</td>
+<td>Zeigt die aktuelle Verkehrslage auf einer Route an</td>
+<td align="center"><img class="emoji" title=":question:" alt=":question:" src="https://assets-cdn.github.com/images/icons/emoji/unicode/2753.png" height="20" width="20" align="absmiddle"></td>
+</tr>
+</tbody>
+</table>
+
+<h4>
+<a id="debug-und-entwickler-module" class="anchor" href="#debug-und-entwickler-module" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Debug und Entwickler Module</h4>
+
+<table>
+<thead>
+<tr>
+<th>Modul</th>
+<th>Beschreibung</th>
+<th align="center">Fertig</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Log View</td>
+<td>liest die letzten 10 Meldungen aus dem Logfile aus</td>
+<td align="center"><img class="emoji" title=":white_check_mark:" alt=":white_check_mark:" src="https://assets-cdn.github.com/images/icons/emoji/unicode/2705.png" height="20" width="20" align="absmiddle"></td>
+</tr>
+<tr>
+<td>Modul Status</td>
+<td>Listet alle aktuel laufenen Module auf</td>
+<td align="center"><img class="emoji" title=":white_check_mark:" alt=":white_check_mark:" src="https://assets-cdn.github.com/images/icons/emoji/unicode/2705.png" height="20" width="20" align="absmiddle"></td>
+</tr>
+</tbody>
+</table>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
+
+<h2>
+<a id="konfiguration" class="anchor" href="#konfiguration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Konfiguration</h2>
+
+<p>Alle wichtigen Einstellungen können in der config.ini vorgenommen werden.</p>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/Schrolli91">Schrolli91</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
