@@ -46,6 +46,7 @@ try:
         from modules.news import news
         from modules.welcome import welcome
         from modules.calendar import calendar
+        from modules.wiki import wiki
 
         #from modules.speech import speech
         #
@@ -116,6 +117,10 @@ try:
 
         if config.getboolean("Modules","calendar"):
             modules.append(calendar(root,config,w-20,100,"ne"))
+
+        if config.getboolean("Modules","wiki"):
+            modules.append(wiki(root,config,w/2,100,"n"))
+
 
         #modules.append(speech(root,config,0,0))
 
