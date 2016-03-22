@@ -55,6 +55,7 @@ class widget():
         logging.debug("pos widget: %s %s", self.__childName, name)
         self.__widgets[name].place(x=xPos, y=yPos, anchor=anc)
         self.__widgets[name].pi = self.__widgets[name].place_info()
+        self.__widgets[name].visible = True
 
     def txtWidget(self, name, setText=""):
         """
@@ -79,9 +80,11 @@ class widget():
 
         @param name: Name of the widget as string
         """
-        logging.debug("show widget: %s %s", self.__childName, name)
-        #show the widget at des saved palacement
-        self.__widgets[name].place(self.__widgets[name].pi)
+        if not self.__widgets[name].visible:
+            logging.debug("show widget: %s %s", self.__childName, name)
+            #show the widget at des saved palacement
+            self.__widgets[name].place(self.__widgets[name].pi)
+            self.__widgets[name].visible = True
 
     def showAllWidgets(self):
         """Show all widgets by calling showWidget() for each widget"""
@@ -94,11 +97,13 @@ class widget():
 
         @param name: Name of the widget as string
         """
-        logging.debug("hide widget: %s %s", self.__childName, name)
-        #save the pace information in .pi
-        self.__widgets[name].pi = self.__widgets[name].place_info()
-        #forget the palacement -> hide
-        self.__widgets[name].place_forget()
+        if self.__widgets[name].visible:
+            logging.debug("hide widget: %s %s", self.__childName, name)
+            #save the pace information in .pi
+            self.__widgets[name].pi = self.__widgets[name].place_info()
+            #forget the palacement -> hide
+            self.__widgets[name].place_forget()
+            self.__widgets[name].visible = False
 
     def hideAllWidgets(self):
         """Hide all widgets by calling hideWidget() for each widget"""
