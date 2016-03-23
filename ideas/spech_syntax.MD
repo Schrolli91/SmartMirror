@@ -44,3 +44,11 @@ ein * markiert einen variablen Bereich, welcher genau ein Wort lang ist
 - `suche nach Einstein`
 - `suche nach Bildern`
 - usw ...
+
+ein ** markiert einen variablen Bereich, welcher mehrere Wörter kang sein kann
+
+`suche nach **`
+
+###### Erkannt wird:
+- `suche nach Einstein`
+- `suche nach Albert Einsetin`
