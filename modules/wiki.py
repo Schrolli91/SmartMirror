@@ -24,7 +24,7 @@ class wiki(modul):
             ##############
             # init section
 
-            self.searchString = ""
+            self.__searchString = ""
 
             # init section
             ##############
@@ -45,10 +45,10 @@ class wiki(modul):
                 self.event.wait()
                 self.setStatus("R")
 
-                logging.debug("starte wiki: " + self.searchString)
+                logging.debug("starte wiki: " + self.__searchString)
 
-                self.searchString = self.searchString.replace(" ", "+")
-                self.wikiLink = "https://de.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&exintro=1&explaintext=1&utf8=1&titles="+self.searchString
+                self.__searchString = self.__searchString.replace(" ", "+")
+                self.wikiLink = "https://de.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&exintro=1&explaintext=1&utf8=1&titles="+self.__searchString
                 self.wikiRet = self.fetch_json(self.wikiLink)
 
                 logging.debug(self.wikiRet["query"])
@@ -63,6 +63,10 @@ class wiki(modul):
             finally:
                 #self.wait(1)
                 self.event.clear()
+
+    def startSearch(self, searchString):
+        self.__searchString = searchString
+        self.event.set()
 
 
     def fetch_json(self, link):

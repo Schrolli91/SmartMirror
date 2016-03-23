@@ -15,7 +15,7 @@ from modules.thread_test import threadTest
 
 from inc.modul import modul
 
-__version__ = "0.3-beta"
+__version__ = "v0.3-beta"
 __buildDate___ = "none"
 
 #configure the logger

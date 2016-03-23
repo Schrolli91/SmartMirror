@@ -85,8 +85,7 @@ class speech(modul):
                         logging.debug("WIKI: "+ self.speech_data)
                         for mod, value in modul.getAllModules().items():
                             if "wiki" in mod:
-                                value[0].searchString = self.speech_data
-                                value[0].event.set()
+                                value[0].startSearch(self.speech_data)
 
 
 
