@@ -29,6 +29,8 @@ class wiki(modul):
             # init section
 
             self.__searchString = ""
+            self.addWidget("wiki", Label(self.window, fg=self.config.get("wiki","color"), font=self.config.get("wiki","font"), bg='black', wraplength=600))
+            self.posWidget("wiki", xPos, yPos, anc)
 
             # init section
             ##############
@@ -47,17 +49,18 @@ class wiki(modul):
 
                 self.setStatus("W")
                 self.event.wait()
-                self.setStatus("R")        
+                self.setStatus("R")
 
                 #self.__searchString = self.__searchString.replace(" ", "+")
                 #self.wikiLink = "https://de.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&exintro=1&explaintext=1&utf8=1&titles="+self.__searchString
                 #self.wikiRet = self.fetch_json(self.wikiLink)
 
                 logging.debug("start wiki: " + self.__searchString)
-                wikipedia.set_lang("de")
+                wikipedia.set_lang(self.config.get("wiki","language"))
                 self.wikiReturn = wikipedia.summary(self.__searchString, sentences=3)
 
-                logging.debug(self.wikiReturn)
+                #logging.debug(self.wikiReturn)
+                self.txtWidget("wiki", self.wikiReturn)
 
                 # code section
                 ##############
