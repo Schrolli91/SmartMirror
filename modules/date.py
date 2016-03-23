@@ -8,21 +8,34 @@ from tkinter import *
 import time
 import logging
 
-class date:
-    def __init__(self, window, config, xPos, yPos, anc="n"):
+from inc.modul import modul
+
+class date(modul):
+    def __init__(self, window, config, xPos, yPos, anc="nw"):
+        modul.__init__(self, __name__)
         self.window = window
         self.config = config
 
-        self.date = Label(self.window, fg=self.config.get("date","color"), font=self.config.get("date","font"), bg='black')
-        self.date.place(x=xPos, y=yPos, anchor=anc)
+        try:
 
-        logging.debug("generated")
-        self.update() #starts his own update routine
+            self.addWidget("date", Label(self.window, fg=self.config.get("date","color"), font=self.config.get("date","font"), bg='black'))
+            self.posWidget("date", xPos, yPos, anc)
 
-    def update(self):
-        logging.debug("update widget")
-        date = time.strftime(self.config.get("date","format"))
-        date = date.replace("Monday","Montag").replace("Tuesday","Dienstag").replace("Wednesday","Mittwoch")
-        date = date.replace("Thursday","Donnerstag").replace("Friday","Freitag").replace("Saturday","Samstag").replace("Sunday","Sonntag")
-        self.date.configure(text=date)
-        self.date.after(self.config.getint("date","update_interval"), self.update)
+        except:
+            logging.exception("cannot load %s", __name__)
+
+
+    def run(self):
+        logging.debug("run %s", __name__)
+        while 1:
+            try:
+                
+                date = time.strftime(self.config.get("date","format"))
+                date = date.replace("Monday","Montag").replace("Tuesday","Dienstag").replace("Wednesday","Mittwoch")
+                date = date.replace("Thursday","Donnerstag").replace("Friday","Freitag").replace("Saturday","Samstag").replace("Sunday","Sonntag")
+                self.txtWidget("date", date)
+
+            except:
+                logging.exception("cannot update %s", __name__)
+            finally:
+                self.wait(self.config.getfloat("date","update_interval"))

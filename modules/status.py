@@ -1,6 +1,6 @@
 #-*- encoding: utf-8 -*-
 """
-simple inMirror Logfile viewer for MirrorOS
+Thread Status Display for MirrorOS
 Autor: Bastian Schroll
 """
 
@@ -10,7 +10,7 @@ import time
 
 from inc.modul import modul
 
-class viewer(modul):
+class status(modul):
     def __init__(self, window, config, xPos, yPos, anc="nw"):
         modul.__init__(self, __name__) #load modul container
         self.window = window
@@ -21,8 +21,8 @@ class viewer(modul):
             ##############
             # init section
 
-            self.addWidget("logfile", Label(self.window, fg=self.config.get("log_view","color"), font=self.config.get("log_view","font"), bg='black', justify="left"))
-            self.posWidget("logfile", xPos, yPos, anc)
+            self.addWidget("threads", Label(self.window, fg=self.config.get("status","color"), font=self.config.get("status","font"), bg='black', justify="left"))
+            self.posWidget("threads", xPos, yPos, anc)
 
             # init section
             ##############
@@ -39,16 +39,12 @@ class viewer(modul):
                 ##############
                 # code section
 
-                fileHandle = open ( 'log.txt',"r" )
-                lineList = fileHandle.readlines()
-                fileHandle.close()
+                self.thread_text = "Activ Modules: "+ modul.cntAllModules() +"\n"
 
-                self.logfile_text = ""
+                for key, value in modul.getAllModules().items():
+                    self.thread_text += "["+value[1]+"] "+ key + "\n"
 
-                for line in range(self.config.getint("log_view", "max_lines"),0,-1):
-                    self.logfile_text += str(len(lineList)-line).zfill(3) +"| "+ lineList[len(lineList)-line]
-
-                self.txtWidget("logfile", self.logfile_text)
+                self.txtWidget("threads", self.thread_text)
 
                 # code section
                 ##############
