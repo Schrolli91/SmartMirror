@@ -51,6 +51,9 @@ class wiki(modul):
                 self.event.wait()
                 self.setStatus("R")
 
+                self.txtWidget("wiki", "Wikipedia suche für: " + self.__searchString)
+                self.showWidget("wiki")
+
                 #self.__searchString = self.__searchString.replace(" ", "+")
                 #self.wikiLink = "https://de.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&exintro=1&explaintext=1&utf8=1&titles="+self.__searchString
                 #self.wikiRet = self.fetch_json(self.wikiLink)

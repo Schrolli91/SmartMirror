@@ -69,6 +69,7 @@ class speech(modul):
                     modName["weather"] = ["wetter", "vorhersage"]
                     modName["calendar"] = ["termine", "kalender"]
                     modName["welcome"] = ["begrüßung"]
+                    modName["wiki"] = ["wikipedia", "wiki", "suche"]
 
                     #modName["log_view"] = ["log"]
                     modName["status"] = ["status"]
