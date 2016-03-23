@@ -82,7 +82,6 @@ class speech(modul):
 
                     if "wiki" in self.speech_data:
                         self.speech_data = self.speech_data.replace("wiki", "").replace("pedia", "").strip()
-                        logging.debug("WIKI: "+ self.speech_data)
                         for mod, value in modul.getAllModules().items():
                             if "wiki" in mod:
                                 value[0].startSearch(self.speech_data)
@@ -115,10 +114,8 @@ class speech(modul):
                             if sayedmod in mod:
 
                                 if mode == 1:
-                                    logging.debug("Do it!")
                                     value[0].showAllWidgets()
                                 if mode == 2:
-                                    logging.debug("Do it!")
                                     value[0].hideAllWidgets()
 
                                 break

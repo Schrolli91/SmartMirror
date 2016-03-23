@@ -1,6 +1,8 @@
 #-*- encoding: utf-8 -*-
 """
 Wikipedia Search Modul
+require the wikipedia Libary
+- pip install wikipedia
 Autor: Bastian Schroll
 """
 
@@ -10,6 +12,8 @@ import logging
 #for json download
 import urllib.request
 import json
+
+import wikipedia
 
 from inc.modul import modul
 
@@ -43,17 +47,17 @@ class wiki(modul):
 
                 self.setStatus("W")
                 self.event.wait()
-                self.setStatus("R")
+                self.setStatus("R")        
 
-                logging.debug("starte wiki: " + self.__searchString)
+                #self.__searchString = self.__searchString.replace(" ", "+")
+                #self.wikiLink = "https://de.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&exintro=1&explaintext=1&utf8=1&titles="+self.__searchString
+                #self.wikiRet = self.fetch_json(self.wikiLink)
 
-                self.__searchString = self.__searchString.replace(" ", "+")
-                self.wikiLink = "https://de.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&exintro=1&explaintext=1&utf8=1&titles="+self.__searchString
-                self.wikiRet = self.fetch_json(self.wikiLink)
+                logging.debug("start wiki: " + self.__searchString)
+                wikipedia.set_lang("de")
+                self.wikiReturn = wikipedia.summary(self.__searchString, sentences=3)
 
-                logging.debug(self.wikiRet["query"])
-
-
+                logging.debug(self.wikiReturn)
 
                 # code section
                 ##############
