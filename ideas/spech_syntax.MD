@@ -33,22 +33,31 @@ Text in (...)-Klammern kann mehrere Möglichkeiten enthalten, welche durch | get
 ###### Erkannt wird:
 - `wer ist teuer`
 - `was ist teuer`
+- `ist teuer`
+
+
+
+#### Mehrfaches MUSS Feld
+Text in (...)-Klammern kann mehrere Möglichkeiten enthalten, welche durch | getrennt werden
+Die Klammer wird mit einem + abgeschlossen, was bedeutet, das eines der enthaltenen Wörter vorkommen MUSS
+
+`(wer|was)+ ist teuer`
+
+###### Erkannt wird:
+- `wer ist teuer`
+- `was ist teuer`
+
 
 
 #### Variable Felder
-ein * markiert einen variablen Bereich, welcher genau ein Wort lang ist
 
-`suche nach *`
+ein * markiert einen variablen Bereich, welcher mehrere Wörter kang sein kann und einen Namen haben muss
 
-###### Erkannt wird:
-- `suche nach Einstein`
-- `suche nach Bildern`
-- usw ...
-
-ein ** markiert einen variablen Bereich, welcher mehrere Wörter kang sein kann
-
-`suche nach **`
+`suche nach *variabel`
 
 ###### Erkannt wird:
 - `suche nach Einstein`
 - `suche nach Albert Einsetin`
+
+um auf den variablen Bereich zuzugreifen nutzt man die .group() Methode mit dem angegebenen namen
+`.group("variabl")`
