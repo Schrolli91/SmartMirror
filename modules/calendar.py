@@ -37,6 +37,12 @@ class calendar(modul):
             self.posWidget("headline", xPos, yPos, anc)
             self.posWidget("calendar", xPos, yPos+25, anc)
 
+            # If modifying these self.self.SCOPES, delete your previously saved credentials
+            # at ~/.credentials/calendar-python-quickstart.json
+            self.SCOPES = 'https://www.googleapis.com/auth/calendar.readonly'
+            self.CLIENT_SECRET_FILE = 'client_secret.json'
+            self.APPLICATION_NAME = 'MirrorOS'
+
             # init section
             ##############
 
@@ -72,12 +78,9 @@ class calendar(modul):
                 store = oauth2client.file.Storage(credential_path)
                 credentials = store.get()
                 if not credentials or credentials.invalid:
-                    flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
-                    flow.user_agent = APPLICATION_NAME
-                    if flags:
-                        credentials = tools.run_flow(flow, store, flags)
-                    else: # Needed only for compatibility with Python 2.6
-                        credentials = tools.run(flow, store)
+                    flow = client.flow_from_clientsecrets(self.CLIENT_SECRET_FILE, self.SCOPES)
+                    flow.user_agent = self.APPLICATION_NAME
+                    credentials = tools.run_flow(flow, store)
                     print('Storing credentials to ' + credential_path)
 
                 http = credentials.authorize(httplib2.Http())
