@@ -78,7 +78,7 @@ try:
         root.title("MirrorOS")
 
         w, h = root.winfo_screenwidth(), root.winfo_screenheight()#w and h for the display resolutions
-        root.overrideredirect(1)#hide the window border
+        root.overrideredirect(config.getboolean("MirrorOS","fullscreen"))#hide the window border
         root.geometry("%dx%d+0+0" % (w, h))#set the window size
         root.focus_set()
 
