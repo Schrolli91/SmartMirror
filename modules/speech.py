@@ -62,6 +62,19 @@ class speech(modul):
                     self.speech_data = self.speech_data.lower()
                     logging.debug("You said: "+ self.speech_data)
 
+
+                    self.checkSpeech("(starte|beginne) (durchsuche) (wikipedia|wiki)+ (suche) (nach) *suchStr", wikiTest)
+                    self.checkSpeech("(alle|alles|jedes) (module|widgets) (ausblenden|ausschalten|abschalten|verbergen|aus)+", allOff)
+                    self.checkSpeech("(alle|alles|jedes) (module|widgets) (einblenden|einschalten|anschalten|anzeigen|an)+", allOn)
+
+                    self.checkSpeech("(spiegel|mirror|programm) (beenden|ende|schließen)+", mirrorExit)
+
+
+
+
+
+
+
                     modName = {}
                     modName["clock"] = ["uhr", "zeit", "uhrzeit"]
                     modName["date"] = ["datum", "tag"]
@@ -81,17 +94,9 @@ class speech(modul):
                     mode = 0
 
 
-                    if "wiki" in self.speech_data:
-                        self.speech_data = self.speech_data.replace("wiki", "").replace("pedia", "").strip()
-                        for mod, value in modul.getAllModules().items():
-                            if "wiki" in mod:
-                                value[0].startSearch(self.speech_data)
-
-
-
                     for name in modName:
                         for n in modName[name]:
-                            if n in self.speech_data or "alles" in self.speech_data:
+                            if n in self.speech_data in self.speech_data:
                                 logging.debug("found: "+name+" - with: " +n)
                                 sayedModules.append(name)
                                 break
@@ -122,10 +127,6 @@ class speech(modul):
                                 break
 
 
-                    if self.speech_data == "beenden" or self.speech_data == "ende":
-                        self.window.quit()
-
-
                 except sr.UnknownValueError:
                     logging.debug("Speech Recognition could not understand audio")
                 except sr.RequestError as e:
@@ -139,3 +140,53 @@ class speech(modul):
             finally:
                 #self.wait(1)
                 pass
+
+
+
+
+
+
+
+    def checkSpeech(self, checkPhrase, goToFunc):
+        pattern = checkPhrase
+        pattern = pattern.replace("(", "(?:") #um keinen eigenen match für die gruppe zu erstellen
+        pattern = re.sub("(\)(?!\+))", "){0,1}", pattern) #gruppe kann, muss aber nicht
+        pattern = pattern.replace(")+", "){1}") #gruppe muss
+        pattern = re.sub("(?:\*(\w*))", "(?P<\g<1>>.*)", pattern) #variablen bereich mit namen
+        pattern = pattern.replace(" ", "\s*") #leerzeichen variabel
+        pattern = "^("+ pattern +")$"
+
+        logging.debug("generatet pattern: " + pattern)
+
+        p = re.compile(pattern)
+
+        match = re.match(pattern, self.speech_data, re.MULTILINE|re.IGNORECASE)
+
+        if match:
+            logging.debug("matched: " + match.group(0))
+
+            if match.groupdict():
+                logging.debug("call: " + goToFunc.__name__ + " " + str(match.groupdict()))
+                goToFunc(match.groupdict())
+            else:
+                logging.debug("call: " + goToFunc.__name__)
+                goToFunc()
+
+
+        else:
+            logging.debug("not matched: " + self.speech_data)
+
+
+def wikiTest(searchString):
+    modul.getModuleByName("wiki").startSearch(searchString["suchStr"])
+
+def allOff():
+    for mod, value in modul.getAllModules().items():
+        value[0].hideAllWidgets()
+
+def allOn():
+    for mod, value in modul.getAllModules().items():
+        value[0].showAllWidgets()
+
+def mirrorExit():
+    pass
