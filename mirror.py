@@ -10,13 +10,8 @@ from tkinter import *
 import configparser
 import logging
 
-import threading
-from modules.thread_test import threadTest
-
-from inc.modul import modul
-
-__version__ = "0.2-beta"
-__buildDate___ = "23.03.2016"
+__version__ = "v0.3-beta"
+__buildDate___ = "none"
 
 #configure the logger
 logging.basicConfig(
@@ -83,7 +78,7 @@ try:
         root.title("MirrorOS")
 
         w, h = root.winfo_screenwidth(), root.winfo_screenheight()#w and h for the display resolutions
-        root.overrideredirect(1)#hide the window border
+        root.overrideredirect(config.getboolean("MirrorOS","fullscreen"))#hide the window border
         root.geometry("%dx%d+0+0" % (w, h))#set the window size
         root.focus_set()
 
@@ -103,8 +98,6 @@ try:
 
 
         modules = []
-
-        #modules.append(threadTest(root, config, 0,0))
 
         if config.getboolean("Modules","clock"):
             modules.append(clock(root, config, w-10, 0, "ne"))
@@ -129,6 +122,7 @@ try:
             modules.append(viewer(root,config,10,h/2,"w"))
         if config.getboolean("Modules","status"):
             modules.append(status(root,config,10,h,"sw"))
+
 
         logging.debug("start the modules")
         for thr in modules:

@@ -30,6 +30,7 @@ Follgende Module sind derzeit in MirrorOS implementiert oder geplant:
 
 
 #### Debug und Entwickler Module
+Diese Module sind zu Entwicklingszwecken gedacht und sollten nicht im produkiv Einsatz verwendet werden.
 |Modul|Beschreibung|Fertig|
 |-----|------------|:----:|
 |Log View|liest die letzten 10 Meldungen aus dem Logfile aus|:white_check_mark:|

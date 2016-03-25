@@ -1,6 +1,8 @@
 #-*- encoding: utf-8 -*-
 """
 Wikipedia Search Modul
+require the wikipedia Libary
+- pip install wikipedia
 Autor: Bastian Schroll
 """
 
@@ -10,6 +12,8 @@ import logging
 #for json download
 import urllib.request
 import json
+
+import wikipedia
 
 from inc.modul import modul
 
@@ -24,7 +28,9 @@ class wiki(modul):
             ##############
             # init section
 
-            self.searchString = ""
+            self.__searchString = ""
+            self.addWidget("wiki", Label(self.window, fg=self.config.get("wiki","color"), font=self.config.get("wiki","font"), bg='black', wraplength=600))
+            self.posWidget("wiki", xPos, yPos, anc)
 
             # init section
             ##############
@@ -45,15 +51,19 @@ class wiki(modul):
                 self.event.wait()
                 self.setStatus("R")
 
-                logging.debug("starte wiki: " + self.searchString)
+                self.txtWidget("wiki", "Wikipedia suche für: " + self.__searchString)
+                self.showWidget("wiki")
 
-                self.searchString = self.searchString.replace(" ", "+")
-                self.wikiLink = "https://de.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&exintro=1&explaintext=1&utf8=1&titles="+self.searchString
-                self.wikiRet = self.fetch_json(self.wikiLink)
+                #self.__searchString = self.__searchString.replace(" ", "+")
+                #self.wikiLink = "https://de.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&exintro=1&explaintext=1&utf8=1&titles="+self.__searchString
+                #self.wikiRet = self.fetch_json(self.wikiLink)
 
-                logging.debug(self.wikiRet["query"])
+                logging.debug("start wiki: " + self.__searchString)
+                wikipedia.set_lang(self.config.get("wiki","language"))
+                self.wikiReturn = wikipedia.summary(self.__searchString, sentences=3)
 
-
+                #logging.debug(self.wikiReturn)
+                self.txtWidget("wiki", self.wikiReturn)
 
                 # code section
                 ##############
@@ -63,6 +73,10 @@ class wiki(modul):
             finally:
                 #self.wait(1)
                 self.event.clear()
+
+    def startSearch(self, searchString):
+        self.__searchString = searchString
+        self.event.set()
 
 
     def fetch_json(self, link):
