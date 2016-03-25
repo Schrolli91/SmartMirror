@@ -65,7 +65,7 @@ class modul(widget, threading.Thread):
         """
         Set the Status of the Module
 
-        @param status: staus as string
+        @param status: stauts as string
         """
         logging.debug("Status: %s [%s]", self.name, status)
         self.__modules[self.name][1] = status
@@ -73,6 +73,17 @@ class modul(widget, threading.Thread):
     def getStatus(self):
         """Get the Status the Modul"""
         return self.__modules[self.name][1]
+
+    #static method to return a single module instance if found
+    def getModuleByName(name):
+        """Return the modul instance if found
+
+        @param name: name of modul to search
+        """
+        for mod, value in modul.__modules.items():
+            if name in mod:
+                return value[0]
+        return None
 
     #static method to return all modules and status
     def getAllModules():
