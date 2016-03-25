@@ -20,6 +20,8 @@ import re
 #regex suche
 #https://regex101.com/r/gV0dP7/8
 
+#https://www.danielfett.de/de/tutorials/tutorial-regulare-ausdrucke/
+
 
 checkFor = []
 
@@ -30,16 +32,16 @@ checkFor.append("beginne wikipedia suche das ist ein test")
 checkFor.append("wikipedia albert einstein")
 checkFor.append("hallo test")
 
-pattern = "(starte|beginne)? (durchsuche)? (wikipedia|wiki)+ (suche)? (nach)? *suchStr"
+pattern = "(starte|beginne) (durchsuche) (wikipedia|wiki)+ (suche) (nach) *suchStr"
 #pattern = "# in (wiki|wikipedia)+ suchen"
 
 pattern = pattern.replace("(", "(?:") #um keinen eigenen match für die gruppe zu erstellen
-pattern = pattern.replace(")?", "){0,1}") #gruppe kann, muss aber nicht
+pattern = re.sub("(\)(?=\s|$))", "){0,1}", pattern) #gruppe kann, muss aber nicht
 pattern = pattern.replace(")+", "){1}") #gruppe muss
-#pattern = pattern.replace("*", "(.*)") #variabler bereich
+pattern = re.sub("(?:\*(\w*))", "(?P<\g<1>>.*)", pattern) #variablen bereich mit namen
 pattern = pattern.replace(" ", "\s?") #leerzeichen variabel
 
-pattern = re.sub("(?:\*(\w*))", "(?P<\g<1>>.*)", pattern)
+
 
 pattern = "^("+ pattern +")$"
 

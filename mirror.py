@@ -10,11 +10,6 @@ from tkinter import *
 import configparser
 import logging
 
-import threading
-from modules.thread_test import threadTest
-
-from inc.modul import modul
-
 __version__ = "v0.3-beta"
 __buildDate___ = "none"
 
@@ -104,8 +99,6 @@ try:
 
         modules = []
 
-        #modules.append(threadTest(root, config, 0,0))
-
         if config.getboolean("Modules","clock"):
             modules.append(clock(root, config, w-10, 0, "ne"))
         if config.getboolean("Modules","date"):
@@ -129,6 +122,7 @@ try:
             modules.append(viewer(root,config,10,h/2,"w"))
         if config.getboolean("Modules","status"):
             modules.append(status(root,config,10,h,"sw"))
+
 
         logging.debug("start the modules")
         for thr in modules:

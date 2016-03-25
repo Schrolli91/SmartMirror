@@ -51,7 +51,7 @@ Die Klammer wird mit einem + abgeschlossen, was bedeutet, das eines der enthalte
 
 #### Variable Felder
 
-ein * markiert einen variablen Bereich, welcher mehrere Wörter kang sein kann und einen Namen haben muss
+ein * markiert einen variablen Bereich, welcher mehrere Wörter lang sein kann und einen Namen haben muss
 
 `suche nach *variabel`
 
